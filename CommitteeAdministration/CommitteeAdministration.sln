@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommitteeAdministration", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommitteeManagment", "CommitteeManagment\CommitteeManagment.csproj", "{1C57D4C2-38D9-4523-A3C4-0D0C378AFFFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommitteeManagement.Model", "CommitteeManagement.Model\CommitteeManagement.Model.csproj", "{4A6C6E89-65D1-42DA-AC21-4298F5D841BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommitteeManagement.Repository", "CommitteeManagement.Repository\CommitteeManagement.Repository.csproj", "{44D0DF10-F2AF-4D1E-B340-C8CFE3FDFA36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{1C57D4C2-38D9-4523-A3C4-0D0C378AFFFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C57D4C2-38D9-4523-A3C4-0D0C378AFFFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C57D4C2-38D9-4523-A3C4-0D0C378AFFFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A6C6E89-65D1-42DA-AC21-4298F5D841BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A6C6E89-65D1-42DA-AC21-4298F5D841BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A6C6E89-65D1-42DA-AC21-4298F5D841BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A6C6E89-65D1-42DA-AC21-4298F5D841BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44D0DF10-F2AF-4D1E-B340-C8CFE3FDFA36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44D0DF10-F2AF-4D1E-B340-C8CFE3FDFA36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44D0DF10-F2AF-4D1E-B340-C8CFE3FDFA36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44D0DF10-F2AF-4D1E-B340-C8CFE3FDFA36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
