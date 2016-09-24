@@ -49,6 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\DataContext.cs" />
+    <Compile Include="Data\EntityRepository.cs" />
+    <Compile Include="Data\IDataContext.cs" />
+    <Compile Include="Data\IEntity.cs" />
+    <Compile Include="Data\IRepositoryContainerBase.cs" />
+    <Compile Include="Data\RepoExamples_Delete_When_Done.cs" />
+    <Compile Include="Data\Repository.Generic.cs" />
+    <Compile Include="Data\RepositoryContainerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
