@@ -54,6 +54,9 @@
     <Compile Include="Criterion.cs" />
     <Compile Include="CriterionModification.cs" />
     <Compile Include="Indicator.cs" />
+    <Compile Include="IndicatorIdealValue.cs" />
+    <Compile Include="IndicatorModification.cs" />
+    <Compile Include="IndicatorRealValue.cs" />
     <Compile Include="Password.cs" />
     <Compile Include="Permission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,6 +65,7 @@
     <Compile Include="SubCriterion.cs" />
     <Compile Include="SubCriterionModification.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="Visitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

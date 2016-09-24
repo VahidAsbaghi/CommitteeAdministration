@@ -16,6 +16,8 @@ namespace CommitteeManagement.Model
             Sessions=new HashSet<Session>();
             SubCriterionModifications=new HashSet<SubCriterionModification>();
             CriterionModifications=new HashSet<CriterionModification>();
+            IndicatorModifications=new HashSet<IndicatorModification>();
+            Visitors=new HashSet<Visitor>();
         }
 
         // Primitive properties
@@ -36,6 +38,8 @@ namespace CommitteeManagement.Model
         public virtual ICollection<Session> Sessions { get; set; }
         public virtual ICollection<SubCriterionModification> SubCriterionModifications { get; set; }
         public virtual ICollection<CriterionModification> CriterionModifications { get; set; }
+        public virtual ICollection<IndicatorModification> IndicatorModifications { get; set; }
+        public virtual ICollection<Visitor> Visitors { get; set; }
     }
 
    

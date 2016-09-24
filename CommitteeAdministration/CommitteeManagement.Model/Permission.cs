@@ -11,6 +11,9 @@ namespace CommitteeManagement.Model
         public Permission()
         {
             Roles=new HashSet<Role>();
+            Indicators=new HashSet<Indicator>();
+            SubCriteria=new HashSet<SubCriterion>();
+            Criteria=new HashSet<Criterion>();
         }
         public int Id { get; set; }
         public bool IndicatorDeadlineAdjust { get; set; }
@@ -23,5 +26,8 @@ namespace CommitteeManagement.Model
         public bool Delete { get; set; }
         public bool Update { get; set; }
         public virtual ICollection<Role> Roles{ get; set; }
+        public virtual ICollection<Criterion> Criteria { get; set; }
+        public virtual ICollection<SubCriterion> SubCriteria { get; set; }
+        public virtual ICollection<Indicator> Indicators { get; set; }
     }
 }
