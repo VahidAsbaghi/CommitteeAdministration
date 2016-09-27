@@ -4,8 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using CommitteeManagement.Helpers;
+using CommitteeManagement.Repository;
 
-namespace CommitteeManagment
+namespace CommitteeManagement
 {
     public class MvcApplication : System.Web.HttpApplication
     {
@@ -13,6 +15,7 @@ namespace CommitteeManagment
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            DependencyResolver.SetResolver(new UnityDependencyResolver(ModelContainer.Instance));
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CommitteeManagement.Model;
 
 
 namespace CommitteeManagement.Repository.Data
@@ -15,7 +16,7 @@ namespace CommitteeManagement.Repository.Data
 		// Example of a table in the form of a data set.  Add your own
         // database/model entities here.
         public DbSet<BogusObject> BogusObjects { get; set; }
-
+        public DbSet<User> User { get; set; }
         #region IDataContext Members
 
         public IDbSet<T> GetDbSet<T>() where T : class
@@ -75,6 +76,12 @@ namespace CommitteeManagement.Repository.Data
                 }
             }
 	    }
+
+        public System.Data.Entity.DbSet<CommitteeManagement.Model.Committee> Committees { get; set; }
+
+        public System.Data.Entity.DbSet<CommitteeManagement.Model.ContactInfo> ContactInfoes { get; set; }
+
+        public System.Data.Entity.DbSet<CommitteeManagement.Model.Password> Passwords { get; set; }
         #endregion
 
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)

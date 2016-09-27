@@ -10,11 +10,10 @@ namespace CommitteeManagement.Model
 {
     public class Password
     {
-        [Key]
+        [Key, ForeignKey("User")]
         public int UserId { get; set; }
         public string PasswordPhrase { get; set; }
         public DateTime ModifiedDate { get; set; }
-        [ForeignKey("UserId")]
         public virtual User User { get; set; }
 
     }

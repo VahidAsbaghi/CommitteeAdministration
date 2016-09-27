@@ -10,7 +10,7 @@ namespace CommitteeManagement.Model
 {
     public class ContactInfo
     {
-        [Key]
+        [Key, ForeignKey("User")]
         public int UserId { get; set; }
         public string City { get; set; }
         public string Region { get; set; }
@@ -19,7 +19,6 @@ namespace CommitteeManagement.Model
         [Url]
         public string PhotoLink { get; set; }
         public DateTime ModifiedTime { get; set; }
-        [ForeignKey("UserId")]
         public virtual  User User{ get; set; }
     }
 }
