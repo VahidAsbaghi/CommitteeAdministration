@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Unity;
+﻿using CommitteeManagement.Repository.Data;
+using Microsoft.Practices.Unity;
 
 namespace CommitteeManagement.Repository
 {
@@ -19,7 +20,7 @@ namespace CommitteeManagement.Repository
             get
             {
                 _Instance.RegisterType<IMainContainer, MainContainer>(new HierarchicalLifetimeManager());
-                
+                _Instance.RegisterType<IDataContext, DataContext>(new HierarchicalLifetimeManager());
                 return _Instance;
             }
         }
