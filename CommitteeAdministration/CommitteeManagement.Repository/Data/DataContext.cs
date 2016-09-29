@@ -13,6 +13,10 @@ namespace CommitteeManagement.Repository.Data
 	/// Note, you should at least change "DataContext" to a name that matches your domain.
     public partial class DataContext : DbContext, IDataContext
     {
+	    public DataContext():base("CommitteeDb1")
+	    {
+	        
+	    }
 		// Example of a table in the form of a data set.  Add your own
         // database/model entities here.
         public DbSet<BogusObject> BogusObjects { get; set; }
@@ -84,10 +88,10 @@ namespace CommitteeManagement.Repository.Data
         public System.Data.Entity.DbSet<CommitteeManagement.Model.Password> Passwords { get; set; }
         #endregion
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    // Your custom model configurations go here.
-        //    base.OnModelCreating(modelBuilder);
-        //}
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            // Your custom model configurations go here.
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

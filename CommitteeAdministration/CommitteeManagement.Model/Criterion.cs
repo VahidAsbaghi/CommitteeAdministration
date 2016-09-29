@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net.Configuration;
 using System.Text;
@@ -16,7 +17,9 @@ namespace CommitteeManagement.Model
             Permissions=new HashSet<Permission>();
         }
         public int Id { get; set; }
+        [Required(ErrorMessage = "لطفا معیار مورد نظر را وارد کنید")]
         public string Subject { get; set; }
+        [Required]
         public double Coefficient { get; set; }
         public bool IsDeleted { get; set; }
         public virtual  ICollection<SubCriterion>  SubCriteria{ get; set; }

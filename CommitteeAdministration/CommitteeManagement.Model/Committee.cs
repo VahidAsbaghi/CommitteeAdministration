@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace CommitteeManagement.Model
         }
 
         public int Id { get; set; }
+        [Required(ErrorMessage = "لطفا نام ستاد را وارد کنید")]
         public string Name { get; set; }
 
         public virtual ICollection<User> Users { get; set; } 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -26,12 +27,13 @@ namespace CommitteeManagement.Model
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public DateTime CreatedTime { get; set; }
+        public DateTime? CreatedTime { get; set; }
         public bool IsActive { get; set; }
-        public DateTime LastModificationDate { get; set; }
-        public int CommitteeRefId { get; set; }
+        public DateTime? LastModificationDate { get; set; }
+        public int? CommitteeRefId { get; set; }
         [ForeignKey("CommitteeRefId")]
         public virtual Committee Committee { get; set; }
+        [Required]
         public virtual Password Password{ get; set; }
         public virtual ContactInfo ContactInfo { get; set; }
         public virtual ICollection<Role> Roles { get; set; }

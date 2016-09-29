@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,14 @@ namespace CommitteeManagement.Model
             IndicatorRealValues=new HashSet<IndicatorRealValue>();
         }
         public int Id { get; set; }
+        [Required(ErrorMessage = "لطفا شاخص مورد نظر را وارد کنید")]
         public string Subject { get; set; }
+        [Required]
         public double Coefficient { get; set; }
+        [Required]
         public int DeadlinePeriod { get; set; }
         public bool IsDeleted { get; set; }
-        public int SubCriterionId { get; set; }
+        public int? SubCriterionId { get; set; }
         [ForeignKey("SubCriterionId")]
         public virtual SubCriterion SubCriterion{ get; set; }
 
