@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CommitteeManagement.Model;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 
 namespace CommitteeManagement.Repository.Data
@@ -11,7 +12,7 @@ namespace CommitteeManagement.Repository.Data
 	/// This class can be replaced if you already have a database context.  This is for example
 	/// purposes, but it perfectly usable as your actual data context.
 	/// Note, you should at least change "DataContext" to a name that matches your domain.
-    public partial class DataContext : DbContext, IDataContext
+    public partial class DataContext : IdentityDbContext<User>, IDataContext
     {
 	    public DataContext():base("CommitteeDb1")
 	    {
