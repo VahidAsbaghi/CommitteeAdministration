@@ -11,5 +11,6 @@ namespace CommitteeManagement.Repository
     public interface IMainContainer
     {
         UserRepository UserRepository { get; set; }
+
     }
 }

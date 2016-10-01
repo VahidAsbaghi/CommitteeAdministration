@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace CommitteeAdministration.Models
+namespace CommitteeManagement.Model
 {
     public class ExternalLoginConfirmationViewModel
     {

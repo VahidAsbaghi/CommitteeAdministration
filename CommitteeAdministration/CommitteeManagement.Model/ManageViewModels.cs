@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace CommitteeAdministration.Models
+namespace CommitteeManagement.Model
 {
     public class IndexViewModel
     {

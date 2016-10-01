@@ -16,7 +16,7 @@ namespace CommitteeManagement.Model
     {
         public User()
         {
-            Roles=new HashSet<Role>();
+            NewRoles=new HashSet<Role>();
             Sessions=new HashSet<Session>();
             SubCriterionModifications=new HashSet<SubCriterionModification>();
             CriterionModifications=new HashSet<CriterionModification>();
@@ -31,22 +31,18 @@ namespace CommitteeManagement.Model
             return userIdentity;
         }
         // Primitive properties
-        public int Id { get; set; }
+        //public string Id { get; set; }
         public GenderEnum  Gender { get; set; }
-        [Required]
         public string Name { get; set; }
         public string LastName { get; set; }
-        public string Email { get; set; }
         public DateTime? CreatedTime { get; set; }
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
         public DateTime? LastModificationDate { get; set; }
         public int? CommitteeRefId { get; set; }
         [ForeignKey("CommitteeRefId")]
         public virtual Committee Committee { get; set; }
-        [Required]
-        public virtual Password Password{ get; set; }
         public virtual ContactInfo ContactInfo { get; set; }
-        public virtual ICollection<Role> Roles { get; set; }
+        public virtual ICollection<Role> NewRoles { get; set; }
         public virtual ICollection<Session> Sessions { get; set; }
         public virtual ICollection<SubCriterionModification> SubCriterionModifications { get; set; }
         public virtual ICollection<CriterionModification> CriterionModifications { get; set; }

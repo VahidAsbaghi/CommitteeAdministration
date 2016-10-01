@@ -14,8 +14,8 @@ namespace CommitteeManagement.Model
         public string IpAddress { get; set; }
         public string Browser { get; set; }
         public string BrowserVersion { get; set; }
-        public DateTime Time { get; set; }
-        public int UserId { get; set; }
+        public DateTime? Time { get; set; }
+        public string UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual User User{ get; set; }
     }

@@ -16,15 +16,15 @@ namespace CommitteeManagement.Model
             Criteria=new HashSet<Criterion>();
         }
         public int Id { get; set; }
-        public bool IndicatorDeadlineAdjust { get; set; }
-        public bool Criterion { get; set; }
-        public bool SubCriterion { get; set; }
-        public bool Indicator { get; set; }
-        public bool AddRealIndicator { get; set; }
-        public bool UpdateRealIndicator { get; set; }
-        public bool Add { get; set; }
-        public bool Delete { get; set; }
-        public bool Update { get; set; }
+        public bool? IndicatorDeadlineAdjust { get; set; }
+        public bool? Criterion { get; set; }
+        public bool? SubCriterion { get; set; }
+        public bool? Indicator { get; set; }
+        public bool? AddRealIndicator { get; set; }
+        public bool? UpdateRealIndicator { get; set; }
+        public bool? Add { get; set; }
+        public bool? Delete { get; set; }
+        public bool? Update { get; set; }
         public virtual ICollection<Role> Roles{ get; set; }
         public virtual ICollection<Criterion> Criteria { get; set; }
         public virtual ICollection<SubCriterion> SubCriteria { get; set; }

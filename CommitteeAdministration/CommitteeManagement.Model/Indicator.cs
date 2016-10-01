@@ -21,10 +21,10 @@ namespace CommitteeManagement.Model
         [Required(ErrorMessage = "لطفا شاخص مورد نظر را وارد کنید")]
         public string Subject { get; set; }
         [Required]
-        public double Coefficient { get; set; }
+        public double? Coefficient { get; set; }
         [Required]
-        public int DeadlinePeriod { get; set; }
-        public bool IsDeleted { get; set; }
+        public int? DeadlinePeriod { get; set; }
+        public bool? IsDeleted { get; set; }
         public int? SubCriterionId { get; set; }
         [ForeignKey("SubCriterionId")]
         public virtual SubCriterion SubCriterion{ get; set; }

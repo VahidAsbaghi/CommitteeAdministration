@@ -1,5 +1,8 @@
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,14 +17,15 @@ namespace CommitteeManagement.Repository.Data
 	/// Note, you should at least change "DataContext" to a name that matches your domain.
     public partial class DataContext : IdentityDbContext<User>, IDataContext
     {
-	    public DataContext():base("CommitteeDb1")
+	    public DataContext():base("name=DefaultConnection")
 	    {
 	        
 	    }
 		// Example of a table in the form of a data set.  Add your own
         // database/model entities here.
         public DbSet<BogusObject> BogusObjects { get; set; }
-        public DbSet<User> User { get; set; }
+       // public DbSet<User> User { get; set; }
+	    //public override IDbSet<User> Users { get; set; }
         #region IDataContext Members
 
         public IDbSet<T> GetDbSet<T>() where T : class
@@ -36,7 +40,24 @@ namespace CommitteeManagement.Repository.Data
 
         public new int SaveChanges()
         {
-            return base.SaveChanges();
+            try
+            {
+                return base.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}",
+                                                validationError.PropertyName,
+                                                validationError.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+
         }
 
         public new Task<int> SaveChangesAsync()
@@ -86,7 +107,7 @@ namespace CommitteeManagement.Repository.Data
 
         public System.Data.Entity.DbSet<CommitteeManagement.Model.ContactInfo> ContactInfoes { get; set; }
 
-        public System.Data.Entity.DbSet<CommitteeManagement.Model.Password> Passwords { get; set; }
+       // public System.Data.Entity.DbSet<CommitteeManagement.Model.Password> Passwords { get; set; }
         #endregion
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

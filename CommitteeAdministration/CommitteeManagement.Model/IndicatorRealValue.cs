@@ -12,7 +12,7 @@ namespace CommitteeManagement.Model
     {
         public int Id { get; set; }
         [Required]
-        public double Value { get; set; }
+        public double? Value { get; set; }
         public DateTime? Time { get; set; }
         public int? IndicatorId { get; set; }
         [ForeignKey("IndicatorId")]

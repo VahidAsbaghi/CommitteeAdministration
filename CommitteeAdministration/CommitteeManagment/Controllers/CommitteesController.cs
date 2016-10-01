@@ -15,17 +15,19 @@ namespace CommitteeManagement.Controllers
     public class CommitteesController : Controller
     {
         private readonly IMainContainer _mainContainer;
-        private DataContext db = new DataContext();
+        private readonly IDataContext _dataContext;
+        
 
-        public CommitteesController(IMainContainer mainContainer)
+        public CommitteesController(IMainContainer mainContainer,IDataContext dataContext)
         {
             _mainContainer = mainContainer;
+            _dataContext = dataContext;
         }
 
         // GET: Committees
         public ActionResult Index()
         {
-            return View( db.Committees.ToList());
+            return View(_mainContainer.UserRepository Committees.ToList());
         }
 
         // GET: Committees/Details/5

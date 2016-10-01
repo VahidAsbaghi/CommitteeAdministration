@@ -11,7 +11,7 @@ namespace CommitteeManagement.Model
     public class ContactInfo
     {
         [Key, ForeignKey("User"),Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public string City { get; set; }
         public string Region { get; set; }
         [Required(ErrorMessage = "وارد کردن یک آدرس برای هر کاربر الزامی است")]

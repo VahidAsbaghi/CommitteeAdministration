@@ -20,8 +20,8 @@ namespace CommitteeManagement.Model
         [Required(ErrorMessage = "لطفا معیار مورد نظر را وارد کنید")]
         public string Subject { get; set; }
         [Required]
-        public double Coefficient { get; set; }
-        public bool IsDeleted { get; set; }
+        public double? Coefficient { get; set; }
+        public bool? IsDeleted { get; set; }
         public virtual  ICollection<SubCriterion>  SubCriteria{ get; set; }
         public virtual ICollection<CriterionModification> CriterionModifications { get; set; }
         public virtual ICollection<Permission> Permissions { get; set; }
