@@ -79,6 +79,9 @@ namespace CommitteeManagement.Model
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        [Required]
+        [Display(Name = "نام ستاد")]
+        public ICollection<Committee> CommitteeName { get; set; }
     }
 
     public class ResetPasswordViewModel

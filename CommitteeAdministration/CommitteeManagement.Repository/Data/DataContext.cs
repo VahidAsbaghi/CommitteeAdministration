@@ -17,7 +17,7 @@ namespace CommitteeManagement.Repository.Data
 	/// Note, you should at least change "DataContext" to a name that matches your domain.
     public partial class DataContext : IdentityDbContext<User>, IDataContext
     {
-	    public DataContext():base("name=DefaultConnection")
+	    public DataContext():base("name=DefaultConnection1")
 	    {
 	        
 	    }
@@ -110,10 +110,10 @@ namespace CommitteeManagement.Repository.Data
        // public System.Data.Entity.DbSet<CommitteeManagement.Model.Password> Passwords { get; set; }
         #endregion
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            // Your custom model configurations go here.
-            base.OnModelCreating(modelBuilder);
-        }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    // Your custom model configurations go here.
+        //    base.OnModelCreating(modelBuilder);
+        //}
     }
 }

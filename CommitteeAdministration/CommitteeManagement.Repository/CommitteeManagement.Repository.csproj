@@ -82,6 +82,8 @@
     <Compile Include="IMainContainer.cs" />
     <Compile Include="MainContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CommitteeRepository.cs" />
+    <Compile Include="Repositories\ContactInfoRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
