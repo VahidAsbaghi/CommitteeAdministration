@@ -84,7 +84,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CommitteeRepository.cs" />
     <Compile Include="Repositories\ContactInfoRepository.cs" />
+    <Compile Include="Repositories\CriterionModificationRepository.cs" />
+    <Compile Include="Repositories\CriterionRepository.cs" />
+    <Compile Include="Repositories\IndicatorIdealValueRepository.cs" />
+    <Compile Include="Repositories\IndicatorModificationRepository.cs" />
+    <Compile Include="Repositories\IndicatorRealValueRepository.cs" />
+    <Compile Include="Repositories\IndicatorRepository.cs" />
+    <Compile Include="Repositories\PermissionRepository.cs" />
+    <Compile Include="Repositories\RoleRepository.cs" />
+    <Compile Include="Repositories\SessionRepository.cs" />
+    <Compile Include="Repositories\SubCriterionModificationRepository.cs" />
+    <Compile Include="Repositories\SubCriterionRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\VisitorRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommitteeManagement.Model\CommitteeManagement.Model.csproj">

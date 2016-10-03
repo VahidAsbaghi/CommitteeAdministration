@@ -14,6 +14,18 @@ namespace CommitteeManagement.Repository
         UserRepository UserRepository { get; set; }
         CommitteeRepository CommitteeRepository { get; set; }
         ContactInfoRepository ContactInfoRepository { get; set; }
+        VisitorRepository VisitorRepository { get; set; }
+        SubCriterionModificationRepository  SubCriterionModificationRepository { get; set; }
+        SubCriterionRepository SubCriterionRepository { get; set; }
+        SessionRepository SessionRepository { get; set; }
+        RoleRepository RoleRepository { get; set; }
+        PermissionRepository PermissionRepository { get; set; }
+        IndicatorRealValueRepository IndicatorRealValueRepository { get; set; }
+        IndicatorModificationRepository IndicatorModificationRepository { get; set; }
+        IndicatorIdealValueRepository IndicatorIdealValueRepository { get; set; }
+        IndicatorRepository IndicatorRepository { get; set; }
+        CriterionModificationRepository CriterionModificationRepository { get; set; }
+        CriterionRepository CriterionRepository { get; set; }
         DbEntityEntry<T> Entry<T>(T entity) where T : class;
     }
 }
