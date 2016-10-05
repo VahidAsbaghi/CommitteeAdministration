@@ -3,21 +3,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CommitteeManagement.Model;
+using CommitteeManagement.Repository;
+using CommitteeManagement.Repository.Data;
 
 namespace CommitteeAdministration.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
+        private readonly IMainContainer _mainContainer;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public ManageController()
         {
+            
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -213,8 +218,10 @@ namespace CommitteeAdministration.Controllers
 
         //
         // GET: /Manage/ChangePassword
+        [Authorize(Roles ="Karim" )]
         public ActionResult ChangePassword()
         {
+           
             return View();
         }
 

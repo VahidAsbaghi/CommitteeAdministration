@@ -17,17 +17,18 @@ namespace CommitteeManagement.Repository.Data
 	/// Note, you should at least change "DataContext" to a name that matches your domain.
     public partial class DataContext : IdentityDbContext<User>, IDataContext
     {
-	    public DataContext():base("name=DefaultConnection1")
+	    public DataContext():base("name=DefaultConnection4")
 	    {
-	        
-	    }
-		// Example of a table in the form of a data set.  Add your own
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataContext, CommitteeManagement.Repository.Migrations.Configuration>("DefaultConnection3"));
+
+        }
+        // Example of a table in the form of a data set.  Add your own
         // database/model entities here.
         public DbSet<BogusObject> BogusObjects { get; set; }
        // public DbSet<User> User { get; set; }
 	    //public override IDbSet<User> Users { get; set; }
         #region IDataContext Members
-
+           //public DbSet<Role> Roles1 { get; set; } 
         public IDbSet<T> GetDbSet<T>() where T : class
         {
             return Set<T>();
@@ -107,7 +108,9 @@ namespace CommitteeManagement.Repository.Data
 
         public System.Data.Entity.DbSet<CommitteeManagement.Model.ContactInfo> ContactInfoes { get; set; }
 
-       // public System.Data.Entity.DbSet<CommitteeManagement.Model.Password> Passwords { get; set; }
+        public System.Data.Entity.DbSet<CommitteeManagement.Model.Permission> Permissions { get; set; }
+
+        // public System.Data.Entity.DbSet<CommitteeManagement.Model.Password> Passwords { get; set; }
         #endregion
 
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
