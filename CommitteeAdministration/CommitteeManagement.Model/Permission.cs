@@ -20,8 +20,7 @@ namespace CommitteeManagement.Model
         public bool? Criterion { get; set; }
         public bool? SubCriterion { get; set; }
         public bool? Indicator { get; set; }
-        public bool? AddRealIndicator { get; set; }
-        public bool? UpdateRealIndicator { get; set; }
+        public bool? RealIndicator { get; set; }       
         public bool? Add { get; set; }
         public bool? Delete { get; set; }
         public bool? Update { get; set; }

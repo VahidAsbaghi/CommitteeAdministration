@@ -195,6 +195,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\Enums.cs" />
+    <Compile Include="ActionFilters\RBACAttribute.cs" />
+    <Compile Include="ActionFilters\RBACUser.cs" />
+    <Compile Include="ActionFilters\RbacExtendedMethods.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />

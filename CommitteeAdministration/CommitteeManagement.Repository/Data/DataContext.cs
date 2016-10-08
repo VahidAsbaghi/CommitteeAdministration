@@ -20,7 +20,7 @@ namespace CommitteeManagement.Repository.Data
 	    public DataContext():base("name=DefaultConnection4")
 	    {
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataContext, CommitteeManagement.Repository.Migrations.Configuration>("DefaultConnection3"));
-
+            
         }
         // Example of a table in the form of a data set.  Add your own
         // database/model entities here.
