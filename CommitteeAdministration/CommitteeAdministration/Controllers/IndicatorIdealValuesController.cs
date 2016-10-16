@@ -19,6 +19,7 @@ namespace CommitteeAdministration.Controllers
     /// Ideal value of indicator controller
     /// </summary>
     /// <seealso cref="System.Web.Mvc.Controller" />
+    [Authorize(Roles = "SuperAdmin,Manager")]
     public class IndicatorIdealValuesController : Controller
     {
         private readonly IMainContainer _mainContainer = ModelContainer.Instance.Resolve<IMainContainer>();
@@ -79,6 +80,7 @@ namespace CommitteeAdministration.Controllers
         {
             if (ModelState.IsValid)
             {
+                indicatorIdealValue.Time=DateTime.Now;
                 _mainContainer.IndicatorIdealValueRepository.Add(indicatorIdealValue);
                 await _mainContainer.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -123,6 +125,7 @@ namespace CommitteeAdministration.Controllers
         {
             if (ModelState.IsValid)
             {
+                indicatorIdealValue.Time=DateTime.Now;
                 _mainContainer.Entry(indicatorIdealValue).State = EntityState.Modified;
                 await _mainContainer.SaveChangesAsync();
                 return RedirectToAction("Index");

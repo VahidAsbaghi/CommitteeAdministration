@@ -19,6 +19,7 @@ namespace CommitteeAdministration.Controllers
     /// controller of contact info to do all db related jobs with contact infos
     /// </summary>
     /// <seealso cref="System.Web.Mvc.Controller" />
+    [Authorize(Roles = "SuperAdmin")]
     public class ContactInfoesController : Controller
     {        
         private readonly IMainContainer _mainContainer = ModelContainer.Instance.Resolve<IMainContainer>();

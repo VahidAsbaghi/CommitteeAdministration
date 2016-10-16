@@ -19,9 +19,19 @@ namespace CommitteeAdministration.Controllers
     /// main controller of criterion 
     /// </summary>
     /// <seealso cref="System.Web.Mvc.Controller" />
+    [Authorize(Roles = "SuperAdmin,Manager")]
     public class CriteriaController : Controller
     {
         private readonly IMainContainer _mainContainer = ModelContainer.Instance.Resolve<IMainContainer>();
+        /// <summary>
+        /// Possible actions on criterion. Used to Insert CriterionModification Row 
+        /// </summary>
+        private enum CriterionAction
+        {
+            Add,
+            Delete,
+            Edit
+        }
         /// <summary>
         /// main list view of all criteria
         /// </summary>
@@ -29,7 +39,7 @@ namespace CommitteeAdministration.Controllers
         // GET: Criteria
         public async Task<ActionResult> Index()
         {
-            return View(await _mainContainer.CriterionRepository.All().ToListAsync());
+            return View(await _mainContainer.CriterionRepository.All().Where(criterion=> !criterion.IsDeleted.Value || criterion.IsDeleted == null).ToListAsync());
         }
 
         // GET: Criteria/Details/5        
@@ -44,7 +54,7 @@ namespace CommitteeAdministration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var criterion = await _mainContainer.CriterionRepository.FirstOrDefaultAsync(criterionT=>criterionT.Id==id);
+            var criterion = await _mainContainer.CriterionRepository.FirstOrDefaultAsync(criterionT=>criterionT.Id==id && (!criterionT.IsDeleted.Value || criterionT.IsDeleted==null));
             if (criterion == null)
             {
                 return HttpNotFound();
@@ -77,13 +87,31 @@ namespace CommitteeAdministration.Controllers
             if (ModelState.IsValid)
             {
                 _mainContainer.CriterionRepository.Add(criterion);
+                CriterionModification(criterion,CriterionAction.Add);
                 await _mainContainer.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
             return View(criterion);
         }
-
+        /// <summary>
+        /// Criterion modification.
+        /// </summary>
+        /// <param name="criterion">The criterion.</param>
+        /// <param name="action">The action.</param>
+        private void CriterionModification(Criterion criterion,CriterionAction action)
+        {
+            var loginUser =
+                _mainContainer.UserRepository.FirstOrDefault(user => user.UserName == HttpContext.User.Identity.Name);
+            var criterionModification=new CriterionModification()
+            {
+                Add=action==CriterionAction.Add,Criterion = criterion,Time = DateTime.Now,
+                User = loginUser,UserId = loginUser.Id,
+                Delete = action==CriterionAction.Delete,
+                Update = action==CriterionAction.Edit
+            };
+            _mainContainer.CriterionModificationRepository.Add(criterionModification);
+        }
         // GET: Criteria/Edit/5        
         /// <summary>
         /// Edits the specified criterion with identifier.
@@ -96,7 +124,7 @@ namespace CommitteeAdministration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var criterion = await _mainContainer.CriterionRepository.FirstOrDefaultAsync(criterionT => criterionT.Id == id);
+            var criterion = await _mainContainer.CriterionRepository.FirstOrDefaultAsync(criterionT => criterionT.Id == id && (!criterionT.IsDeleted.Value || criterionT.IsDeleted == null));
             if (criterion == null)
             {
                 return HttpNotFound();
@@ -118,7 +146,9 @@ namespace CommitteeAdministration.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 _mainContainer.Entry(criterion).State = EntityState.Modified;
+                CriterionModification(criterion, CriterionAction.Edit);
                 await _mainContainer.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -155,8 +185,10 @@ namespace CommitteeAdministration.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Criterion criterion = await _mainContainer.CriterionRepository.FirstOrDefaultAsync(criterionT => criterionT.Id == id);
-            _mainContainer.CriterionRepository.Delete(criterion);
+            var criterion = await _mainContainer.CriterionRepository.FirstOrDefaultAsync(criterionT => criterionT.Id == id);
+            criterion.IsDeleted = true;
+            _mainContainer.Entry(criterion).State = EntityState.Modified;
+            CriterionModification(criterion, CriterionAction.Delete);
             await _mainContainer.SaveChangesAsync();
             return RedirectToAction("Index");
         }

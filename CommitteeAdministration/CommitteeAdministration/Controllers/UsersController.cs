@@ -19,6 +19,7 @@ namespace CommitteeAdministration.Controllers
     /// Users Controller
     /// </summary>
     /// <seealso cref="System.Web.Mvc.Controller" />
+    [Authorize(Roles = "SuperAdmin")]
     public class UsersController : Controller
     {
         private readonly IMainContainer _mainContainer= ModelContainer.Instance.Resolve<IMainContainer>();

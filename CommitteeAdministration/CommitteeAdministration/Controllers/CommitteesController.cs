@@ -21,7 +21,7 @@ namespace CommitteeAdministration.Controllers
     /// the access of this controller is only assigned to super admin
     /// </summary>
     /// <seealso cref="System.Web.Mvc.Controller" />
-    //[Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class CommitteesController : Controller
     {
         private readonly IMainContainer _mainContainer= ModelContainer.Instance.Resolve<IMainContainer>();
