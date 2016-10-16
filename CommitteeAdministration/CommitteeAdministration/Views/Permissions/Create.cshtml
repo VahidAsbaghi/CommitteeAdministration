@@ -1,8 +1,9 @@
-﻿@model CommitteeManagement.Model.Permission
+﻿@using System.Web.UI.WebControls
+@model CommitteeAdministration.ViewModels.AddPermissionViewModel
 
 @{
     ViewBag.Title = "Create";
-    //Layout = "~/Views/_ViewStart.cshtml";
+    
 }
 
 <h2>Create</h2>
@@ -55,27 +56,15 @@
                 </div>
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.AddRealIndicator, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.RealIndicator, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.AddRealIndicator)
-                    @Html.ValidationMessageFor(model => model.AddRealIndicator, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.RealIndicator)
+                    @Html.ValidationMessageFor(model => model.RealIndicator, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UpdateRealIndicator, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.UpdateRealIndicator)
-                    @Html.ValidationMessageFor(model => model.UpdateRealIndicator, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Add, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -97,15 +86,32 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Update, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Update, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Update)
-                    @Html.ValidationMessageFor(model => model.Update, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Update, "", new {@class = "text-danger"})
                 </div>
             </div>
         </div>
+        @if (Model != null)
+        {
+            <div class="form-group">
+                @Html.Label("Roles","Roles",htmlAttributes: new { @class = "control-label col-md-2" })@*(model => model.Update, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                @for (int i = 0; i < Model.Roles.Count; i++)
+                {
+                    var role = Model.Roles[i];
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.LabelForModel(role.Name)
+                            @Html.CheckBoxFor(m => m.IsContainedRole[i] );
 
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />

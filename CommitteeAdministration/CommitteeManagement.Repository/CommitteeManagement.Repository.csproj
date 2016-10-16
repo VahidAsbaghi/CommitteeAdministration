@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DataContext.cs" />
+    <Compile Include="Data\DbInitializer.cs" />
     <Compile Include="Data\EntityRepository.cs" />
     <Compile Include="Data\IDataContext.cs" />
     <Compile Include="Data\IEntity.cs" />
@@ -105,7 +106,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

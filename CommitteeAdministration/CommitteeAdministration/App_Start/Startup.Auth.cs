@@ -16,7 +16,7 @@ namespace CommitteeAdministration
 {
     public partial class Startup
     {
-        private readonly IDataContext _dataContext=new DataContext();
+       // private readonly IDataContext _dataContext=DependencyResolver.Current.GetService<IDataContext>();
 
         public Startup()
         {
@@ -27,7 +27,7 @@ namespace CommitteeAdministration
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
-           // app.CreatePerOwinContext(DependencyResolver.Current.GetService<IDataContext>());
+            app.CreatePerOwinContext<DataContext>(()=>(DataContext)ModelContainer.Instance.Resolve<IDataContext>());
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 

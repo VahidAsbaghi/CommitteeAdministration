@@ -22,7 +22,7 @@ namespace CommitteeManagement.Repository.Data
             _dataContext = dataContext;
             Set = _dataContext.GetDbSet<T>();
         }
-
+       
         public IQueryable<T> All()
         {
             return Set.AsQueryable();
@@ -69,11 +69,15 @@ namespace CommitteeManagement.Repository.Data
         {
             return Set.Find(id); 
         }
-
+        /// <summary>
+        /// Attaches the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
         public void Attach(T entity)
         {
             Set.Attach(entity);
             _dataContext.GetEntry(entity).State = EntityState.Modified;
+            _dataContext.SaveChanges();
         }
 
         public void Detatch(T entity)

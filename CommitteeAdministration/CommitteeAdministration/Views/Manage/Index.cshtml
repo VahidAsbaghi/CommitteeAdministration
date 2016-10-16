@@ -1,4 +1,4 @@
-﻿@model CommitteeManagement.Model.IndexViewModel
+﻿@model CommitteeAdministration.ViewModels.IndexViewModel
 @{
     ViewBag.Title = "Manage";
 }
@@ -27,6 +27,11 @@
         <dd>
             @Model.Logins.Count [
             @Html.ActionLink("Manage", "ManageLogins") ]
+        </dd>
+        <dt>View Profile</dt>
+        <dd>
+            @Model.Logins.Count [
+            @Html.ActionLink("View Profile", "ViewProfile","Profile") ]
         </dd>
         @*
             Phone Numbers can used as a second factor of verification in a two-factor authentication system.

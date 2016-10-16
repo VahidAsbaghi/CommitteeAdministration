@@ -1,22 +1,26 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using CommitteeAdministration.Helper;
+using CommitteeAdministration.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CommitteeManagement.Model;
 using CommitteeManagement.Repository;
 using CommitteeManagement.Repository.Data;
+using Microsoft.Practices.Unity;
 
 namespace CommitteeAdministration.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
-        private readonly IMainContainer _mainContainer;
+        private readonly IMainContainer _mainContainer= ModelContainer.Instance.Resolve<IMainContainer>();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -215,10 +219,10 @@ namespace CommitteeAdministration.Controllers
             }
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
-
+        
         //
         // GET: /Manage/ChangePassword
-        [Authorize(Roles ="Karim" )]
+        [Authorize]
         public ActionResult ChangePassword()
         {
            
@@ -331,11 +335,11 @@ namespace CommitteeAdministration.Controllers
         {
             if (disposing && _userManager != null)
             {
-                _userManager.Dispose();
-                _userManager = null;
+               // _userManager.Dispose();
+               // _userManager = null;
             }
 
-            base.Dispose(disposing);
+           // base.Dispose(disposing);
         }
 
 #region Helpers

@@ -1,6 +1,11 @@
-﻿@model CommitteeManagement.Model.RegisterViewModel
+﻿@using CommitteeManagement.Model
+@using CommitteeManagement.Repository
+@using CommitteeManagement.Repository.Repositories
+@model CommitteeAdministration.ViewModels.RegisterViewModel
+   
 @{
     ViewBag.Title = "Register";
+    //var committees=ViewData["Committees"];
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -32,7 +37,8 @@
     <div class="form-group">
         @Html.LabelFor(m => m.CommitteeName, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.DropDownListFor(m => m.CommitteeName,new List<SelectListItem>())
+            @Html.DropDownListFor(m=>m.ReturnedCommitteeId, Model.CommitteeName, "--Select--")  @*new List<SelectListItem>()) ((m) => m.CommitteeName, Model.CommitteeName, "--Select--")*@
+            @Html.ValidationMessageFor(m => m.ReturnedCommitteeId)
         </div>
     </div>
     <div class="form-group">

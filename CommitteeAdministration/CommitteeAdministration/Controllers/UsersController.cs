@@ -7,37 +7,45 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using CommitteeAdministration.Helper;
 using CommitteeManagement.Model;
 using CommitteeManagement.Repository;
 using CommitteeManagement.Repository.Data;
+using Microsoft.Practices.Unity;
 
 namespace CommitteeAdministration.Controllers
 {
+    /// <summary>
+    /// Users Controller
+    /// </summary>
+    /// <seealso cref="System.Web.Mvc.Controller" />
     public class UsersController : Controller
     {
-        private readonly IMainContainer _mainContainer;
-       // private DataContext db = new DataContext();
-
-        public UsersController(IMainContainer mainContainer)
-        {
-            _mainContainer = mainContainer;
-        }
-
-        // GET: Users
+        private readonly IMainContainer _mainContainer= ModelContainer.Instance.Resolve<IMainContainer>();
+        // GET: Users        
+        /// <summary>
+        /// List all Users
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> Index()
         {
-            var users = _mainContainer.UserRepository.AllIncluding(u => u.Committee).Include(u => u.ContactInfo);// db.Users.Include(u => u.Committee).Include(u => u.ContactInfo);
+            var users = _mainContainer.UserRepository.AllIncluding(u => u.Committee).Include(u => u.ContactInfo);
             return View(await users.ToListAsync());
         }
 
-        // GET: Users/Details/5
+        // GET: Users/Details/5        
+        /// <summary>
+        /// Detailses the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         public async Task<ActionResult> Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = await _mainContainer.UserRepository.FirstOrDefaultAsync(t=>t.Id==id);//Users.FindAsync(id));
+            var user = await _mainContainer.UserRepository.FirstOrDefaultAsync(t=>t.Id==id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -45,7 +53,11 @@ namespace CommitteeAdministration.Controllers
             return View(user);
         }
 
-        // GET: Users/Create
+        // GET: Users/Create        
+        /// <summary>
+        /// Creates this instance.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Create()
         {
             ViewBag.CommitteeRefId = new SelectList(_mainContainer.CommitteeRepository.All(), "Id", "Name");
@@ -55,14 +67,19 @@ namespace CommitteeAdministration.Controllers
 
         // POST: Users/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.        
+        /// <summary>
+        /// Creates the specified user.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,Gender,Name,LastName,CreatedTime,IsActive,LastModificationDate,CommitteeRefId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] User user)
         {
             if (ModelState.IsValid)
             {
-                _mainContainer.UserRepository.Add(user);//.Users.Add(user);
+                _mainContainer.UserRepository.Add(user);
                 await _mainContainer.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -72,14 +89,19 @@ namespace CommitteeAdministration.Controllers
             return View(user);
         }
 
-        // GET: Users/Edit/5
+        // GET: Users/Edit/5        
+        /// <summary>
+        /// Edits the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         public async Task<ActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = await _mainContainer.UserRepository.FirstOrDefaultAsync(usert=>usert.Id==id);//.Users.FindAsync(id);
+            var user = await _mainContainer.UserRepository.FirstOrDefaultAsync(usert=>usert.Id==id);//.Users.FindAsync(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -91,7 +113,12 @@ namespace CommitteeAdministration.Controllers
 
         // POST: Users/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.        
+        /// <summary>
+        /// Edits the specified user.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,Gender,Name,LastName,CreatedTime,IsActive,LastModificationDate,CommitteeRefId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] User user)
@@ -107,14 +134,19 @@ namespace CommitteeAdministration.Controllers
             return View(user);
         }
 
-        // GET: Users/Delete/5
+        // GET: Users/Delete/5        
+        /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         public async Task<ActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = await _mainContainer.UserRepository.FirstOrDefaultAsync(u=>u.Id==id);//.Users.FindAsync(id);
+            var user = await _mainContainer.UserRepository.FirstOrDefaultAsync(u=>u.Id==id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -122,24 +154,28 @@ namespace CommitteeAdministration.Controllers
             return View(user);
         }
 
-        // POST: Users/Delete/5
+        // POST: Users/Delete/5        
+        /// <summary>
+        /// Deletes the confirmed.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
-            User user = await _mainContainer.UserRepository.FirstOrDefaultAsync(u => u.Id == id);
-            _mainContainer.UserRepository.Delete(user);//.Users.Remove(user);
+            var user = await _mainContainer.UserRepository.FirstOrDefaultAsync(u => u.Id == id);
+            _mainContainer.UserRepository.Delete(user);
             await _mainContainer.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-               // _mainContainer.Dispose();
-            }
-            base.Dispose(disposing);
+           
         }
     }
 }

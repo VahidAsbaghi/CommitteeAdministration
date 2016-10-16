@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Globalization;
@@ -7,10 +9,14 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using CommitteeAdministration.Helper;
+using CommitteeAdministration.ViewModels;
 using CommitteeManagement.Model;
+using CommitteeManagement.Repository;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Practices.Unity;
 
 
 namespace CommitteeAdministration.Controllers
@@ -18,11 +24,13 @@ namespace CommitteeAdministration.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private readonly IMainContainer _mainContainer= ModelContainer.Instance.Resolve<IMainContainer>();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public AccountController()
         {
+            
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -142,7 +150,13 @@ namespace CommitteeAdministration.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+           // var committee1=new Committee();
+            var registerViewModel = new RegisterViewModel()
+            {
+                CommitteeName = new SelectList(_mainContainer.CommitteeRepository.All().ToList(),"Id","Name")
+            };
+            //ViewData.Add("Committees",_mainContainer.CommitteeRepository.All());
+            return View(registerViewModel);
         }
 
         //
@@ -152,13 +166,19 @@ namespace CommitteeAdministration.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email };
+                // Re-assign select list if returning the view
+                var listData = _mainContainer.CommitteeRepository.All().ToList();
+                model.CommitteeName = new SelectList(listData, "Id ", "Name");
+               // return View(model);
+            }
+            
+                var user = new User {UserName = model.Email, Email = model.Email,CommitteeRefId = model.ReturnedCommitteeId,Committee = _mainContainer.CommitteeRepository.FindById(model.ReturnedCommitteeId)};
                 IdentityResult result;
                 try
                 {
-                     result = await UserManager.CreateAsync(user, model.Password);
+                    result = await UserManager.CreateAsync(user, model.Password);
                 }
                 catch (DbEntityValidationException dbEx)
                 {
@@ -167,15 +187,15 @@ namespace CommitteeAdministration.Controllers
                         foreach (var validationError in validationErrors.ValidationErrors)
                         {
                             Trace.TraceInformation("Property: {0} Error: {1}",
-                                                    validationError.PropertyName,
-                                                    validationError.ErrorMessage);
+                                validationError.PropertyName,
+                                validationError.ErrorMessage);
                         }
                     }
                     throw;
                 }
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -186,8 +206,8 @@ namespace CommitteeAdministration.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
-            }
-
+            
+            model.CommitteeName = (SelectList) _mainContainer.CommitteeRepository.All();
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -425,22 +445,22 @@ namespace CommitteeAdministration.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                if (_userManager != null)
-                {
-                    _userManager.Dispose();
-                    _userManager = null;
-                }
+            //if (disposing)
+            //{
+            //    if (_userManager != null)
+            //    {
+            //        _userManager.Dispose();
+            //        _userManager = null;
+            //    }
 
-                if (_signInManager != null)
-                {
-                    _signInManager.Dispose();
-                    _signInManager = null;
-                }
-            }
+            //    if (_signInManager != null)
+            //    {
+            //        _signInManager.Dispose();
+            //        _signInManager = null;
+            //    }
+            //}
 
-            base.Dispose(disposing);
+            //base.Dispose(disposing);
         }
 
         #region Helpers

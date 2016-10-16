@@ -15,9 +15,10 @@ namespace CommitteeAdministration.ActionFilters
         /// </summary>
         public enum PermissionType
         {            
-            Add,
+            Create,
+            Index,
             Delete,
-            Update,
+            Edit,
             None
         }
         /// <summary>

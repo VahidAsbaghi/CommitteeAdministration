@@ -26,7 +26,7 @@ namespace CommitteeAdministration.ActionFilters
             //Create an instance of our custom user authorization object passing requesting user's 'Windows Username' into constructor
             RBACUser requestingUser = new RBACUser(filterContext.RequestContext.HttpContext.User.Identity.Name,ModelContainer.Instance.Resolve<IMainContainer>());
             //Check if the requesting user has the permission to run the controller's action
-            if (!requestingUser.HasPermission((Enums.PermissionType)Enum.Parse(typeof (Enums.PermissionType),filterContext.ActionDescriptor.ActionName),null, (Enums.PermissionObject)Enum.Parse(typeof (Enums.PermissionObject),filterContext.ActionDescriptor.ControllerDescriptor.ControllerName)))// & !requestingUser.IsSysAdmin)
+            if (!requestingUser.HasPermission((Enums.PermissionType)Enum.Parse(typeof (Enums.PermissionType),filterContext.ActionDescriptor.ActionName),null, (Enums.PermissionObject)Enum.Parse(typeof (Enums.PermissionObject),filterContext.ActionDescriptor.ControllerDescriptor.ControllerName)))
             {
                 //User doesn't have the required permission and is not a SysAdmin, return our custom “401 Unauthorized” access error
                 //Since we are setting filterContext.Result to contain an ActionResult page, the controller's action will not be run.

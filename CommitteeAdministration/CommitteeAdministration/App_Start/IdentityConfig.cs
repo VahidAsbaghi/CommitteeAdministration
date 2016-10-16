@@ -8,13 +8,16 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using CommitteeAdministration.Helper;
 using CommitteeManagement.Model;
 using CommitteeManagement.Repository.Data;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Practices.Unity;
 using SendGrid;
 
 
@@ -76,9 +79,19 @@ namespace CommitteeAdministration
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<User>((DbContext)DependencyResolver.Current.GetService<IDataContext>()));
+            ApplicationUserManager manager;
+            try
+            {
+                 manager = new ApplicationUserManager(new UserStore<User>((DataContext)ModelContainer.Instance.Resolve<IDataContext>()));
+
+            }
+            catch
+            {
+
+                manager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<User>(manager)
             {

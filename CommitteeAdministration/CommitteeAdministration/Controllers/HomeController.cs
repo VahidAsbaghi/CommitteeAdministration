@@ -6,6 +6,10 @@ using System.Web.Mvc;
 
 namespace CommitteeAdministration.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="System.Web.Mvc.Controller" />
     public class HomeController : Controller
     {
         public ActionResult Index()

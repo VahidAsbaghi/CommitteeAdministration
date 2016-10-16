@@ -17,7 +17,7 @@ namespace CommitteeManagement.Repository.Data
 	/// Note, you should at least change "DataContext" to a name that matches your domain.
     public partial class DataContext : IdentityDbContext<User>, IDataContext
     {
-	    public DataContext():base("name=DefaultConnection4")
+	    public DataContext():base("name=DefaultConnection5")
 	    {
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataContext, CommitteeManagement.Repository.Migrations.Configuration>("DefaultConnection3"));
             
@@ -108,8 +108,19 @@ namespace CommitteeManagement.Repository.Data
 
         public System.Data.Entity.DbSet<CommitteeManagement.Model.ContactInfo> ContactInfoes { get; set; }
 
-        public System.Data.Entity.DbSet<CommitteeManagement.Model.Permission> Permissions { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
 
+        public System.Data.Entity.DbSet<CommitteeManagement.Model.Indicator> Indicators { get; set; }
+
+        public System.Data.Entity.DbSet<CommitteeManagement.Model.SubCriterion> SubCriterions { get; set; }
+
+        public System.Data.Entity.DbSet<CommitteeManagement.Model.Criterion> Criteria { get; set; }
+
+        public System.Data.Entity.DbSet<CommitteeManagement.Model.IndicatorRealValue> IndicatorRealValues { get; set; }
+
+        public DbSet<IndicatorIdealValue> IndicatorIdealValues { get; set; }
+
+        
         // public System.Data.Entity.DbSet<CommitteeManagement.Model.Password> Passwords { get; set; }
         #endregion
 

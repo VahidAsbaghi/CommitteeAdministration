@@ -45,9 +45,9 @@ namespace CommitteeAdministration.ActionFilters
                 {
                     userRole.Permissions.Add(new RolePermission
                     {
-                        PermissionId = permission.Id, PermissionType = permission.Add.GetValueOrDefault(false)?Enums.PermissionType.Add : 
+                        PermissionId = permission.Id, PermissionType = permission.Add.GetValueOrDefault(false)?Enums.PermissionType.Create : 
                             permission.Delete.GetValueOrDefault(false)?Enums.PermissionType.Delete : 
-                                permission.Update.GetValueOrDefault(false)?Enums.PermissionType.Update:Enums.PermissionType.None,
+                                permission.Update.GetValueOrDefault(false)?Enums.PermissionType.Edit:Enums.PermissionType.None,
                         PermissionObject = permission.Indicator.GetValueOrDefault(false)?Enums.PermissionObject.Indicator : 
                             permission.Criterion.GetValueOrDefault(false)?Enums.PermissionObject.Criterion:
                                 permission.IndicatorDeadlineAdjust.GetValueOrDefault(false)?Enums.PermissionObject.IndicatorDeadline : 

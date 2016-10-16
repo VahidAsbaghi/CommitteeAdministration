@@ -1,8 +1,13 @@
-﻿@model CommitteeManagement.Model.Permission
+﻿@using System.Activities.Statements
+@using System.Web.Mvc.Html
+@using System.Web.UI.WebControls
+@using Microsoft.Ajax.Utilities
+@model CommitteeAdministration.ViewModels.EditPermissionViewModel
 
 @{
     ViewBag.Title = "Edit";
    // Layout = "~/Views/_ViewStart.cshtml";
+    //var roles = Model.Roles.ToList();
 }
 
 <h2>Edit</h2>
@@ -16,101 +21,103 @@
         <h4>Permission</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.Permission.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IndicatorDeadlineAdjust, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Permission.IndicatorDeadlineAdjust, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.IndicatorDeadlineAdjust)
-                    @Html.ValidationMessageFor(model => model.IndicatorDeadlineAdjust, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Permission.IndicatorDeadlineAdjust)
+                    @Html.ValidationMessageFor(model => model.Permission.IndicatorDeadlineAdjust, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Criterion, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Permission.Criterion, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Criterion)
-                    @Html.ValidationMessageFor(model => model.Criterion, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Permission.Criterion)
+                    @Html.ValidationMessageFor(model => model.Permission.Criterion, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SubCriterion, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Permission.SubCriterion, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.SubCriterion)
-                    @Html.ValidationMessageFor(model => model.SubCriterion, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Permission.SubCriterion)
+                    @Html.ValidationMessageFor(model => model.Permission.SubCriterion, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Indicator, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Permission.Indicator, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Indicator)
-                    @Html.ValidationMessageFor(model => model.Indicator, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Permission.Indicator)
+                    @Html.ValidationMessageFor(model => model.Permission.Indicator, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Permission.RealIndicator, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Permission.RealIndicator)
+                    @Html.ValidationMessageFor(model => model.Permission.RealIndicator, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AddRealIndicator, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Permission.Add, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.AddRealIndicator)
-                    @Html.ValidationMessageFor(model => model.AddRealIndicator, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Permission.Add)
+                    @Html.ValidationMessageFor(model => model.Permission.Add, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UpdateRealIndicator, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Permission.Delete, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.UpdateRealIndicator)
-                    @Html.ValidationMessageFor(model => model.UpdateRealIndicator, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Permission.Delete)
+                    @Html.ValidationMessageFor(model => model.Permission.Delete, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Add, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Permission.Update, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Add)
-                    @Html.ValidationMessageFor(model => model.Add, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Permission.Update)
+                    @Html.ValidationMessageFor(model => model.Permission.Update, "", new {@class = "text-danger"})
                 </div>
             </div>
         </div>
-
+       
         <div class="form-group">
-            @Html.LabelFor(model => model.Delete, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Delete)
-                    @Html.ValidationMessageFor(model => model.Delete, "", new { @class = "text-danger" })
+            @Html.Label("Roles", "Roles", htmlAttributes: new { @class = "control-label col-md-2" })
+            @for (int i = 0; i < Model.Roles.Count; i++)
+            {
+                var role = Model.Roles[i];
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.LabelForModel(role.Name)
+                        @Html.CheckBoxFor(m => m.IsContainedRole[i])
+                    </div>
                 </div>
-            </div>
+            }
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Update, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Update)
-                    @Html.ValidationMessageFor(model => model.Update, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default"/>
             </div>
         </div>
     </div>
