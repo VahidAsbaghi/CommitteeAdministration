@@ -1,0 +1,93 @@
+﻿@using CommitteeAdministration.ViewModels
+@using Microsoft.Ajax.Utilities
+@model CommitteeAdministration.ViewModels.ViewAllViewModel
+@{
+    ViewBag.Title = "ViewAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var allData= new ViewAllViewModel();
+}
+
+<head>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<h2>ViewAll</h2>
+@using (Html.BeginForm())
+{
+
+    <div class="form-horizontal" align="center" dir="rtl">
+        <h4>اطلاعات کامل هر ستاد</h4>
+        <hr/>
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        <div class="form-group" align="center">
+            @Html.LabelFor(model => model.Committees, new {@class = "control-label"})
+            <div align="center">
+                @Html.DropDownListFor(m => m.SelectedCommitteeId, Model.Committees,"Select",new
+           {
+               @id="dropDownCommittee",
+               //@onchange="getAllData1()"
+           })
+                
+            </div>
+        </div>
+        <div id="AllDataDiv">
+           
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function getAllData() {
+            if (@Model != null) {
+
+
+                @*var url = '@Html.Partial("ViewAllTree", Model)';
+                $("#AllDataDiv").load(url);*@
+            }
+        }
+
+        $(document).ready(function() {
+            $('#dropDownCommittee').change(function() {
+                var id = $(this).find(":selected").val();
+                var url = '/CriteriaScInd/ViewAllTree?committeeId=' + id; @*'@Url.Action("ViewAllTree", "CriteriaScInd",new { committeeId=Model.SelectedCommitteeId})';*@
+
+                @*// var url = '@Html.Action("ViewAllTree", Model.SelectedCommitteeId)';*@
+                $("#AllDataDiv").load(url);
+
+
+            });
+        });
+    </script>
+    <script>
+
+        $(document).ready(return_first = function getData() {
+            $('#dropDownCommittee1').change(function() {
+                    var id = $(this).find(":selected").val();
+                    $.ajax({
+                        url: "/CriteriaScInd/AllData",
+                        type: 'GET',
+                        dataType: 'json',
+                        data: { "SelectedCommitteeId": id },
+                        success: function(data) {
+                            OnSuccess(data);
+                        },
+
+                        error: function(xhr) {
+
+                            alert("Something went wrong, please try again");
+
+                        }
+
+                    });
+                }
+            );
+        });
+
+        function OnSuccess(data) {
+            console.log(data);
+            console.log("success");
+        }
+    </script>
+}

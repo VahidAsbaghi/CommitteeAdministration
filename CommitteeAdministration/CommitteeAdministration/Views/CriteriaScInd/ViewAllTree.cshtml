@@ -1,0 +1,154 @@
+﻿@using System.Collections.ObjectModel
+@using System.Threading
+@using WebGrease.Css.Ast.Animation
+@model CommitteeAdministration.ViewModels.ViewAllViewModel
+<head>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="row" align="right" dir="rtl">
+
+        <ul class="criterionUlStyle">
+            @for (int index = 0; index < Model.CriteriaList.Count; index++)
+            {
+                
+                var criterion = Model.CriteriaList[index];
+                var subCriterions = Model.SubCriterionList.Where(subCriterionT => subCriterionT.Criterion.Id == criterion.Id).ToList();
+                <li class="criterionLiStyle">
+                    <div id="@criterion.Id Criterion" style="background-color: ThreeDDarkShadow; width: fit-content; border: ridge; border-radius: 25px; height: fill-available;" align="center" class="innerDivStyle">
+                        <input id="@criterion.Id CriterionInput" type="submit" value="تغییرات" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" formaction="/Criteria/Edit/@criterion.Id" formmethod="Get"/>
+                        <label id="@criterion.Id CriterionLabel" style="width: 5cm; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color: ThreeDDarkShadow; border-radius: 25px" onclick="onClickCriterion(@criterion.Id)">@criterion.Subject</label>
+                    </div>
+                    <div style="margin-right: 5cm">
+                        <ul class="criterionUlStyle" id="@criterion.Id SubCriterionUl" style="display: none;">
+                            @for (int j = 0; j < subCriterions.Count; j++)
+                            {
+                                var subCriterion = subCriterions[j];
+                                var indicators = Model.Indicators.Where(indicatorT => indicatorT.SubCriterion.Id == subCriterion.Id).ToList();
+                                <li class="criterionLiStyle">
+                                    <div id="@subCriterion.Id SubCriterion" style="background-color:cornflowerblue; width: fit-content; border: ridge; border-radius: 25px; height: fill-available;" class="innerDivStyle">
+                                        <input id="@subCriterion.Id SubCriterionInput" type="submit" value="تغییرات" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" formaction="/SubCriterions/Edit/@subCriterion.Id" formmethod="Get" />
+                                        <label id="@subCriterion.Id SubCriterionLabel" style="width: 5cm; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color: cornflowerblue; border-radius: 25px" onclick="onClickSubCriterion(@subCriterion.Id)">@subCriterion.Subject</label>
+                                    </div>
+                                    <div style="margin-right: 5cm">
+                                        <ul class="criterionUlStyle" id="@subCriterion.Id indicatorUl" style="display: none;">
+                                            <li class="criterionLiStyle">
+                                                <div id="@subCriterion.Id addIndicator" style="background-color: black; width: fit-content; border: ridge; border-radius: 25px; height: fill-available;" class="innerDivStyle">
+                                                    <input id="@subCriterion.Id addIndicatorInput" type="submit" value="افزودن شاخص" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" formaction="/Indicators/Add/@indicator.Id" formmethod="Get" />
+                                                    @*<label id="@indicator.Id indicatorLabel" style="width: 5cm; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color: black; border-radius: 25px">@indicator.Subject</label>*@
+                                                </div>
+                                            </li>
+                                            @for (int k = 0; k < indicators.Count; k++)
+                                            {
+                                                var indicator = indicators[k];
+                                                <li class="criterionLiStyle">
+                                                    <div id="@indicator.Id indicator" style="background-color: black; width: fit-content; border: ridge; border-radius: 25px; height: fill-available;" class="innerDivStyle">
+                                                        <input id="@indicator.Id indicatorInput" type="submit" value="تغییرات" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" formaction="/Indicators/Edit/@indicator.Id" formmethod="Get"/>
+                                                        <label id="@indicator.Id indicatorLabel" style="width: 5cm; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color: black; border-radius: 25px">@indicator.Subject</label>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+<script>
+    $(document).ready(function () {
+
+    })
+</script>
+<script>
+    function onClickCriterion(criterionId) {
+        var subCriterionUl = document.getElementById(criterionId + " SubCriterionUl");
+        console.log(subCriterionUl.id);
+        if (subCriterionUl.style.display === 'none') {
+            subCriterionUl.style.display = '';
+        } else {
+            subCriterionUl.style.display = 'none';
+        }
+       // $("#" + criterionId + " SubCriterionUl").attr("hidden","visible");
+        //subCriterionUl.show();
+    };
+    function onClickSubCriterion(subCriterionId) {
+        var indicatorUl = document.getElementById(subCriterionId + " indicatorUl");
+        console.log(indicatorUl.id);
+        if (indicatorUl.style.display === 'none') {
+            indicatorUl.style.display = '';
+        } else {
+            indicatorUl.style.display = 'none';
+        }
+    }
+</script>
+@*<script>
+    $(document).ready(function inp(modelJ) {
+        
+        for (var i = 0; i < @Model.CriteriaList.Count; i++) {
+
+            var criterionId = @Model.CriteriaList[0].id;
+            var criterionSubject = @Model.CriteriaList[i].Subject;
+                var div = html.getElementById("#" + criterionId + " Criterion");
+                div.append("<input id="+criterionId+"' CriterionInput' type='submit' value='تغییرات' style='border-radius: 25px; height: 100%; width: 100%' class='btn btn-default' formaction='FirstPartial' formmethod='Post'/>");
+                div.append("<label id=" + criterionId + "' CriterionLabel' style='width: 2cm; color: white; display: inline-flex; background-color: ThreeDDarkShadow; border-radius: 25px'>" + criterionSubject + "</label>");
+                Sleep(10);
+                //$("#" + criterionId + " Criterion").visibility = "visible";
+                //$("#" + criterionId + " Criterion").reload();
+}
+        });
+    </script>*@
+
+<style type="text/css">
+    .criterionLiStyle {
+        direction: rtl;
+        right: 0;
+    }
+
+    div.innerDivStyle {
+        animation-duration: 5.5s;
+        animation-timing-function: ease-out;
+        animation-iteration-count: 1;
+        animation-fill-mode: both;
+        animation-name: innerDivStyle;
+    }
+
+    @@KeyFrames innerDivStyle {
+        0% {
+            opacity: 0.1;
+        }
+
+        33% {
+            opacity: 0.3;
+        }
+
+        66% {
+            opacity: 0.6;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .criterionUlStyle {
+        direction: rtl;
+        align-content: flex-start;
+        size: auto;
+        list-style-type: none;
+    }
+</style>

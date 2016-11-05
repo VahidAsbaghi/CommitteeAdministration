@@ -1,0 +1,57 @@
+﻿
+@using CommitteeAdministration.ViewModels
+@model CommitteeAdministration.ViewModels.AddCriterionViewModel
+  
+<script src="/Scripts/jquery.validate.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+
+@using (Html.BeginForm("AddCriterion", "CriteriaScInd", FormMethod.Post))
+{
+    
+        @Html.AntiForgeryToken()
+    
+        <div class="form-horizontal" align="center">
+            <div class="myValidationSummaryStyle" align="center" dir="rtl">
+                @Html.ValidationSummary("", new {@class="text-danger",})@*"", new { @align = "center",@style="list-style: square")*@
+            </div>
+            <div class="form-group" align="center">
+                @Html.LabelFor(model => model.Subject, htmlAttributes: new {@class = "control-label"})
+                <div align="center">
+                    @Html.TextBoxFor(m => m.Subject, new {@class = "form-control"})
+                </div>
+            </div>
+
+            <div class="form-group" align="center">
+                @Html.LabelFor(model => model.Coefficient, htmlAttributes: new {@class = "control-label"})
+                <div align="center">
+                    @Html.EditorFor(model => model.Coefficient, new {htmlAttributes = new {@class = "form-control"}})
+                </div>
+            </div>
+
+            <div class="form-group" align="center">
+                @Html.LabelFor(model => model.CommitteeName, new {@class = "control-label"})
+                <div align="center">
+                    @Html.DropDownListFor(m => m.ReturnedCommitteeId, Model.CommitteeName)
+                </div>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <div align="center">
+                <input type="submit" value="ذخیره و افزودن معیار بعدی" class="btn btn-default" formaction="AddNewCriterion" formmethod="post"/>
+                <input type="submit" value="ذخیره و افزودن زیر معیارها" class="btn btn-default" formaction="AddCriterionAndGoAhead" formmethod="post"/>
+            </div>
+        </div>
+    
+}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+<style type="text/css">
+    .validation-summary-errors {
+        list-style-type: none;
+        list-style: none;
+        list-style-position: inherit;
+        
+    }
+</style>

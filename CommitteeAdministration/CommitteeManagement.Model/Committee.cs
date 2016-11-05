@@ -19,6 +19,7 @@ namespace CommitteeManagement.Model
         [Required(ErrorMessage = "لطفا نام ستاد را وارد کنید")]
         public string Name { get; set; }
 
-        public virtual ICollection<User> Users { get; set; } 
+        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Criterion> Criteria { get; set; }
     }
 }

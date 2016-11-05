@@ -89,7 +89,7 @@ namespace CommitteeAdministration
             }
             catch
             {
-
+                
                 manager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             // Configure validation logic for usernames

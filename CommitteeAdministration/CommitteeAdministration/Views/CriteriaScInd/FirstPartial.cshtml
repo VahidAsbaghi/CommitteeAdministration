@@ -1,0 +1,30 @@
+﻿@model CommitteeAdministration.ViewModels.AddCriteriaSubCriterionIndicators
+    
+@using (Html.BeginForm("FirstPartial", "CriteriaScInd", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new {@class = "text-danger"})
+
+    <div class="row" align="center">
+        <div  align="center" style="width: 300px;">
+            <p align="center" >
+                به مراحل ایجاد اولیه معیار، زیر معیار و شاخص خوش آمدید.
+                برای شروع بروی دگمه زیر کلیک نمایید و مراحل را دنبال کنید.
+                لطفا از دگمه بازگشت جستجوگر استفاده ننمایید و در صورتیکه
+                اشتباهی در ورود اطلاعات وجود داشته باشد بعدا میتوانید آنرا اصلاح کنید
+            </p>
+        </div>
+
+        <div class="form-group">
+            <div  align="center">
+                <input type="submit" value="شروع مراحل" class="btn btn-default" formaction="FirstPartial" formmethod="Post"/>
+            </div>
+        </div>
+        @*<div class="form-group" align="center">
+                    <div align="center">
+
+                        <input type="button" id="navigateButton" value="شروع مراحل" class="btn btn-default" onclick="navigatiView();" dir="rtl"/>
+                    </div>
+                </div>*@
+    </div>
+}

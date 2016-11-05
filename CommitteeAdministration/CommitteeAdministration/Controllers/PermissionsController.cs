@@ -160,8 +160,8 @@ namespace CommitteeAdministration.Controllers
                 editPermission.Permission.Roles = containedRoles;
                 var permission = _mainContainer.PermissionRepository.FindById(editPermission.Permission.Id);
                 //Copy the content of permission in edit permission view model into the db instance using mapper
-                Mapper.Initialize(expression => expression.CreateMap<Permission, Permission>());
-                Mapper.Map(editPermission.Permission, permission);
+              Mapper.Initialize(expression => expression.CreateMap<Permission, Permission>());
+              Mapper.Map(editPermission.Permission, permission);
                 permission.Roles = containedRoles;
 
                 _mainContainer.Entry(permission).State = EntityState.Modified;

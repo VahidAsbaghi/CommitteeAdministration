@@ -1,0 +1,48 @@
+﻿@model CommitteeAdministration.ViewModels.IndicatorRealValueViewModel
+<head>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+@using (Html.BeginForm())
+{   
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="row" align="right" dir="rtl">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Criteria)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SubCriterions)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Indicators)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdealValues)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RealValues)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var criterion in Model.Criteria)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => criterion.Subject)
+                    </td>
+                    @foreach (var subCriterion in Model.SubCriterions.Where(subCriterionT => subCriterionT.Criterion.Id == criterion.Id))
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem=>subCriterion.Subject)
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+</div>
+}

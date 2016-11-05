@@ -23,7 +23,7 @@ namespace CommitteeAdministration.Controllers
     public class IndicatorIdealValuesController : Controller
     {
         private readonly IMainContainer _mainContainer = ModelContainer.Instance.Resolve<IMainContainer>();
-
+        private int _indexIdealIndicator = -1;
         // GET: IndicatorIdealValues        
         /// <summary>
         /// list view of all
@@ -31,8 +31,26 @@ namespace CommitteeAdministration.Controllers
         /// <returns></returns>
         public async Task<ActionResult> Index()
         {
-            var indicatorIdealValues = _mainContainer.IndicatorIdealValueRepository.AllIncluding(i => i.Indicator);
-            return View(await indicatorIdealValues.ToListAsync());
+            return await Task.Run(() =>
+            {
+                var indicatorIdealValues =
+                    _mainContainer.IndicatorIdealValueRepository.AllIncluding(i => i.Indicator).ToList();
+                var minTimeSpan = TimeSpan.MaxValue;
+                _indexIdealIndicator = -1;
+                for (var i = 0; i < indicatorIdealValues.Count(); i++)
+                {
+                    var differenceTime = DateTime.Now - indicatorIdealValues[i].Time;
+                    if (!(differenceTime <= minTimeSpan)) continue;
+                    minTimeSpan = differenceTime.Value;
+                    _indexIdealIndicator = i;
+                }
+                var listOfIdeal = new List<IndicatorIdealValue>();
+                if (_indexIdealIndicator != -1)
+                {
+                    listOfIdeal.Add(indicatorIdealValues[_indexIdealIndicator]);
+                }
+                return View(listOfIdeal);
+            });
         }
 
         // GET: IndicatorIdealValues/Details/5        
@@ -43,7 +61,7 @@ namespace CommitteeAdministration.Controllers
         /// <returns></returns>
         public async Task<ActionResult> Details(int? id)
         {
-            if (id == null)
+            if (id == null || id!=_indexIdealIndicator)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -98,11 +116,11 @@ namespace CommitteeAdministration.Controllers
         /// <returns></returns>
         public async Task<ActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (id == null||id!=_indexIdealIndicator)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IndicatorIdealValue indicatorIdealValue = await _mainContainer.IndicatorIdealValueRepository.FirstOrDefaultAsync(idealValueT => idealValueT.Id == id);
+            var indicatorIdealValue = await _mainContainer.IndicatorIdealValueRepository.FirstOrDefaultAsync(idealValueT => idealValueT.Id == id);
             if (indicatorIdealValue == null)
             {
                 return HttpNotFound();
@@ -134,41 +152,6 @@ namespace CommitteeAdministration.Controllers
             return View(indicatorIdealValue);
         }
 
-        // GET: IndicatorIdealValues/Delete/5        
-        /// <summary>
-        /// Deletes the specified identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            IndicatorIdealValue indicatorIdealValue = await _mainContainer.IndicatorIdealValueRepository.FirstOrDefaultAsync(idealValueT => idealValueT.Id == id);
-            if (indicatorIdealValue == null)
-            {
-                return HttpNotFound();
-            }
-            return View(indicatorIdealValue);
-        }
-
-        // POST: IndicatorIdealValues/Delete/5        
-        /// <summary>
-        /// Deletes confirmed.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            var indicatorIdealValue = await _mainContainer.IndicatorIdealValueRepository.FirstOrDefaultAsync(idealValueT => idealValueT.Id == id);
-            _mainContainer.IndicatorIdealValueRepository.Delete(indicatorIdealValue);
-            await _mainContainer.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>

@@ -1,0 +1,53 @@
+﻿
+@model CommitteeAdministration.ViewModels.AddSubCriterionViewModel
+@{
+    var criterion = Model.Criterion;
+}
+<script src="/Scripts/jquery.validate.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+@using (Html.BeginForm("AddSubCriterion", "CriteriaScInd", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-horizontal">
+
+        <div class="form-group" align="center">
+            @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "control-label" })
+            <div align="center">
+                @Html.TextBoxFor(m => m.Subject, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group" align="center">
+            @Html.LabelFor(model => model.Coefficient, htmlAttributes: new { @class = "control-label" })
+            <div align="center">
+                @Html.EditorFor(model => model.Coefficient, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group" align="center">
+            @Html.LabelFor(model => model.Criterion, new { @class = "control-label" })
+            <div align="center">
+                @Html.Label("LabelCommittee", Model.Criterion.Subject)
+                <div hidden="hidden">
+                    @Html.EditorFor(m => m.Criterion, new { htmlAttributes = new { @style = "visibility: hidden" } });
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="form-group">
+        <div align="center">
+            <input type="submit" value="ذخیره و افزودن زیر معیار بعدی" class="btn btn-default"  formaction="AddNewSubCriterion" formmethod="post"/>
+            <input type="submit" value="ذخیره و افزودن شاخص" class="btn btn-default" formaction="AddSubCriterionAndGoAhead" formmethod="post"/>
+        </div>
+    </div>
+    <script>
+        $()
+    </script>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
