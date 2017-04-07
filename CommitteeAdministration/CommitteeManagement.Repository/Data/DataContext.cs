@@ -22,6 +22,7 @@ namespace CommitteeManagement.Repository.Data
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataContext, CommitteeManagement.Repository.Migrations.Configuration>("DefaultConnection3"));
             
         }
+      
         // Example of a table in the form of a data set.  Add your own
         // database/model entities here.
         public DbSet<BogusObject> BogusObjects { get; set; }
@@ -120,7 +121,12 @@ namespace CommitteeManagement.Repository.Data
 
         public DbSet<IndicatorIdealValue> IndicatorIdealValues { get; set; }
 
-        
+	    public DbSet<IndicatorModification> IndicatorModifications { get; set; }
+	    public DbSet<CriterionModification> CriterionModifications { get; set; }
+	    public DbSet<SubCriterionModification> SubCriterionModifications { get; set; }
+	    public DbSet<Visitor> Visitors { get; set; }
+	    public DbSet<Session> Sessions { get; set; }
+	    
         // public System.Data.Entity.DbSet<CommitteeManagement.Model.Password> Passwords { get; set; }
         #endregion
 

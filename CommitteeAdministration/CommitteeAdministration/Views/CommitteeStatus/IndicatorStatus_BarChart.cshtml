@@ -1,0 +1,112 @@
+﻿@using DotNet.Highcharts
+@using Newtonsoft.Json
+@model DotNet.Highcharts.Highcharts
+@*@{
+     string jsonRes = JsonConvert.SerializeObject(Model, Formatting.Indented,
+                           new JsonSerializerSettings
+                           {
+                               ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                           });
+    var a = 0;
+
+}*@
+<head>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/Highcharts/highcharts.js"></script>
+    <script src="~/Scripts/Highcharts/modules/exporting.js"></script>
+</head>
+<body >
+    <div class="form-group">
+        <div id="BarChart">
+            @(Model)
+        </div>
+    </div>
+</body>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+@*<script>
+    function aa() {
+        console.log(111111111111111);
+        console.log(@jsonRes);
+        var modelJson=@jsonRes;
+        var condition = Array();
+        var indicator = Array();
+        var dataArrayFinal = Array();
+        for (var i = 0; i < modelJson.length; i++) {
+            condition[i] = modelJson[i].ConditionPercentage;
+            indicator[i] = modelJson[i].Indicator.Subject;
+        }
+        $("#BarChart").highcharts('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Indicator Status'
+            },
+            subtitle: {
+                text: 'Source'
+            },
+            xAxis: {
+                categories: indicator,
+                // [   'Jan',
+                //    'Feb',
+                //    'Mar',
+                //    'Apr',
+                //    'May',
+                //    'Jun',
+                //    'Jul',
+                //    'Aug',
+                //    'Sep',
+                //    'Oct',
+                //    'Nov',
+                //    'Dec'
+                //],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Rainfall (mm)'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+                {
+                    name: 'Tokyo',
+                    data: condition
+                }
+                //}, {
+                //    name: 'New York',
+                //    data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+
+                //}, {
+                //    name: 'London',
+                //    data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
+
+                //}, {
+                //    name: 'Berlin',
+                //    data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+
+                //}
+            ]
+        });
+    }
+</script>*@

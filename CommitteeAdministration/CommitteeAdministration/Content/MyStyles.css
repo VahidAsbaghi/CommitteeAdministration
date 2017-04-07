@@ -1,4 +1,16 @@
-﻿.myValidationSummaryStyle ul{
+﻿
+
+
+.div_footer_first {
+    color:  blue !important;
+    background-color: blue !important;
+    background: blue !important;
+    enable-background: true !important;
+
+    overflow: auto;
+}
+
+.myValidationSummaryStyle ul{
     list-style-type: none;
     
 }
@@ -6,3 +18,142 @@
 .validation-summary-errors ul{
     list-style-type: none;
 }
+.va-orange-animation {
+        animation-duration: 3s;
+        animation-timing-function: ease-out;
+        animation-iteration-count: 1;
+        animation-fill-mode: both;
+        animation-name: vaOrangeFrames;
+    }
+.va-red-animation {
+        animation-duration: 3s;
+        animation-timing-function: ease-out;
+        animation-iteration-count: 1;
+        animation-fill-mode: both;
+        animation-name: vaRedFrames;
+    }
+.va-blue-animation {
+        animation-duration: 3s;
+        animation-timing-function: ease-out;
+        animation-iteration-count: 1;
+        animation-fill-mode: both;
+        animation-name: vaBlueFrames;
+    }
+.va-yellow-animation {
+        animation-duration: 3s;
+        animation-timing-function: ease-out;
+        animation-iteration-count: 1;
+        animation-fill-mode: both;
+        animation-name: vaYellowFrames;
+    }
+.va-greeen-animation {
+        animation-duration: 3s;
+        animation-timing-function: ease-out;
+        animation-iteration-count: 1;
+        animation-fill-mode: both;
+        animation-name: vaGreenFrames;
+    }
+ @KeyFrames vaOrangeFrames {
+        0% {
+            background-color: #ffffff;
+        }
+
+        33% {
+            background-color: #e5af70;
+        }
+        48% {
+            background-color: #f59030
+        }
+        66% {
+            background-color:#f88050  ;
+        }
+        82% {
+            background-color: #fa7040;
+        }
+        100% {
+            background-color: #ff5030;
+        }}
+        @KeyFrames vaRedFrames {
+        0% {
+            background-color: #ffffff;
+        }
+
+        33% {
+            background-color: #ffaaaa;
+        }
+        48% {
+            background-color: #ff7070
+        }
+        66% {
+            background-color:#ff5050  ;
+        }
+        82% {
+            background-color: #ff3030;
+        }
+        100% {
+            background-color: #ff0000;
+        }
+    }
+        @KeyFrames vaYellowFrames {
+        0% {
+            background-color: #ffffff;
+        }
+
+        33% {
+            background-color: #ffffca;
+        }
+        48% {
+            background-color: #ffffa0
+        }
+        66% {
+            background-color:#ffff60  ;
+        }
+        82% {
+            background-color: #ffff30;
+        }
+        100% {
+            background-color: #ffff00;
+        }
+    }
+        @KeyFrames vaGreenFrames {
+        0% {
+            background-color: #ffffff;
+        }
+
+        33% {
+            background-color: #a1ffaa;
+        }
+        48% {
+            background-color: #50ff90;
+        }
+        66% {
+            background-color:#30ffaa  ;
+        }
+        82% {
+            background-color: #10ffaa;
+        }
+        100% {
+            background-color: #00ffbb;
+        }
+    }
+         @KeyFrames vaBlueFrames {
+        0% {
+            background-color: #ffffff;
+        }
+
+        33% {
+            background-color: #aaaaff;
+        }
+        48% {
+            background-color: #9090ff
+        }
+        66% {
+            background-color:#7575ff  ;
+        }
+        82% {
+            background-color: #5070ff;
+        }
+        100% {
+            background-color: #3366ff;
+        }
+    }

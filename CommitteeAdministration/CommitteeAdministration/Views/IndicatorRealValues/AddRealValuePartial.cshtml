@@ -5,44 +5,274 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 @using (Html.BeginForm())
-{   
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-
-    <div class="row" align="right" dir="rtl">
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Criteria)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SubCriterions)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Indicators)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdealValues)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RealValues)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var criterion in Model.Criteria)
-            {
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new {@class = "text-danger"})
+    <div class="form-horizontal">
+        <div class="form-group">
+            <button type="button" id="changeValues" class="btn btn-default">تغییر مقادیر قبلی</button>
+            <button  type="button" id="addValues" class="btn btn-info">ورود مقادیر جدید</button>
+        </div>
+       
+        <div class="row table-responsive" align="right" dir="rtl">
+            <table class="table table-bordered " id="dataTable">
+                <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => criterion.Subject)
-                    </td>
-                    @foreach (var subCriterion in Model.SubCriterions.Where(subCriterionT => subCriterionT.Criterion.Id == criterion.Id))
-                    {
-                        <td>
-                            @Html.DisplayFor(modelItem=>subCriterion.Subject)
-                        </td>
-                    }
+                    <th class="myTdThClass" rowspan="3">
+                        @Html.DisplayNameFor(model => model.Criteria)
+                    </th>
+                    <th class="myTdThClass" rowspan="3">
+                        @Html.DisplayNameFor(model => model.SubCriterions)
+                    </th>
+                    <th class="myTdThClass" rowspan="3">
+                        @Html.DisplayNameFor(model => model.Indicators)
+                    </th>
+                    <th colspan="6" class="myTdThClass">
+                        @Html.DisplayName("ضریب سنجه ها")
+                    </th>
                 </tr>
-            }
-        </table>
-</div>
+                <tr>
+                    <th class="myTdThClass" rowspan="2">
+                        @Html.DisplayName("وضعیت ایده آل معاونت")
+                    </th>
+                    <th class="myTdThClass" rowspan="2">
+                        @Html.DisplayName("وضعیت (میزان) واقعی")
+                    </th>
+                    <th class="myTdThClass">
+                        @Html.DisplayName("بسیار مطلوب")
+                    </th>
+                    <th class="myTdThClass">
+                        @Html.DisplayName("مطلوب")
+                    </th>
+                    <th class="myTdThClass">
+                        @Html.DisplayName("نا مطلوب")
+                    </th>
+                    <th class="myTdThClass">
+                        @Html.DisplayName("بسیار نا مطلوب")
+                    </th>
+                </tr>
+                <tr>
+                    <th class="myTdThClass">
+                        @Html.DisplayName("بین 85 تا 100 درصد ایده آل")
+                    </th>
+                    <th class="myTdThClass">
+                        @Html.DisplayName("بین 75 تا 85 درصد ایده آل")
+                    </th>
+                    <th class="myTdThClass">
+                        @Html.DisplayName("بین 55 تا 70 درصد ایده آل")
+                    </th>
+                    <th class="myTdThClass">
+                        @Html.DisplayName("زیر 55 درصد ایده آل")
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @{
+                    var stringCriterion = "";
+                    var stringSubCriterion = "";
+                }
+                @for (int i = 0; i < Model.Criteria.Count; i++)
+                {
+                    var criterion = Model.Criteria[i];
+                    var totalNumRow = Model.SubCriterions.Where(subCriterionT => subCriterionT.Criterion.Id == criterion.Id).Sum(subCriterion => Model.Indicators.Count(indicatorT => indicatorT.SubCriterion.Id == subCriterion.Id));
+                    var subCriterions = Model.SubCriterions.Where(subCriterionT => subCriterionT.Criterion.Id == criterion.Id).ToList();
+                    for (int j = 0; j < subCriterions.Count; j++)
+                    {
+                        var subCriterion = subCriterions[j];
+                        var indicators = Model.Indicators.Where(indicatorT => indicatorT.SubCriterion.Id == subCriterion.Id).ToList(); // subCriterions[j].Indicators.ToList();
+
+                        for (int k = 0; k < indicators.Count; k++)
+                        {
+                            var idealValue = Model.IdealValues.FirstOrDefault(idealValueT => idealValueT.Indicator.Id == indicators[k].Id);
+                            var realValue = Model.RealValues.FirstOrDefault(realValueT => realValueT.Indicator.Id == indicators[k].Id);
+                            var indexReal=Model.RealValues.FindIndex(realvalueT => realvalueT == realValue);
+                            <tr>
+                                @if (criterion.Subject != stringCriterion)
+                                {
+                                    <td rowspan="@totalNumRow" style="vertical-align: middle" class="myTdThClass">
+                                        @Html.DisplayFor(modelItem => criterion.Subject)
+                                    </td>
+                                }
+                                else
+                                {
+
+                                    <td hidden="hidden"></td>
+                                }
+                                @if (subCriterion.Subject != stringSubCriterion)
+                                {
+                                    <td rowspan="@indicators.Count" style="vertical-align: middle" class="myTdThClass">
+                                        @Html.DisplayFor(modelItem => subCriterion.Subject)
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td hidden="hidden">
+
+                                    </td>
+                                }
+                                <td style="vertical-align: middle" class="myTdThClass">
+                                    @Html.DisplayFor(modelItem => indicators[k].Subject)
+                                </td>
+                                <td style="vertical-align: middle" class="myTdThClass">
+                                    @Html.DisplayFor(model => idealValue.Value)
+                                </td>
+                                <td style="vertical-align: middle" class="myTdThClass">
+                                  
+                                    @Html.EditorFor(model => model.RealValues[indexReal].Value, new {htmlAttributes = new {@readonly = "readonly", @onchange = "changeRealValue(" + realValue.Id + ")", @id = realValue.Id + " RealValue"}})
+
+                                    @* <input type="text"  readonly="readonly" value="@realValue.Value" id="@realValue.Id RealValue" onchange='changeRealValue(@realValue.Id)'/>*@
+                                    @* @Html.EditorFor(model => model.RealValues[k].Value, new {htmlAttributes = new {@onchange = "changeRealValue()"}})onblur="changeRealValue(@Model.RealValues[k])*@
+                                    @*model.RealValues.FirstOrDefault(realT=>realT.Id==realValue.Id))*@
+                                </td>
+                                <td style="vertical-align: middle" class="myTdThClass"></td>
+                                <td style="vertical-align: middle" class="myTdThClass"></td>
+                                <td style="vertical-align: middle" class="myTdThClass"></td>
+                                <td style="vertical-align: middle" class="myTdThClass"></td>
+                            </tr>
+                            stringCriterion = criterion.Subject;
+                            stringSubCriterion = subCriterion.Subject;
+                        }
+                    }
+                }
+                </tbody>
+            </table>
+            
+        </div>
+        <div class="form-group">
+            <div align="center">
+                <input type="submit" value="ذخیره" class="btn btn-default" formmethod="Post" formaction="SaveRealValues"/>
+            </div>
+        </div>
+    </div>
 }
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+
+        }
+<script>
+    $("#changeValues").click(function() {
+        var realValueInputs = $("input[id$='RealValue'");
+        //console.log(realValueInputs);
+        realValueInputs.each(function() {
+            this.removeAttribute("readonly");
+        });
+    });
+    $("#addValues").click(function() {
+        var realValueInputs = $("input[id$='RealValue'");
+        //console.log(realValueInputs);
+        realValueInputs.each(function () {
+            this.removeAttribute("readonly");
+            this.value = "";
+        });
+    });
+</script>
+<script>
+    function changeRealValue(realValueId) {
+        var inputRealValue = document.getElementById(realValueId + " RealValue");
+        $.ajax({
+            url: "/IndicatorRealValues/ReturnCommitteeCondition",
+            type: 'GET',
+            async:false,
+            dataType: 'json',
+            data: {
+                id: realValueId, realValue: inputRealValue.value},
+            success: function (data1) {
+                console.log(data1);
+                var idRealValue = data1['RealValueId'];
+                console.log(idRealValue);
+                var condition = data1['Condition'];
+                console.log(condition);
+                var table = document.getElementById("dataTable");
+                var row = idRealValue + 3;// table.rows[idRealValue+3];
+                var cell1=0;
+                switch (condition) {
+                case 0:
+                    cell1 = 5;// row.cells[4];
+                    break;
+                case 1:
+                    cell1 = 6;//row.cells[5];
+                    break;
+                case 2:
+                    cell1 = 7;// row.cells[6];
+                    break;
+                case 3:
+                    cell1 = 8;//row.cells[7];
+                    break;
+                default:
+                    break;
+                }
+                for (var i = 5; i < 9; i++) {
+                    $("#dataTable tr:eq(" + row + ") td:eq(" + i + ")").removeClass();
+                    $("#dataTable tr:eq(" + row + ") td:eq(" + i + ")").css('background-color','white');
+                }
+                console.log(row);
+                
+                if (cell1 !== 0) {
+                    if (cell1===5) {
+                        $("#dataTable tr:eq(" + row + ") td:eq(" + cell1 + ")").addClass("va-greeen-animation");
+                        console.log(cell1);
+                    }
+                    else if (cell1===6) {
+                        $("#dataTable tr:eq(" + row + ") td:eq(" + cell1 + ")").addClass("va-yellow-animation");
+                    }
+                    else if (cell1===7) {
+                        $("#dataTable tr:eq(" + row + ") td:eq(" + cell1 + ")").addClass("va-orange-animation");
+                    }
+                    else if (cell1===8) {
+                        $("#dataTable tr:eq(" + row + ") td:eq(" + cell1 + ")").addClass("va-red-animation");
+                    }
+                   
+                }
+            
+            },
+
+            error: function (xhr) {
+
+                alert("Something went wrong, please try again");
+
+            }
+
+        });
+    }
+</script>
+        <script>
+            $('#SubCriterionTable tr:first-child td').css('border', 'none');
+            $('#IndicatorOuterTable tr:first-child td').css('border', 'none');
+            $('#IndicatorInnerTable tr:first-child td').css('border', 'none');
+        </script>
+        <script>
+            
+            $('#Form2').submit(function (event) {
+                    event.preventDefault();
+                    $.ajax({
+                        url: "/IndicatorRealValues/ReturnCommitteeCondition",
+                        type: 'GET',
+                        dataType: 'json',
+                        data: $(this).serialize(),//{ "indicatorRealValueModel": form.val },
+                        success: function (data1) {
+                            OnSuccess(data1);
+                        },
+
+                        error: function (xhr) {
+
+                            alert("Something went wrong, please try again");
+
+                        }
+
+                    });
+                }
+            );
+
+
+            function OnSuccess(data) {
+                console.log(data);
+                console.log("success");
+            }
+        </script>
+        <style type="text/css">
+            .myTdThClass {
+                vertical-align: middle;
+                text-align: center;
+            }
+        </style>

@@ -61,6 +61,8 @@ namespace CommitteeAdministration.ViewModels
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        public RealValueAlarmViewModel RealValueAlarmViewModel { get; set; }
     }
 
     public class RegisterViewModel

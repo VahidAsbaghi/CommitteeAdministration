@@ -92,5 +92,6 @@ namespace CommitteeAdministration.ViewModels
         public List<Indicator> Indicators { get; set; }
         public List<IndicatorIdealValue> IdealValues { get; set; }
         public List<IndicatorRealValue> RealValues { get; set; }
+       
     }
 }

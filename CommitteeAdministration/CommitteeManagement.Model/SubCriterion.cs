@@ -23,6 +23,9 @@ namespace CommitteeManagement.Model
         public virtual ICollection<SubCriterionModification> SubCriterionModifications { get; set; }
         [ForeignKey("CriterionId")]
         public virtual Criterion Criterion{ get; set; }
+        public int? CommitteeId { get; set; }
+        [ForeignKey("CommitteeId")]
+        public virtual Committee Committee { get; set; }
         public virtual ICollection<Indicator> Indicators { get; set; }
         public virtual ICollection<Permission> Permissions{ get; set; }
     }

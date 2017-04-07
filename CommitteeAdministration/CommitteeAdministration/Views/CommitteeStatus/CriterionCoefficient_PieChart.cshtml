@@ -1,0 +1,129 @@
+﻿@model CommitteeAdministration.ViewModels.ConditionViewModels.CriteriaCoefficientViewModel
+@using System.Web.Helpers
+@using Newtonsoft.Json
+
+    @{
+        var pieChart = new Chart(500, 500)
+            .AddTitle("Sales Per Employee")
+            .AddSeries("Default", chartType: "Pie",
+                xValue: new List<int> { 1, 2, 3 }, xField: "Name",
+                yValues: new List<double> { 25, 55, 20 }, yFields: "Sales")
+            ;
+        var pieChart1= new Chart(600, 400, ChartTheme.Blue)
+                .AddTitle("Number of website readers")
+                .AddLegend()
+                .AddSeries(
+                    name: "WebSite",
+                    chartType: "Pie",
+                    xValue: new[] { "Digg", "DZone", "DotNetKicks", "StumbleUpon" },
+                    yValues: new[] { "150000", "180000", "120000", "250000" });
+    }
+
+<head>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/Highcharts/highcharts.js"></script>
+    <script src="~/Scripts/Highcharts/modules/exporting.js"></script>
+</head>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new {@class = "text-danger"})
+    <div class="form-horizontal">
+        <div id="PieChart">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @{ string jsonRes = JsonConvert.SerializeObject(Model, Formatting.Indented,
+                   new JsonSerializerSettings
+                   {
+                       ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                   }); }
+            <button type="button" class="btn btn-default" onclick="pieChartFunction(@jsonRes)">pieChartcc</button>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+<script>
+    function pieChartFunction(param) {
+        
+        var listOfCriteria = param.Criteria;
+        var name = Array();
+        var data = Array();
+        var dataArrayFinal = Array();
+        for (var i = 0; i < listOfCriteria.length; i++) {
+            name[i] = listOfCriteria[i].Subject;
+            data[i] = listOfCriteria[i].Coefficient;
+        }
+
+        for (var j = 0; j < name.length; j++) {
+            var temp = new Array(name[j], data[j]);
+            dataArrayFinal[j] = temp;
+        }
+        console.log(listOfCriteria);
+        console.log(param);
+        
+        $("#PieChart").highcharts({
+            chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'درصد اهمیت هر یک از معیارها'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: dataArrayFinal
+            //data: [{
+            //    name: 'Microsoft Internet Explorer',
+            //    y: 56.33
+            //}, {
+            //    name: 'Chrome',
+            //    y: 24.03,
+            //    sliced: true,
+            //    selected: true
+            //}, {
+            //    name: 'Firefox',
+            //    y: 10.38
+            //}, {
+            //    name: 'Safari',
+            //    y: 4.77
+            //}, {
+            //    name: 'Opera',
+            //    y: 0.91
+            //}, {
+            //    name: 'Proprietary or Undetectable',
+            //    y: 0.2
+            //}]
+        }]
+        });
+
+       
+    }
+
+</script>

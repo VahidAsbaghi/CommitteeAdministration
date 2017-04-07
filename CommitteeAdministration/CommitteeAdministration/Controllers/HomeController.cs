@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
+using CommitteeAdministration.ViewModels;
+using Newtonsoft.Json;
 
 namespace CommitteeAdministration.Controllers
 {
@@ -12,9 +16,15 @@ namespace CommitteeAdministration.Controllers
     /// <seealso cref="System.Web.Mvc.Controller" />
     public class HomeController : Controller
     {
+        
         public ActionResult Index()
         {
-            return View();
+            FirstPageViewModel model = new FirstPageViewModel();
+            var currentDirectory = HostingEnvironment.ApplicationPhysicalPath;
+            var newsString = System.IO.File.ReadAllText(currentDirectory + @"Resources/Links/FirstPage/News.json");
+            var jsonModel = JsonConvert.DeserializeObject<List<News>>(newsString);
+            model.News = jsonModel;
+            return View(model);
         }
 
         public ActionResult About()

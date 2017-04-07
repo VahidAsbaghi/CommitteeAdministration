@@ -1,0 +1,8 @@
+﻿@{
+    var pieChart = new Chart(500, 500)
+        .AddTitle("Sales Per Employee")
+        .AddSeries("Default", chartType: "Pie",
+            xValue: new List<int> {1, 2, 3}, xField: "Name",
+            yValues: new List<double> {25, 55, 20}, yFields: "Sales")
+        .Write();
+}

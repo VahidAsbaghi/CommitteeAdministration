@@ -1,4 +1,5 @@
 ﻿using CommitteeAdministration.Controllers;
+using CommitteeAdministration.Services;
 using CommitteeManagement.Model;
 using CommitteeManagement.Repository;
 using CommitteeManagement.Repository.Data;
@@ -47,6 +48,10 @@ namespace CommitteeAdministration.Helper
                 _Instance.RegisterType<ProfileController>(new InjectionConstructor());
                 _Instance.RegisterType<RolesController>(new InjectionConstructor());
                 _Instance.RegisterType<SubCriterionsController>(new InjectionConstructor());
+                _Instance.RegisterType<CommitteeStatusController>(new InjectionConstructor());
+                _Instance.RegisterType<ICommitteeStatus,CommitteeStatus>(new HierarchicalLifetimeManager());
+                _Instance.RegisterType<IRealValueAlarm, RealValueAlarm>(new HierarchicalLifetimeManager());
+                _Instance.RegisterType<IChartDrawer, ChartDrawer>(new HierarchicalLifetimeManager());
                 return _Instance;
             }
         }

@@ -11,7 +11,7 @@ namespace CommitteeManagement.Repository.Data
         {
             _dataContext = dataContext;
         }
-
+        
         public int SaveChanges()
         {
             return _dataContext.SaveChanges();

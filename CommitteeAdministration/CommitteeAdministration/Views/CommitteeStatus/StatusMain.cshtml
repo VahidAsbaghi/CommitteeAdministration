@@ -1,0 +1,116 @@
+﻿@model CommitteeAdministration.ViewModels.ConditionViewModels.MainViewModel
+@{
+    ViewBag.Title = "StatusMain";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>StatusMain</h2>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Create</title>
+</head>
+<body>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Committee</h4>
+        <hr/>
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        <div class="form-group">
+            <div class="form-group" align="center">
+                @Html.LabelFor(model => model.Committees, new {@class = "control-label"})
+                <div align="center">
+                    @Html.DropDownListFor(m => m.SelectedCommitteeId, Model.Committees, "Select", new
+                    {
+                        @id = "dropDownCommittee",
+                    })
+
+                </div>
+            </div>
+            
+        </div>
+        <div class="container">
+            <div id="CriterionCoefficientPie" style="min-height: 10px">
+
+            </div>
+
+            <div id="IndicatorStatusBar" style="min-height: 200px">
+
+            </div>
+            <div id="subCriterionStatusColumn" style="min-height: 200px">
+
+            </div>
+            <div id="CriterionStatusColumn" style="min-height: 200px">
+
+            </div>
+            <div id="IndicatorRateLine" style="min-height: 200px">
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="button" class="btn btn-default" onclick="CriterionFunction()">CriterionCoefficient</button>
+            </div>
+        </div>
+    </div>
+    
+}
+
+    
+</body>
+</html>
+<script>
+    function CriterionFunction() {
+        var id = $("#dropDownCommittee").find(":selected").val();
+        //console.log(id);
+        //var url = '/CommitteeStatus/CriterionCoefficientsJ?returnCommitteeId=' + id;
+        //$("#CriterionCoefficientPie").load(url);
+        function aa(){
+        var url = '/CommitteeStatus/MainCriterionCoefficient_PieChart';
+        $("#CriterionCoefficientPie").load(url);
+            
+      
+        }
+
+        function bb() {
+            var indicatorId = 1;
+            var indicatorRateUrl = '/CommitteeStatus/GetIndicatorRateChart?indicatorId=' + indicatorId + '&numberOfPoints=10';
+            $("#IndicatorRateLine").load(indicatorRateUrl);
+        };
+        //function cc() { var a=0;}
+        //aa().delay(100);
+        setTimeout(function () {
+            aa();
+        }, 5000);
+        //console.log($("#CriterionCoefficientPie").height());
+        //if ($("#CriterionCoefficientPie").height()<=11) {
+        //    console.log($("#CriterionCoefficientPie").height());
+        //    //setTimeout(cc(), 1000);
+        //    setTimeout(function () {
+        //        cc();
+        //    }, 5000);
+        //}
+        bb();
+
+        //var criterionId = 1;
+        //var urlSubCriterion = '/CommitteeStatus/SubCriterionStatus?criterionId=' + criterionId;
+        //$("#subCriterionStatusColumn").load(urlSubCriterion);
+
+
+        //var urlCriterion = '/CommitteeStatus/CriterionStatus?committeeId=' + id;
+        // $("#CriterionStatusColumn").load(urlCriterion);
+
+
+        // $("ImgCriterionCoefficientPie").attr("src", url);
+    }
+</script>

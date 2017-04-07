@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using CommitteeAdministration.Helper;
+using CommitteeAdministration.Services;
 using CommitteeAdministration.ViewModels;
 using CommitteeManagement.Model;
 using CommitteeManagement.Repository;
@@ -25,6 +26,7 @@ namespace CommitteeAdministration.Controllers
     public class AccountController : Controller
     {
         private readonly IMainContainer _mainContainer= ModelContainer.Instance.Resolve<IMainContainer>();
+        private readonly IRealValueAlarm _realValueAlarm = ModelContainer.Instance.Resolve<IRealValueAlarm>();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -90,6 +92,9 @@ namespace CommitteeAdministration.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    //var alarmViewModel =
+                    //    _realValueAlarm.AlarmUsers(
+                    //        _mainContainer.UserRepository.FirstOrDefault(userT => userT.Email == model.Email));
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

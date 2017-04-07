@@ -39,9 +39,9 @@
                                     <div style="margin-right: 5cm">
                                         <ul class="criterionUlStyle" id="@subCriterion.Id indicatorUl" style="display: none;">
                                             <li class="criterionLiStyle">
-                                                <div id="@subCriterion.Id addIndicator" style="background-color: black; width: fit-content; border: ridge; border-radius: 25px; height: fill-available;" class="innerDivStyle">
-                                                    <input id="@subCriterion.Id addIndicatorInput" type="submit" value="افزودن شاخص" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" formaction="/Indicators/Add/@indicator.Id" formmethod="Get" />
-                                                    @*<label id="@indicator.Id indicatorLabel" style="width: 5cm; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color: black; border-radius: 25px">@indicator.Subject</label>*@
+                                                <div id="addIndicator" style="background-color: black; width: fit-content; border: ridge; border-radius: 25px; height: fill-available;" class="innerDivStyle">
+                                                    <input id="addIndicatorInput" type="submit" value="افزودن شاخص" style="border-radius: 25px; height: 100%; width:100%" class="btn btn-default" formaction="/Indicators/Create" formmethod="Get" />
+                                                    <label id="addIndicatorLabel" style="width: 4.6cm;  margin-right: 0.2cm; margin-left: 0.2cm;color: white; display: inline-flex; background-color: black; border-radius: 25px"></label>
                                                 </div>
                                             </li>
                                             @for (int k = 0; k < indicators.Count; k++)

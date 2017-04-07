@@ -14,5 +14,6 @@ namespace CommitteeManagement.Repository.Data
         Task<int> SaveChangesAsync();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 		void Rollback();
+      
     }
 }

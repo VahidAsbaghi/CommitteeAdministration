@@ -85,6 +85,7 @@ namespace CommitteeAdministration
             try
             {
                  manager = new ApplicationUserManager(new UserStore<User>((DataContext)ModelContainer.Instance.Resolve<IDataContext>()));
+                
 
             }
             catch
