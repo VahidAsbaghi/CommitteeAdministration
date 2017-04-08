@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace CommitteeManagement.Model
+namespace WebApplication1.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
@@ -79,9 +79,6 @@ namespace CommitteeManagement.Model
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-        [Required]
-        [Display(Name = "نام ستاد")]
-        public ICollection<Committee> CommitteeName { get; set; }
     }
 
     public class ResetPasswordViewModel
