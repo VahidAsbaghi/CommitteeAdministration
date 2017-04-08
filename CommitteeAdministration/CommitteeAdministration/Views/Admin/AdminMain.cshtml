@@ -1,0 +1,71 @@
+﻿@using WebGrease.Css.Ast.MediaQuery
+@model CommitteeAdministration.ViewModels.ConditionViewModels.MainViewModel
+@{
+    ViewBag.Title = "AdminMain";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <section>
+        <div class="form-group" align="center">
+            @Html.LabelFor(model => model.Committees, new { @class = "control-label" })
+            <div align="center">
+                @Html.DropDownListFor(m => m.SelectedCommitteeId, Model.Committees, "Select", new
+       {
+           @id = "dropDownCommittee",
+       })
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-3 col-xs-1">
+                <div id="AllIndicatorsStatus">
+
+                </div>
+                <div id="ListUsers">
+
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-3 col-xs-1">
+                <div id="PersianCalender">
+
+                </div>
+                <div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@
+
+<script>
+    $(document).ready(function() {
+        $('#dropDownCommittee').change(function () {
+            var id = $(this).find(":selected").val();
+            var url = '/Admin/ShowIndicatorsStatus?committeeId=' + id;
+
+            $("#AllIndicatorsStatus").load(url);
+            //var obj=new AMIB.
+            //var objCal1 = new AMIB.persianCalendar('pcal1');
+            //objCal1.createDateTable();
+            //objCal1.keyDownHandler();
+            //objCal1.showYearPicker('pcal1');
+           // $("#PersianCalender").datepicker();
+            //objCal1.showHidePicker();
+            //$('#pcal1_pDatePicker').show();
+            // objCal1.input();
+            //objCal1.oldDocumentOnClick(true);
+            // $("#PersianCalender").addElement(objCal1);
+            /// var urlCalendar = '/Admin/GetPersianCalender';
+
+            //$("#PersianCalender").load(urlCalendar);
+
+        });
+    })
+
+</script>

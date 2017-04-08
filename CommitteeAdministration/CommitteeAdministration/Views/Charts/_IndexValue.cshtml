@@ -1,0 +1,194 @@
+﻿@using CommitteeAdministration.Controllers
+@model CommitteeAdministration.Controllers.DrawChartSelectValues
+<head>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="~/Content/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="~/Content/MdBootstrapPersianDateTimePicker/jquery.Bootstrap-PersianDateTimePicker.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-select.css"/>
+
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/Highcharts/highcharts.js"></script>
+    <script src="~/Scripts/Highcharts/modules/exporting.js"></script>
+    <script src="~/Scripts/bootstrap-select.js"></script>
+</head>
+<body>
+    @{
+
+        if (Model.Indicators.Any())
+        {
+
+            if (Model.IndicatorChart == IndicatorChart.RealValuesChangesByTimeColumn)
+            {
+                <div align="right">
+                    @Html.DropDownList("dropDownIndicator", @Model.Indicators, "یک شاخص را انتخاب کنید", new
+                    {
+                        @id = "dropDownIndicator"
+                    })
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon" data-mddatetimepicker="true" data-trigger="click" data-targetselector="#fromDate1" data-groupid="group1" data-fromdate="true" data-enabletimepicker="false" data-placement="left">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </div>
+                        <input type="text" class="form-control" id="fromDate1" placeholder="از تاریخ" data-targetselector="#fromDate1" data-groupid="group1" data-fromdate="true" data-enabletimepicker="false" data-placement="right"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon" data-mddatetimepicker="true" data-trigger="click" data-targetselector="#toDate1" data-groupid="group1" data-todate="true" data-enabletimepicker="false" data-placement="left">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </div>
+                        <input type="text" class="form-control" id="toDate1" placeholder="تا تاریخ" data-targetselector="#toDate1" data-groupid="group1" data-todate="true" data-enabletimepicker="false" data-placement="right"/>
+                    </div>
+                </div>
+                <div align="center" class="button active-button">
+
+                    <input type="button" id="DrawChartButton1" onclick="DrawChart($(document.getElementById('fromDate1')).val(), $(document.getElementById('toDate1')).val(), $(document.getElementById('dropDownIndicator')).find(':selected').val(), 'Indicator', '@Model.IndicatorChart', 1)" value="رسم نمودار" style="width: 70px"/>
+                </div>
+            }
+            else if (Model.IndicatorChart == IndicatorChart.RealValuesChangesByMultipleTimesColumn)
+            {
+
+                <div align="right">
+                    @Html.DropDownList("dropDownIndicator", @Model.Indicators, "یک شاخص را انتخاب کنید", new
+                    {
+                        @id = "dropDownIndicator"
+                    })
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon" data-mddatetimepicker="true" data-trigger="click" data-targetselector="#fromDate1" data-groupid="group1" data-fromdate="true" data-enabletimepicker="false" data-placement="left">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </div>
+                        <input type="text" class="form-control" id="fromDate1" placeholder="از تاریخ" data-targetselector="#fromDate1" data-groupid="group1" data-fromdate="true" data-enabletimepicker="false" data-placement="right"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon" data-mddatetimepicker="true" data-trigger="click" data-targetselector="#toDate1" data-groupid="group1" data-todate="true" data-enabletimepicker="false" data-placement="left">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </div>
+                        <input type="text" class="form-control" id="toDate1" placeholder="تا تاریخ" data-targetselector="#toDate1" data-groupid="group1" data-todate="true" data-enabletimepicker="false" data-placement="right"/>
+                    </div>
+                </div>
+                <div align="center" class="button active-button">
+                    <input type="button" id="DrawChartButton1" onclick="DrawChart($(document.getElementById('fromDate1')).val(), $(document.getElementById('toDate1')).val(), $(document.getElementById('dropDownIndicator')).find(':selected').val(), 'Indicator', '@Model.IndicatorChart', 1)" value="رسم نمودار" style="width: 70px"/>
+                </div>
+                <div align="center" class="button active-button">
+                    <input type="button" id="DrawChartButton1" onclick="DrawChart($(document.getElementById('fromDate1')).val(), $(document.getElementById('toDate1')).val(), $(document.getElementById('dropDownIndicator')).find(':selected').val(), 'Indicator', '@Model.IndicatorChart', 0)" value="انتخاب بازه زمانی بعدی" style="width: auto"/>
+                </div>
+                @*<select id="maxOption2" class="selectpicker show-menu-arrow form-control" multiple="" data-max-options="2" tabindex="-98">
+                    <option>chicken</option>
+                    <option>turkey</option>
+                    <option disabled="">duck</option>
+                    <option>goose</option>
+                </select>*@
+
+            }
+        }
+        else if (Model.SubCriteions.Any())
+        {
+            if (Model.SubCriterionChart == SubCriterionChart.ChangesByTimeColumn)
+            {
+                <div align="right">
+                    @Html.DropDownList("dropDownSubCriterion", @Model.SubCriteions, "یک زیرمعیار را انتخاب کنید", new
+                    {
+                        @id = "dropDownSubCriterion"
+                    })
+
+
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon" data-mddatetimepicker="true" data-trigger="click" data-targetselector="#fromDate1" data-groupid="group1" data-fromdate="true" data-enabletimepicker="false" data-placement="left">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </div>
+                        <input type="text" class="form-control" id="fromDate1" placeholder="از تاریخ" data-targetselector="#fromDate1" data-groupid="group1" data-fromdate="true" data-enabletimepicker="false" data-placement="right" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon" data-mddatetimepicker="true" data-trigger="click" data-targetselector="#toDate1" data-groupid="group1" data-todate="true" data-enabletimepicker="false" data-placement="left">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </div>
+                        <input type="text" class="form-control" id="toDate1" placeholder="تا تاریخ" data-targetselector="#toDate1" data-groupid="group1" data-todate="true" data-enabletimepicker="false" data-placement="right"/>
+                    </div>
+                </div>
+                <div align="center" class="button active-button">
+
+                    <input type="button" id="DrawChartButton1" onclick="DrawChart($(document.getElementById('fromDate1')).val(), $(document.getElementById('toDate1')).val(), $(document.getElementById('dropDownSubCriterion')).find(':selected').val(), 'SubCriteron', '@Model.SubCriterionChart', 1)" value="رسم نمودار" style="width: 70px" />
+                </div>
+            }
+
+        }
+        else
+        {
+            <div align="right">
+                @Html.DropDownList("dropDownCriterion", @Model.Criteria, "یک معیار را انتخاب کنید", new
+                {
+                    @id = "dropDownCretrion"
+                })
+            </div>
+        }
+
+    }
+
+
+   
+    <script src="~/Scripts/MdBootstrapPersianDateTimePicker/jalaali.js" type="text/javascript"></script>
+    <script src="~/Scripts/MdBootstrapPersianDateTimePicker/jquery.Bootstrap-PersianDateTimePicker.js" type="text/javascript"></script>
+</body>
+<script>
+    function onSelectValues() {
+        var committeeDropDown = document.getElementById("dropDownCommittee");
+        var indicNameDropDown = document.getElementById("indicDropDown");
+        var committeeId = $(committeeDropDown).find(":selected").val();
+        var indicName = $(indicNameDropDown).find(":selected").val();
+        var url = '/Charts/IndexType?committeeId=' + committeeId + '&selectedIndic=' +indicName;
+        $("#ComparisonTypeDiv").load(url);
+
+    };
+
+   
+        var fromDates=[];
+        var toDates=[];
+        var indics=[];
+        var chartName;
+        var indicType;
+        var datesCounter=0;
+        var indicCounter = 0;
+        //fromDate: String
+        //toDate: String
+        //indic: int
+        //type: string: Indicator,Criterion,SubCriterion
+        //chart:string
+        //draw: bool
+        function DrawChart(fromDate, toDate,indic,type,chart,draw) {
+            fromDates[datesCounter] = fromDate;
+            toDates[datesCounter] = toDate;
+            indicType = type;
+            chartName = chart;
+            $(document.getElementById('fromDate1')).val("");
+            $(document.getElementById('toDate1')).val("");
+            if (draw === 0) {
+                datesCounter++;
+                indicCounter++;
+                
+            } else {
+                indics[0] = indic;
+                var url = '/Charts/DrawFirstChart?fromDates=' + fromDates + '&toDates=' + toDates + '&indics=' + indics + '&type=' + indicType + '&chartType=' + chartName + '&draw=' + draw;
+                $("#ChartContainer").load(url);
+                fromDates = [];
+                toDates = [];
+                datesCounter = 0;
+                indicCounter = 0;
+            }
+            
+        }
+    
+    
+    
+</script>

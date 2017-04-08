@@ -1,0 +1,112 @@
+﻿@using CommitteeAdministration.Controllers
+@model  CommitteeAdministration.Controllers.DrawChartViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<br />
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="~/Content/bootstrap-theme.min.css" />
+ @*   <link rel="stylesheet" href="~/Content/MdBootstrapPersianDateTimePicker/jquery.Bootstrap-PersianDateTimePicker.css" />*@
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-select.css"/>
+    
+   
+
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/Highcharts/highcharts.js"></script>
+    <script src="~/Scripts/Highcharts/modules/exporting.js"></script>
+    <script src="~/Scripts/bootstrap-select.js"></script>
+    
+    
+    <title>Index</title>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row ">
+
+            @if (Model.Step == DrawChartViewStep.SelectType)
+            {
+                <div id="ComparisonType" class="col-xs-4 col-lg-4 col-md-4 col-sm-4" style="border-right: black">
+                    <div align="center">
+                        <div>
+                            <label>ستاد را برای مقایسه انتخاب کنید </label>
+                        </div>
+                        <div>
+                            @Html.DropDownListFor(m => m.SelectedCommitteeId, Model.Committees, "انتخاب ستاد", new
+                            {
+                                @id = "dropDownCommittee"
+                            })
+                        </div>
+
+                    </div>
+                    <div align="center">
+                        <div>
+                            <label>شاخصه ی مورد نظر را برای مقایسه انتخاب کنید</label>
+                        </div>
+                        <div>
+                            @Html.DropDownList("SelectComparisonGoal", new List<SelectListItem>()
+                            {
+                                new SelectListItem() {Text = "معیار", Value = "Criterion"},
+                                new SelectListItem() {Text = "زیر معیار", Value = "SubCriterion"}, new SelectListItem() {Text = "شاخص", Value = "Indicator"}
+                            }, new {@id = "indicDropDown"})
+                        </div>
+                    </div>
+                    <div style="height: 10px">
+
+                    </div>
+                    <div align="center" class="button active-button">
+                        <input type="button" id="comparisonTypeSubmitter" onclick="onSelectComparisonType()" value="ادامه" style="width: 70px"/>
+                    </div>
+                </div>
+            }
+            <div id="ComparisonTypeDiv" class="col-xs-4 col-lg-4 col-md-4 col-sm-4" style="border-right: black">
+
+            </div>
+            <div id="ComparisonValueDiv" class="col-xs-4 col-lg-4 col-md-4 col-sm-4" style="border-right: black">
+
+            </div>
+
+
+
+        </div>
+        <div id="ChartContainer">
+            
+        </div>
+    </div>
+<div>
+
+</div>
+   @* <script src="~/Scripts/MdBootstrapPersianDateTimePicker/jalaali.js" type="text/javascript"></script>*@
+   @* <script src="~/Scripts/MdBootstrapPersianDateTimePicker/jquery.Bootstrap-PersianDateTimePicker.js" type="text/javascript"></script>*@
+</body>
+</html>
+
+<script>
+    //$(document).ready(function () {
+    //    $('#dropDownIndicator').change(function () {
+    //        var id = $(this).find(":selected").val();
+    //        var url = '/Charts/DrawIndicatorTimeColumnChart?fromDate=' + id + '&toDate=';
+    //        $("#AllDataDiv").load(url);
+    //    });
+    //});
+    function onSelectComparisonType() {
+        var committeeDropDown = document.getElementById("dropDownCommittee");
+        var indicNameDropDown = document.getElementById("indicDropDown");
+        var committeeId = $(committeeDropDown).find(":selected").val();
+        var indicName = $(indicNameDropDown).find(":selected").val();
+        var url = '/Charts/IndexType?committeeId=' + committeeId + '&selectedIndic=' + indicName;
+        $("#ComparisonTypeDiv").load(url);
+
+    };
+</script>

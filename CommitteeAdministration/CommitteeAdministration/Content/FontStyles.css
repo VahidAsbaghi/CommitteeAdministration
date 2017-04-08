@@ -1,0 +1,27 @@
+﻿@font-face {
+    font-family: "MyNazFont";
+    src:  url("/Resources/Fonts/BNAZANIN_0.ttf") format("truetype");
+}
+a.Nazfont { 
+    font-family: "MyNazFont";
+}
+
+.setFontName {
+    font-family: "MyNazFont";
+}
+.SiteHeaderFontStyle {
+    font-family: "MyNazFont";
+    color:  #fff;  
+    font-size: 20px;
+}
+.NewsFontStyle {
+    font-family: "MyNazFont";
+    color: white;  
+    font-size: 20px;
+}
+
+.InfoFirstFontStyle {
+    font-family: "MyNazFont";
+    color: white;  
+    font-size: 25px;
+}

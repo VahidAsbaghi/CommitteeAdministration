@@ -1,0 +1,66 @@
+﻿
+@using CommitteeAdministration.ViewModels
+@model CommitteeAdministration.ViewModels.AddCriteriaSubCriterionIndicators
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+   
+    <div class="form-horizontal" align="center" dir="rtl">
+        <h4>مراحل ایجاد معیار، زیر معیار و شاخص برای هر ستاد</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+     
+        <div id="NewCriterion" align="center" >
+            @if (Model == null || Model.NavigationViewName == NavigationViewName.None ||Model.NavigationViewName==NavigationViewName.FirstPartial)
+            {
+                @Html.Partial("FirstPartial");
+            }
+            else if(Model.NavigationViewName==NavigationViewName.AddCriterion)
+            {
+                @Html.Action("AddCriterion");
+               // Html.RenderAction("AddCriterion");
+                //@Url.Action("AddCriterion");
+                //@Html.Partial("AddCriterion",new AddCriterionViewModel() {});
+            }
+            else if (Model.NavigationViewName == NavigationViewName.AddSubCriterion)
+            {
+                @Html.Partial("AddSubCriterion",new AddSubCriterionViewModel() {Criterion = Model.Criterion});
+            }
+            else if (Model.NavigationViewName == NavigationViewName.AddIndicator)
+            {
+                @Html.Partial("AddIndicator",new AddIndicatorViewModel() {SubCriterion = Model.SubCriterion});
+            }
+        </div>
+        
+    </div>
+    <script>
+        function navigatiView() {
+            $(document).ready(function () {
+                
+                var url = '@Url.Action("AddCriterion", "CriteriaScInd")';
+                $("#NewCriterion").load(url);
+            });
+        }
+    </script>
+}
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

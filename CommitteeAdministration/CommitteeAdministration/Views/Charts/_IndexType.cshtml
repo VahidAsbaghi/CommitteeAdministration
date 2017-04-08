@@ -1,0 +1,68 @@
+﻿@using CommitteeAdministration.Controllers
+@model CommitteeAdministration.Controllers.DrawChartSelectTypeViewModel
+
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+@if (Model.SelectedIndic == "Indicator")
+{
+    <div align="right">
+        @Html.DropDownListFor(m => m.SelectedIndicatorChart, Model.IndicatorChartCs, "نوع نمودار را انتخاب کنید", new
+        {
+            @id = "dropDownTypeIndicator"
+        })
+    </div>
+    <div align="center" class="button active-button">
+        <input type="button" id="TypeSelectSubmitter" onclick="onSelectChartIndicator(@Model.CommitteeId)" value="ادامه" style="width: 70px"/>
+    </div>
+}
+else if (Model.SelectedIndic == "SubCriterion")
+{
+    <div align="right">
+        @Html.DropDownListFor(m => m.SelectedSubCriterionChart, Model.SubCriterionChartCs, "نوع نمودار را انتخاب کنید", new
+        {
+            @id = "dropDownType"
+        })
+    </div>
+    <div align="center" class="button active-button">
+        <input type="button" id="TypeSelectSubmitter" onclick="onSelectChartSubCriterion(@Model.CommitteeId)" value="ادامه" style="width: 70px"/>
+    </div>
+}
+else
+{
+    <div align="right">
+        @Html.DropDownListFor(m => m.SelectedCriterionChart, Model.CriterionChartCs, "نوع نمودار را انتخاب کنید", new
+        {
+            @id = "dropDownType"
+        })
+    </div>
+    <div align="center" class="button active-button">
+        <input type="button" id="TypeSelectSubmitter" onclick="onSelectChartCriterion(@Model.CommitteeId)" value="ادامه" style="width: 70px"/>
+    </div>
+}
+<script>
+    function onSelectChartIndicator(committeeId) {
+        var typeDropDown = document.getElementById("dropDownTypeIndicator");
+       
+        var type = $(typeDropDown).find(":selected").val();
+        var url = '/Charts/IndexValueIndicator?committeeId=' + committeeId + '&selectedChart=' + type +'&selectedIndic=Indicator';
+        $("#ComparisonValueDiv").load(url);
+
+    };
+    function onSelectChartSubCriterion(committeeId) {
+        var typeDropDown = document.getElementById("dropDownType");
+
+        var type = $(typeDropDown).find(":selected").val();
+        var url = '/Charts/IndexValueSubCriterion?committeeId=' + committeeId + '&selectedChart=' + type + '&selectedIndic=SubCriterion';
+        $("#ComparisonValueDiv").load(url);
+
+    };
+    function onSelectChartCriterion(committeeId, selectedIndic) {
+        var typeDropDown = document.getElementById("dropDownType");
+
+        var type = $(typeDropDown).find(":selected").val();
+        var url = '/Charts/IndexValueCriterion?committeeId=' + committeeId + '&selectedChart=' + type + '&selectedIndic=Criterion';
+        $("#ComparisonValueDiv").load(url);
+
+    };
+</script>
+    
