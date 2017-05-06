@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using CommitteeAdministration.Helper;
 using CommitteeAdministration.Services;
+using CommitteeAdministration.Services.Contract;
 using CommitteeAdministration.ViewModels.ConditionViewModels;
 using CommitteeManagement.Repository;
 using Microsoft.Practices.Unity;

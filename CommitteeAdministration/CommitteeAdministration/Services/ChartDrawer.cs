@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Web;
+using CommitteeAdministration.Services.Contract;
 using DotNet.Highcharts;
 using DotNet.Highcharts.Enums;
 using DotNet.Highcharts.Helpers;

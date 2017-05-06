@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using CommitteeAdministration.Helper;
 using CommitteeAdministration.Services;
+using CommitteeAdministration.Services.Contract;
 using CommitteeAdministration.ViewModels.ConditionViewModels;
 using CommitteeManagement.Model;
 using CommitteeManagement.Repository;

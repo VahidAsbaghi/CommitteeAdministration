@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using CommitteeAdministration.Helper;
 using CommitteeAdministration.Services;
+using CommitteeAdministration.Services.Contract;
 using CommitteeAdministration.ViewModels;
 using CommitteeManagement.Model;
 using CommitteeManagement.Repository;
@@ -25,17 +26,18 @@ namespace CommitteeAdministration.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly IMainContainer _mainContainer= ModelContainer.Instance.Resolve<IMainContainer>();
+        private readonly IMainContainer _mainContainer = ModelContainer.Instance.Resolve<IMainContainer>();
         private readonly IRealValueAlarm _realValueAlarm = ModelContainer.Instance.Resolve<IRealValueAlarm>();
+        private readonly IMessageTerminal _messageTerminal = ModelContainer.Instance.Resolve<IMessageTerminal>();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public AccountController()
         {
-            
+
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -47,9 +49,9 @@ namespace CommitteeAdministration.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -136,7 +138,7 @@ namespace CommitteeAdministration.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -155,10 +157,10 @@ namespace CommitteeAdministration.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-           // var committee1=new Committee();
+            // var committee1=new Committee();
             var registerViewModel = new RegisterViewModel()
             {
-                CommitteeName = new SelectList(_mainContainer.CommitteeRepository.All().ToList(),"Id","Name")
+                CommitteeName = new SelectList(_mainContainer.CommitteeRepository.All().ToList(), "Id", "Name")
             };
             //ViewData.Add("Committees",_mainContainer.CommitteeRepository.All());
             return View(registerViewModel);
@@ -176,43 +178,43 @@ namespace CommitteeAdministration.Controllers
                 // Re-assign select list if returning the view
                 var listData = _mainContainer.CommitteeRepository.All().ToList();
                 model.CommitteeName = new SelectList(listData, "Id ", "Name");
-               // return View(model);
+                // return View(model);
             }
-            
-                var user = new User {UserName = model.Email, Email = model.Email,CommitteeRefId = model.ReturnedCommitteeId,Committee = _mainContainer.CommitteeRepository.FindById(model.ReturnedCommitteeId)};
-                IdentityResult result;
-                try
+
+            var user = new User { UserName = model.Email, Email = model.Email, CommitteeRefId = model.ReturnedCommitteeId, Committee = _mainContainer.CommitteeRepository.FindById(model.ReturnedCommitteeId) };
+            IdentityResult result;
+            try
+            {
+                result = await UserManager.CreateAsync(user, model.Password);
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
                 {
-                    result = await UserManager.CreateAsync(user, model.Password);
-                }
-                catch (DbEntityValidationException dbEx)
-                {
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    foreach (var validationError in validationErrors.ValidationErrors)
                     {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            Trace.TraceInformation("Property: {0} Error: {1}",
-                                validationError.PropertyName,
-                                validationError.ErrorMessage);
-                        }
+                        Trace.TraceInformation("Property: {0} Error: {1}",
+                            validationError.PropertyName,
+                            validationError.ErrorMessage);
                     }
-                    throw;
                 }
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                throw;
+            }
+            if (result.Succeeded)
+            {
+                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                _messageTerminal.SendConfirmationEmail(user, code);
+                return RedirectToAction("Index", "Home");
+            }
+            AddErrors(result);
 
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
-            
-            model.CommitteeName = (SelectList) _mainContainer.CommitteeRepository.All();
+            model.CommitteeName = (SelectList)_mainContainer.CommitteeRepository.All();
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -254,12 +256,11 @@ namespace CommitteeAdministration.Controllers
                     return View("ForgotPasswordConfirmation");
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                //string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                //return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = 12, code = 13 }, protocol: Request.Url.Scheme);
+
+                _messageTerminal.SendForgotPasswordEmail(user, code);
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form

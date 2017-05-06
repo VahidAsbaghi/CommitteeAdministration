@@ -20,10 +20,10 @@ namespace CommitteeAdministration.Controllers
         public ActionResult Index()
         {
             FirstPageViewModel model = new FirstPageViewModel();
-            var currentDirectory = HostingEnvironment.ApplicationPhysicalPath;
-            var newsString = System.IO.File.ReadAllText(currentDirectory + @"Resources/Links/FirstPage/News.json");
-            var jsonModel = JsonConvert.DeserializeObject<List<News>>(newsString);
-            model.News = jsonModel;
+           var currentDirectory = HostingEnvironment.ApplicationPhysicalPath;
+            //var newsString = System.IO.File.ReadAllText(currentDirectory + @"Resources/Links/FirstPage/News.json");
+            //var jsonModel = JsonConvert.DeserializeObject<List<News>>(newsString);
+            model.News = new List<News>();
             return View(model);
         }
 

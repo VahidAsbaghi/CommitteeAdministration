@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CommitteeAdministration.Helper;
 using CommitteeAdministration.Services;
+using CommitteeAdministration.Services.Contract;
 using CommitteeManagement.Model;
 using CommitteeManagement.Repository;
 using DotNet.Highcharts;
@@ -37,19 +38,22 @@ namespace CommitteeAdministration.Controllers
             var fromDatesList = fromDates[0].Split(',');
             var toDatesList = toDates[0].Split(',');
             var indic = indics[0];
+          
             if (type=="Indicator")
             {
+                IQueryable<double> values;
+                IQueryable<IndicatorRealValue> realValues;
                 if (chartType == IndicatorChart.RealValuesChangesByTimeColumn.ToString())
                 {
                     var fromDate = fromDates[0];
                     var toDate = toDates[0];
                     var englishFrom=fromDate.Convert();
                     var englishTo = toDate.Convert();
-                   var realValues =
+                    realValues =
                         _mainContainer.IndicatorRealValueRepository.All()
                             .Where(
                                realValue =>realValue.Indicator.Id == indic);
-                    var values= realValues.Where(realValue=>realValue.Time >= englishFrom &&
+                     values= realValues.Where(realValue=>realValue.Time >= englishFrom &&
                                              realValue.Time <= englishTo).Select(realValueT=>realValueT.Value.Value);
                     var valuesObject=new List<object>();
                     foreach (var value in values)
@@ -82,11 +86,11 @@ namespace CommitteeAdministration.Controllers
                         {
                             var englishFrom = fromDatesList[i].Convert();
                             var englishTo = toDatesList[i].Convert();                     
-                            var realValues =
+                            realValues =
                                 _mainContainer.IndicatorRealValueRepository.All()
                                     .Where(
                                         realValue => realValue.Indicator.Id == indic);
-                            var values = realValues.Where(realValue => realValue.Time >= englishFrom &&
+                            values = realValues.Where(realValue => realValue.Time >= englishFrom &&
                                                                        realValue.Time <= englishTo).Select(realValueT => realValueT.Value.Value);
                             var valuesObject = new List<object>();
                             foreach (var value in values)
@@ -105,6 +109,8 @@ namespace CommitteeAdministration.Controllers
             }
             else if (type=="SubCriterion")
             {
+                IQueryable<double> values;
+                IQueryable<IndicatorRealValue> realValues;
                 if (chartType==SubCriterionChart.ChangesByTimeColumn.ToString())
                 {
                     var fromDate = fromDates[0];
@@ -115,8 +121,12 @@ namespace CommitteeAdministration.Controllers
                         _mainContainer.SubCriterionRepository.FirstOrDefault(subCriterionT => subCriterionT.Id == indic);
                     var indicators =
                         _mainContainer.IndicatorRepository.Where(indicator => indicator.SubCriterionId.Value == indic);
-
-                    var values = realValues.Where(realValue => realValue.Time >= englishFrom &&
+                    //TODO : REAL VALUES VALUE???
+                    realValues = null;
+                      //_mainContainer.IndicatorRealValueRepository.All()
+                      //    .Where(
+                      //       realValue => realValue.Indicator.Id == indic);
+                    values = realValues.Where(realValue => realValue.Time >= englishFrom &&
                                               realValue.Time <= englishTo).Select(realValueT => realValueT.Value.Value);
                     var valuesObject = new List<object>();
                     foreach (var value in values)

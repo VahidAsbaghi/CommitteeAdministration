@@ -6,6 +6,7 @@ using System.Web.UI.WebControls;
 using CommitteeAdministration.Controllers;
 using CommitteeAdministration.Helper;
 using CommitteeAdministration.Models;
+using CommitteeAdministration.Services.Contract;
 using CommitteeManagement.Model;
 using CommitteeManagement.Repository;
 using Microsoft.Practices.Unity;
@@ -96,7 +97,7 @@ namespace CommitteeAdministration.Services
             }
             return subCriterionsCondition;
         }
-
+        //TODO : REPAIR KON
         public SubCriterionConditionModel GetSubCriterionCondition(SubCriterion subCriterion, DateTime from, DateTime to)
         {
             var indicators =
@@ -104,8 +105,9 @@ namespace CommitteeAdministration.Services
             var realValues =
                 _mainContainer.IndicatorRealValueRepository.Where(
                     realValue => realValue.IndicatorId.Value == indicators[0].Id);
-            var inBoundRealValues=realValues.Where(realvalue=>realvalue)
-            var indicatorsConditions=IndicatorsPercentage(subCriterion,)
+            //var inBoundRealValues=realValues.Where(realvalue=>realvalue)
+            //var indicatorsConditions=IndicatorsPercentage(subCriterion,)
+            return null;
         }
         public  List<CriterionConditionModel> GetCriteriaCondition(DateTime conditionTime,Committee committee)
         {

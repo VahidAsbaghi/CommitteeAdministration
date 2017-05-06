@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DotNet.Highcharts;
 
-namespace CommitteeAdministration.Services
+namespace CommitteeAdministration.Services.Contract
 {
     public interface IChartDrawer
     {
