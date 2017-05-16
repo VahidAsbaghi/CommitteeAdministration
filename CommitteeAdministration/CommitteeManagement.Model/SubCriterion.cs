@@ -18,7 +18,7 @@ namespace CommitteeManagement.Model
         public int Id { get; set; }
         public string Subject { get; set; }
         public double Coefficient { get; set; }
-        public bool IsDeleted  { get; set; }
+        public bool IsDeleted { get; set; } = false;
         public int CriterionId { get; set; }
         public virtual ICollection<SubCriterionModification> SubCriterionModifications { get; set; }
         [ForeignKey("CriterionId")]

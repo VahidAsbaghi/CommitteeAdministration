@@ -3,7 +3,7 @@ namespace CommitteeManagement.Repository.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class New : DbMigration
+    public partial class nn : DbMigration
     {
         public override void Up()
         {

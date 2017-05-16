@@ -7,13 +7,13 @@ namespace CommitteeManagement.Repository.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class New : IMigrationMetadata
+    public sealed partial class nn : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(New));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(nn));
         
         string IMigrationMetadata.Id
         {
-            get { return "201704151819265_New"; }
+            get { return "201705161826321_nn"; }
         }
         
         string IMigrationMetadata.Source

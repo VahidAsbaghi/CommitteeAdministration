@@ -82,9 +82,9 @@
     <Compile Include="Data\RepositoryContainerBase.cs" />
     <Compile Include="IMainContainer.cs" />
     <Compile Include="MainContainer.cs" />
-    <Compile Include="Migrations\201704151819265_New.cs" />
-    <Compile Include="Migrations\201704151819265_New.Designer.cs">
-      <DependentUpon>201704151819265_New.cs</DependentUpon>
+    <Compile Include="Migrations\201705161826321_nn.cs" />
+    <Compile Include="Migrations\201705161826321_nn.Designer.cs">
+      <DependentUpon>201705161826321_nn.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,8 +117,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704151819265_New.resx">
-      <DependentUpon>201704151819265_New.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201705161826321_nn.resx">
+      <DependentUpon>201705161826321_nn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
