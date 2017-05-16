@@ -1848,6 +1848,7 @@
     <Content Include="Views\CommitteeStatus\IndicatorRate_LineChart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Charts\sample.cshtml" />
+    <Content Include="Views\Shared\_BaseLayot.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AdminLTE-RTL-master\bootstrap\css\" />
