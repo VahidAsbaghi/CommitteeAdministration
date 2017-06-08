@@ -1139,6 +1139,38 @@
     <Content Include="AdminLTE-RTL-master\plugins\timepicker\bootstrap-timepicker.min.css" />
     <Content Include="AdminLTE-RTL-master\plugins\timepicker\bootstrap-timepicker.min.js" />
     <Content Include="AdminLTE-RTL-master\starter.html" />
+    <Content Include="assets\css-rtl\animate.css" />
+    <Content Include="assets\css-rtl\bootstrap-rtl.min.css" />
+    <Content Include="assets\css-rtl\bootstrap.min.css" />
+    <Content Include="assets\css-rtl\et-line.css" />
+    <Content Include="assets\css-rtl\font-awesome-1-1.min.css" />
+    <Content Include="assets\css-rtl\font-awesome-rtl.css" />
+    <Content Include="assets\css-rtl\font-awesome.min.css" />
+    <Content Include="assets\css-rtl\magnific-popup.css" />
+    <Content Include="assets\css-rtl\meanmenu.css" />
+    <Content Include="assets\css-rtl\nivoslider.css" />
+    <Content Include="assets\css-rtl\owl.carousel.css" />
+    <Content Include="assets\css-rtl\responsive.css" />
+    <Content Include="assets\css-rtl\Rtl.css" />
+    <Content Include="assets\css-rtl\style-rtl.css" />
+    <Content Include="assets\font-farsi\css\font-farsi.css" />
+    <Content Include="assets\Img\01.jpg" />
+    <Content Include="assets\Img\02.jpg" />
+    <Content Include="assets\Img\03.jpg" />
+    <Content Include="assets\Img\04.png" />
+    <Content Include="assets\Img\core-img\favicon.ico" />
+    <Content Include="assets\Img\core-img\icon-maintenance.png" />
+    <Content Include="assets\Img\core-img\lan-1.jpg" />
+    <Content Include="assets\Img\core-img\lan-2.jpg" />
+    <Content Include="assets\Img\core-img\lan-3.jpg" />
+    <Content Include="assets\Img\core-img\lan-4.jpg" />
+    <Content Include="assets\Img\core-img\lan-5.jpg" />
+    <Content Include="assets\Img\core-img\logo.png" />
+    <Content Include="assets\Img\core-img\preloader.gif" />
+    <Content Include="assets\Img\services-img\Amar.jpg" />
+    <Content Include="assets\Img\services-img\DaneshBonyan.jpg" />
+    <Content Include="assets\Img\services-img\ToseEFanavari.jpg" />
+    <Content Include="assets\Img\services-img\VorodDade.jpg" />
     <Content Include="bizpro-v3\404.html" />
     <Content Include="bizpro-v3\about-us.html" />
     <Content Include="bizpro-v3\advisors.html" />
@@ -1154,6 +1186,8 @@
     <Content Include="bizpro-v3\css-rtl\bootstrap-rtl.min.css" />
     <Content Include="bizpro-v3\css-rtl\bootstrap.min.css" />
     <Content Include="bizpro-v3\css-rtl\et-line.css" />
+    <Content Include="bizpro-v3\css-rtl\font-awesome-1-1.min.css" />
+    <Content Include="bizpro-v3\css-rtl\font-awesome-rtl.css" />
     <Content Include="bizpro-v3\css-rtl\font-awesome.min.css" />
     <Content Include="bizpro-v3\css-rtl\magnific-popup.css" />
     <Content Include="bizpro-v3\css-rtl\meanmenu.css" />
@@ -1161,6 +1195,7 @@
     <Content Include="bizpro-v3\css-rtl\owl.carousel.css" />
     <Content Include="bizpro-v3\css-rtl\responsive.css" />
     <Content Include="bizpro-v3\css-rtl\Rtl.css" />
+    <Content Include="bizpro-v3\css-rtl\style-rtl.css" />
     <Content Include="bizpro-v3\css\animate.css" />
     <Content Include="bizpro-v3\css\bootstrap-rtl.min.css" />
     <Content Include="bizpro-v3\css\bootstrap.min.css" />
@@ -1316,6 +1351,7 @@
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\bootstrap-rtl.css" />
     <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\FirstPage\footerStyle.css" />
@@ -1326,6 +1362,7 @@
     <Content Include="Content\FontStyles.css" />
     <Content Include="Content\fonts\BTitrBold.woff" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\MdBootstrapPersianDateTimePicker\jquery.Bootstrap-PersianDateTimePicker.css" />
     <Content Include="Content\MyStyles.css" />
     <Content Include="Content\PersianCalender\js-persian-cal.css" />
@@ -1482,6 +1519,13 @@
     <Content Include="AdminLTE-RTL-master\README.md" />
     <Content Include="Content\FirstPage\maximenuck_rtl.css" />
     <Content Include="Resources\Links\FirstPage\News.json" />
+    <Content Include="assets\font-farsi\fonts\IRANSans-Bold-web.woff" />
+    <Content Include="assets\font-farsi\fonts\IRANSans-Light-web.woff" />
+    <Content Include="assets\font-farsi\fonts\IRMitra.woff" />
+    <Content Include="assets\font-farsi\fonts\web_Yekan.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap-select.js.map" />
@@ -1849,6 +1893,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Charts\sample.cshtml" />
     <Content Include="Views\Shared\_BaseLayot.cshtml" />
+    <Content Include="Views\Shared\_HomeLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AdminLTE-RTL-master\bootstrap\css\" />

@@ -23,7 +23,7 @@ namespace CommitteeAdministration.Controllers
     /// indicator real values controller
     /// </summary>
     /// <seealso cref="System.Web.Mvc.Controller" />
-    [Authorize(Roles = "SuperAdmin,Manager,Technician")]
+    //[Authorize(Roles = "SuperAdmin,Manager,Technician")]
     public class IndicatorRealValuesController : Controller
     {
         private readonly IMainContainer _mainContainer = ModelContainer.Instance.Resolve<IMainContainer>();

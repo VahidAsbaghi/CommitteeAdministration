@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CommitteeManagement.Model;
+using CommitteeManagement.Repository.Migrations;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 
@@ -17,10 +18,11 @@ namespace CommitteeManagement.Repository.Data
 	/// Note, you should at least change "DataContext" to a name that matches your domain.
     public partial class DataContext : IdentityDbContext<User>, IDataContext
     {
-	    public DataContext():base("name=DefaultConnection5")
+	    public DataContext():base("name=DefaultConnection")
 	    {
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataContext, CommitteeManagement.Repository.Migrations.Configuration>("DefaultConnection3"));
-            
+            Configuration.LazyLoadingEnabled = true;
+            Database.SetInitializer(new Configuration());
+
         }
       
         // Example of a table in the form of a data set.  Add your own
@@ -46,15 +48,14 @@ namespace CommitteeManagement.Repository.Data
             {
                 return base.SaveChanges();
             }
-            catch (DbEntityValidationException dbEx)
+            catch (DbEntityValidationException e)
             {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                foreach (var eve in e.EntityValidationErrors)
                 {
-                    foreach (var validationError in validationErrors.ValidationErrors)
+                    Debug.Write($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
+                    foreach (var ve in eve.ValidationErrors)
                     {
-                        Trace.TraceInformation("Property: {0} Error: {1}",
-                                                validationError.PropertyName,
-                                                validationError.ErrorMessage);
+                        Debug.Write($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
                     }
                 }
                 throw;

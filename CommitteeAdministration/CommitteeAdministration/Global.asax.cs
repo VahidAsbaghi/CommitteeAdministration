@@ -23,7 +23,10 @@ namespace CommitteeAdministration
         /// </summary>
         protected void Application_Start()
         {
-            //Database.SetInitializer(new DbInitializer());
+            using (var context = new DataContext())
+            {
+                context.Database.Initialize(force: true);
+            }
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
