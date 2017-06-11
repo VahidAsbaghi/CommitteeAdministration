@@ -1352,8 +1352,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\bootstrap-rtl.css" />
-    <Content Include="Content\css\font-awesome.css" />
-    <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\FirstPage\footerStyle.css" />
     <Content Include="Content\FirstPage\k2.css" />
     <Content Include="Content\FirstPage\mod_news_show_sp2.css" />
@@ -1361,7 +1359,6 @@
     <Content Include="Content\FirstPage\SliderImage.css" />
     <Content Include="Content\FontStyles.css" />
     <Content Include="Content\fonts\BTitrBold.woff" />
-    <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\MdBootstrapPersianDateTimePicker\jquery.Bootstrap-PersianDateTimePicker.css" />
     <Content Include="Content\MyStyles.css" />
@@ -1370,7 +1367,10 @@
     <Content Include="Content\PersianCalender\jspc-peach.css" />
     <Content Include="Content\PersianCalender\jspc-royal_blue.css" />
     <Content Include="Content\PersianCalender\main.css" />
+    <Content Include="css\font-awesome.css" />
+    <Content Include="css\font-awesome.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -1390,11 +1390,6 @@
     <None Include=".bin\git.cmd" />
     <None Include=".bin\node.cmd" />
     <Content Include="bower_components\highcharts\.bower.json" />
-    <Content Include="Content\fonts\FontAwesome.otf" />
-    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Content\fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
@@ -1526,6 +1521,11 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap-select.js.map" />
