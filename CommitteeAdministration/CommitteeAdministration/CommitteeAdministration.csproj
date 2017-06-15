@@ -1894,6 +1894,8 @@
     <Content Include="Views\Charts\sample.cshtml" />
     <Content Include="Views\Shared\_BaseLayot.cshtml" />
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
+    <Content Include="Views\CriteriaScInd\CommitteeStatus.cshtml" />
+    <Content Include="Views\CriteriaScInd\CommitteeStatusMain.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AdminLTE-RTL-master\bootstrap\css\" />

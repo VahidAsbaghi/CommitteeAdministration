@@ -1,0 +1,295 @@
+﻿@using System.Collections.ObjectModel
+@using System.Drawing
+@using System.Threading
+@using CommitteeAdministration.Models
+@using Microsoft.Ajax.Utilities
+@using WebGrease.Css.Ast.Animation
+@model CommitteeAdministration.ViewModels.CommitteeStatusViewModel
+<head>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div align="center">
+        <div class="row" align="right" dir="rtl">
+            @*<table class="table table-bordered " id="dataTable">
+                    <thead>
+                        <tr>
+                            <th class="myTdThClass" rowspan="3">
+                                @Html.DisplayName("معیارها")
+                            </th>
+                            <th class="myTdThClass" rowspan="3">
+                                @Html.DisplayName("زیر معیارها")
+                            </th>
+                            <th class="myTdThClass" rowspan="3">
+                                @Html.DisplayName("شاخص ها")
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>*@
+            <ul class="criterionUlStyle">
+                <li class="criterionLiStyle">
+                    <div>
+                        <div align="center" class="headeDivMain headeDiv headeDiv1 headeDiv2 ">
+                            <label>معیارها</label>
+                        </div>
+                        <ul class="criterionUlStyle">
+                            <li class="criterionLiStyle">
+                                <div align="center" class="headeDivMainSubCriterion headeDiv headeDiv1 headeDiv2  headeDivSub2 headeDivSub3" >
+                                    <label>زیر معیارها</label>
+                                </div>
+                                <ul class="criterionUlStyle">
+                                    <li class="criterionLiStyle">
+                                        <div align="center" class="headeDivMainIndicator headeDiv headeDiv1 headeDiv2 headeDivInd2 headeDivInd3" >
+                                            <label>شاخص ها</label>
+                                        </div>
+                                    <li />
+                                </ul>
+                            <li />
+                        </ul>
+
+                    </div>
+                </li>
+                @for (int index = 0; index < Model.CriteriaList.Count; index++)
+            {
+
+                var criterion = Model.CriteriaList[index];
+                var subCriterions = Model.SubCriterionList.Where(subCriterionT => subCriterionT.SubCriterion.Criterion.Id == criterion.Criterion.Id).ToList();
+
+                string stateColor = criterion.State == State.VeryIdeal ? "#00ffbb" : criterion.State == State.Ideal ? "#ffff00"
+                    : criterion.State == State.NonIdeal ? "#ff5030" : "#ff0000";
+            <li class="criterionLiStyle">
+
+                <div id="@criterion.Criterion.Id Criterion" align="center" class="innerDivStyle divStyle">
+                    <label id="@criterion.Criterion.Id CriterionInput" type="submit" value=@criterion.State.ToString() style="width: 100%; height: 100%; color: black; display: block; background-color: @stateColor">@criterion.State.ToString()</label>
+                    <label id="@criterion.Criterion.Id CriterionLabel" style="width: 5cm; text-align: center; color: white; display: inline-flex; background-color: ThreeDDarkShadow;" onclick="onClickCriterion(@criterion.Criterion.Id)">@criterion.Criterion.Subject</label>
+                </div>
+
+                <div style="margin-right: 7cm">
+                    <ul class="criterionUlStyle" id="@criterion.Criterion.Id SubCriterionUl" style="display: none;">
+
+                        @for (int j = 0; j < subCriterions.Count; j++)
+                        {
+                            var subCriterion = subCriterions[j];
+                            var indicators = Model.Indicators.Where(indicatorT => indicatorT.Indicator.SubCriterion.Id == subCriterion.SubCriterion.Id).ToList();
+                             stateColor = subCriterion.State == State.VeryIdeal ? "#00ffbb" : subCriterion.State == State.Ideal ? "#ffff00"
+                    : subCriterion.State == State.NonIdeal ? "#ff5030" : "#ff0000";
+                            <li class="criterionLiStyle">
+
+                                <div id="@subCriterion.SubCriterion.Id SubCriterion" align="center" class="innerDivStyle divStyle">
+                                    <label id="@subCriterion.SubCriterion.Id SubCriterionInput" type="submit" style="width: 100%; height: 100%; color: black; display: block; background-color: @stateColor;">@subCriterion.State.ToString()</label>
+                                    <label id="@subCriterion.SubCriterion.Id SubCriterionLabel" style="width: 5cm; text-align: center; color: white; display: inline-flex; background-color: transparent;" onclick="onClickSubCriterion(@subCriterion.SubCriterion.Id)">@subCriterion.SubCriterion.Subject</label>
+                                </div>
+
+                                <div style="margin-right: 7cm">
+                                    <ul class="criterionUlStyle" id="@subCriterion.SubCriterion.Id indicatorUl" style="display: none;">
+
+                                        @for (int k = 0; k < indicators.Count; k++)
+                                        {
+                                            var indicator = indicators[k];
+                                            stateColor = indicator.State == State.VeryIdeal ? "#00ffbb" : indicator.State == State.Ideal ? "#ffff00"
+                    : indicator.State == State.NonIdeal ? "#ff5030" : "#ff0000";
+                                            <li class="criterionLiStyle">
+                                                <div id="@indicator.Indicator.Id indicator" align="center" class="innerDivStyle divStyle">
+                                                    <label id="@indicator.Indicator.Id indicatorInput" type="submit" style="width: 100%; height: 100%; color: black; display: block; background-color: @stateColor;">@indicator.State.ToString()</label>
+                                                    <label id="@indicator.Indicator.Id indicatorLabel" style="width: 5cm; text-align: center; color: white; display: inline-flex; background-color: transparent;">@indicator.Indicator.Subject</label>
+                                                </div>
+
+                                            </li>
+                                            }
+                                    </ul>
+                                </div>
+                            </li>
+                            }
+                    </ul>
+                </div>
+            </li>
+
+
+            }
+            </ul>
+
+
+
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+<script>
+    $(document).ready(function setStateColor(state,objectId) {
+
+    })
+</script>
+<script>
+    function onClickCriterion(criterionId) {
+        var subCriterionUl = document.getElementById(criterionId + " SubCriterionUl");
+        console.log(subCriterionUl.id);
+        if (subCriterionUl.style.display === 'none') {
+            subCriterionUl.style.display = '';
+        } else {
+            subCriterionUl.style.display = 'none';
+        }
+       // $("#" + criterionId + " SubCriterionUl").attr("hidden","visible");
+        //subCriterionUl.show();
+    };
+    function onClickSubCriterion(subCriterionId) {
+        var indicatorUl = document.getElementById(subCriterionId + " indicatorUl");
+        console.log(indicatorUl.id);
+        if (indicatorUl.style.display === 'none') {
+            indicatorUl.style.display = '';
+        } else {
+            indicatorUl.style.display = 'none';
+        }
+    }
+</script>
+@*<script>
+        $(document).ready(function inp(modelJ) {
+
+            for (var i = 0; i < @Model.CriteriaList.Count; i++) {
+
+                var criterionId = @Model.CriteriaList[0].id;
+                var criterionSubject = @Model.CriteriaList[i].Subject;
+                    var div = html.getElementById("#" + criterionId + " Criterion");
+                    div.append("<input id="+criterionId+"' CriterionInput' type='submit' value='تغییرات' style='border-radius: 25px; height: 100%; width: 100%' class='btn btn-default' formaction='FirstPartial' formmethod='Post'/>");
+                    div.append("<label id=" + criterionId + "' CriterionLabel' style='width: 2cm; color: white; display: inline-flex; background-color: ThreeDDarkShadow; border-radius: 25px'>" + criterionSubject + "</label>");
+                    Sleep(10);
+                    //$("#" + criterionId + " Criterion").visibility = "visible";
+                    //$("#" + criterionId + " Criterion").reload();
+    }
+            });
+        </script>*@
+
+<style type="text/css">
+    .criterionLiStyle {
+        direction: rtl;
+        right: 0;
+    }
+
+    div.innerDivStyle {
+        animation-duration: 5.5s;
+        animation-timing-function: ease-out;
+        animation-iteration-count: 1;
+        animation-fill-mode: both;
+        animation-name: innerDivStyle;
+    }
+
+    @@KeyFrames innerDivStyle {
+        0% {
+            opacity: 0.1;
+        }
+
+        33% {
+            opacity: 0.3;
+        }
+
+        66% {
+            opacity: 0.6;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .criterionUlStyle {
+        direction: rtl;
+        /*align-content: flex-start;*/
+        /*size: auto;*/
+        list-style-type: none;
+    }
+
+
+    .myTdThClass {
+        vertical-align: middle;
+        text-align: center;
+    }
+    div.divStyle {
+        background-color: ThreeDDarkShadow;
+        max-width:500px;
+        min-width: 100px;
+        border: ridge;  
+        height: fill-available;
+    }
+    div.headeDivMain {
+        background-color: transparent;
+        max-width:500px;
+        position: relative;
+        border: ridge;  
+        height: fill-available;
+        margin-right: 0cm;
+    }
+    div.headeDivMainSubCriterion {
+        background-color: transparent;
+        max-width:500px;
+        position: relative;
+        border: ridge;  
+        height: fill-available;
+        margin-right: 7cm;
+    }
+    div.headeDivMainIndicator {
+        background-color: transparent;
+        max-width:500px;
+        position: relative;
+        border: ridge;  
+        height: fill-available;
+        margin-right: 14cm;
+    }
+    
+     @@media (min-width: 300px) {
+        div.headeDiv2 {
+            width: 200px;
+           
+    }}
+      @@media (min-width: 768px) {
+    div.headeDiv1 {
+        width: 400px;
+        
+    } 
+   }
+   @@media (min-width: 1000px) {
+    div.headeDiv {
+        width: 500px;
+       
+    }}
+   
+    
+     @@media (min-width: 300px) {
+        div.headeDivSub2 {
+            margin-right: 2.5cm;
+           
+    }}
+     @@media (min-width: 768px) {
+        div.headeDivSub3 {
+            margin-right: 7cm;
+            
+    }}
+    
+     @@media (min-width: 300px) {
+        div.headeDivInd2 {
+            margin-right: 5cm;
+           
+    }}
+    @@media (min-width: 768px) {
+        div.headeDivInd3 {
+            margin-right: 14cm;
+            
+    }}
+    
+    .line{
+width: 100%;
+height: 1px;
+border-bottom: 1px solid black;
+position: absolute;
+}
+</style>
+
+

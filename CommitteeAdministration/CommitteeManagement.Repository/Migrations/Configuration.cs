@@ -44,7 +44,10 @@ namespace CommitteeManagement.Repository.Migrations
                 {
                     CreateUser(context, "SuperAdmin", "SuperAdminCommittee", "vahid.asbaghi@gmail.com", "Aa@123456");
                 }
-               
+                else
+                {
+                    return;
+                }
 
                 //#region Add criterion/subcriterion/indicator/idealvalue/real value mock data
 
@@ -109,7 +112,7 @@ namespace CommitteeManagement.Repository.Migrations
                 };
                 criterions.Add(criterion7);
 
-                criterions.ForEach(n => context.Criteria.AddOrUpdate(n));
+                criterions.ForEach(n => context.Criteria.AddOrUpdate((i) => new { i.Subject, i.CommitteeId },n));
                 context.SaveChanges();
 
                 #endregion
@@ -243,7 +246,7 @@ namespace CommitteeManagement.Repository.Migrations
                 subcriterions.Add(criterion_7_1_Sub);
 
 
-                subcriterions.ForEach(n => context.SubCriterions.AddOrUpdate(n));
+                subcriterions.ForEach(n => context.SubCriterions.AddOrUpdate((i) => new { i.Subject, i.CriterionId },n));
                 context.SaveChanges();
 
                 #endregion
@@ -826,7 +829,7 @@ namespace CommitteeManagement.Repository.Migrations
                     indicator.DeadlinePeriod = randomCoefficient.Next(30, 90);
                 }
 
-                indicators.ForEach(n => context.Indicators.AddOrUpdate(n));
+                indicators.ForEach(n => context.Indicators.AddOrUpdate((i) => new {i.Subject, i.SubCriterionId}, n));
                 context.SaveChanges();
 
                 #endregion
@@ -838,39 +841,42 @@ namespace CommitteeManagement.Repository.Migrations
                 //var criteria = CriterionMockDataGenerate(5, committee, context, user);
                 //var subCriterions = SubCriterionMockDataGenerate(criteria, new List<int>() { 3, 4, 3, 2, 2 }, context, user);
                 //var numberIndicators = new List<int>();
-                //Random random = new Random(DateTime.Now.GetHashCode());
+                Random random = new Random(DateTime.Now.GetHashCode());
                 //for (int i = 0; i < subCriterions.Count; i++)
                 //{
                 //    numberIndicators.Add(random.Next(5));
                 //}
                 //var indicators = IndicatorsMockDataGenerate(subCriterions, numberIndicators, context, user);
+                if (context.IndicatorRealValues.Any())
+                {
+                    return;
+                }
+                foreach (var indicator in indicators)
+                {
+                    double days = -500;
+                    double? value = null;
+                    bool? moreThan = null;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        var minDateTime = DateTime.Now.AddDays(days);
+                        var idealValue = IndicatorIdealValueMock(indicator, context, minDateTime, moreThan, value, user);
+                        for (int j = 0; j < 10; j++)
+                        {
+                            var realValue = IndicatorRealValueMock(idealValue, context, minDateTime, user);
+                            minDateTime = realValue.Time.GetValueOrDefault();
+                            if (random.Next(0, 10) > 6)
+                            {
+                                break;
+                            }
+                        }
+                        days += 50;
+                        moreThan = idealValue.MoreThan;
+                        value = idealValue.Value + random.Next((int)(-idealValue.Value / 1000), (int)(idealValue.Value / 1000));
+                        if (random.Next(0, 10) > 6)
+                            break;
+                    }
 
-                //foreach (var indicator in indicators)
-                //{
-                //    double days = -500;
-                //    double? value = null;
-                //    bool? moreThan = null;
-                //    for (int i = 0; i < 10; i++)
-                //    {
-                //        var minDateTime = DateTime.Now.AddDays(days);
-                //        var idealValue = IndicatorIdealValueMock(indicator, context, minDateTime, moreThan, value, user);
-                //        for (int j = 0; j < 10; j++)
-                //        {
-                //            var realValue = IndicatorRealValueMock(idealValue, context, minDateTime, user);
-                //            minDateTime = realValue.Time.GetValueOrDefault();
-                //            if (random.Next(0, 10) > 6)
-                //            {
-                //                break;
-                //            }
-                //        }
-                //        days += 50;
-                //        moreThan = idealValue.MoreThan;
-                //        value = idealValue.Value + random.Next((int)(-idealValue.Value / 1000), (int)(idealValue.Value / 1000));
-                //        if (random.Next(0, 10) > 6)
-                //            break;
-                //    }
-
-                //}
+                }
 
 
             }
@@ -1189,9 +1195,17 @@ namespace CommitteeManagement.Repository.Migrations
                 {
                     Indicator = idealValue.Indicator,
                     Time = GenerateRandomDateTime(minDateTime),
-                    Value =
-                        random.Next((int)(idealValue.Value - idealValue.Value / 100),
-                            (int)(idealValue.Value + idealValue.Value / 100))
+                    Value = idealValue.Value < 100
+                        ? random.Next((int) (idealValue.Value -100),// idealValue.Value/100),
+                            (int) (idealValue.Value + 100))
+                        : idealValue.Value < 10000
+                            ? random.Next((int) (idealValue.Value - 10000),
+                                (int) (idealValue.Value + 10000))
+                            : idealValue.Value < 100000
+                                ? random.Next((int) (idealValue.Value - 100000),
+                                    (int) (idealValue.Value + 100000))
+                                : random.Next((int) (idealValue.Value - 1000000),
+                                    (int) (idealValue.Value + 1000000))
                 };
                 var addedRealValue = dataContext.IndicatorRealValues.Add(realValue);
                 dataContext.SaveChanges();

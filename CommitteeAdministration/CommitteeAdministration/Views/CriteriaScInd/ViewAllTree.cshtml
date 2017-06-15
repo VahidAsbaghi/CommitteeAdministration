@@ -13,45 +13,70 @@
     @Html.ValidationSummary("", new { @class = "text-danger" })
 
     <div class="row" align="right" dir="rtl">
+        <table class="table table-bordered " id="dataTable">
+            <thead>
+                <tr>
+                    <th class="myTdThClass" rowspan="3">
+                        @Html.DisplayName("معیارها")
+                    </th>
+                    <th class="myTdThClass" rowspan="3">
+                        @Html.DisplayName("زیر معیارها")
+                    </th>
+                    <th class="myTdThClass" rowspan="3">
+                        @Html.DisplayName("شاخص ها")
+                    </th>
 
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
         <ul class="criterionUlStyle">
             @for (int index = 0; index < Model.CriteriaList.Count; index++)
             {
-                
+
                 var criterion = Model.CriteriaList[index];
                 var subCriterions = Model.SubCriterionList.Where(subCriterionT => subCriterionT.Criterion.Id == criterion.Id).ToList();
+
+
                 <li class="criterionLiStyle">
+
                     <div id="@criterion.Id Criterion" style="background-color: ThreeDDarkShadow; width: fit-content; border: ridge; border-radius: 25px; height: fill-available;" align="center" class="innerDivStyle">
-                        <input id="@criterion.Id CriterionInput" type="submit" value="تغییرات" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" formaction="/Criteria/Edit/@criterion.Id" formmethod="Get"/>
+                        <input id="@criterion.Id CriterionInput" type="submit" value="تغییرات" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" formaction="/Criteria/Edit/@criterion.Id" formmethod="Get" />
                         <label id="@criterion.Id CriterionLabel" style="width: 5cm; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color: ThreeDDarkShadow; border-radius: 25px" onclick="onClickCriterion(@criterion.Id)">@criterion.Subject</label>
                     </div>
-                    <div style="margin-right: 5cm">
+
+                    <div style="margin-right: 6cm">
                         <ul class="criterionUlStyle" id="@criterion.Id SubCriterionUl" style="display: none;">
+                            
                             @for (int j = 0; j < subCriterions.Count; j++)
                             {
                                 var subCriterion = subCriterions[j];
                                 var indicators = Model.Indicators.Where(indicatorT => indicatorT.SubCriterion.Id == subCriterion.Id).ToList();
                                 <li class="criterionLiStyle">
-                                    <div id="@subCriterion.Id SubCriterion" style="background-color:cornflowerblue; width: fit-content; border: ridge; border-radius: 25px; height: fill-available;" class="innerDivStyle">
-                                        <input id="@subCriterion.Id SubCriterionInput" type="submit" value="تغییرات" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" formaction="/SubCriterions/Edit/@subCriterion.Id" formmethod="Get" />
+
+                                    <div id="@subCriterion.Id SubCriterion" style="background-color: cornflowerblue; width: fit-content; border: ridge; border-radius: 25px; height: fill-available;" class="innerDivStyle">
+                                        <input id="@subCriterion.Id SubCriterionInput" type="submit" value="تغییرات" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" formaction="/SubCriterions/Edit/@subCriterion.Id" formmethod="Get"/>
                                         <label id="@subCriterion.Id SubCriterionLabel" style="width: 5cm; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color: cornflowerblue; border-radius: 25px" onclick="onClickSubCriterion(@subCriterion.Id)">@subCriterion.Subject</label>
                                     </div>
+
                                     <div style="margin-right: 5cm">
                                         <ul class="criterionUlStyle" id="@subCriterion.Id indicatorUl" style="display: none;">
                                             <li class="criterionLiStyle">
                                                 <div id="addIndicator" style="background-color: black; width: fit-content; border: ridge; border-radius: 25px; height: fill-available;" class="innerDivStyle">
-                                                    <input id="addIndicatorInput" type="submit" value="افزودن شاخص" style="border-radius: 25px; height: 100%; width:100%" class="btn btn-default" formaction="/Indicators/Create" formmethod="Get" />
-                                                    <label id="addIndicatorLabel" style="width: 4.6cm;  margin-right: 0.2cm; margin-left: 0.2cm;color: white; display: inline-flex; background-color: black; border-radius: 25px"></label>
+                                                    <input id="addIndicatorInput" type="submit" value="افزودن شاخص" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" formaction="/Indicators/Create" formmethod="Get"/>
+                                                    <label id="addIndicatorLabel" style="width: 4.6cm; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color: black; border-radius: 25px"></label>
                                                 </div>
                                             </li>
                                             @for (int k = 0; k < indicators.Count; k++)
                                             {
                                                 var indicator = indicators[k];
                                                 <li class="criterionLiStyle">
+
                                                     <div id="@indicator.Id indicator" style="background-color: black; width: fit-content; border: ridge; border-radius: 25px; height: fill-available;" class="innerDivStyle">
                                                         <input id="@indicator.Id indicatorInput" type="submit" value="تغییرات" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" formaction="/Indicators/Edit/@indicator.Id" formmethod="Get"/>
                                                         <label id="@indicator.Id indicatorLabel" style="width: 5cm; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color: black; border-radius: 25px">@indicator.Subject</label>
                                                     </div>
+
                                                 </li>
                                             }
                                         </ul>
@@ -61,8 +86,13 @@
                         </ul>
                     </div>
                 </li>
+
+
             }
         </ul>
+
+
+
     </div>
 }
 @section Scripts {
@@ -151,4 +181,11 @@
         size: auto;
         list-style-type: none;
     }
+
+    
+            .myTdThClass {
+                vertical-align: middle;
+                text-align: center;
+            }
+        
 </style>
