@@ -1900,6 +1900,7 @@
     <Folder Include="AdminLTE-RTL-master\bootstrap\js\" />
     <Folder Include="AdminTemplate\" />
     <Folder Include="App_Data\" />
+    <Folder Include="assets\Admin-Panel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
