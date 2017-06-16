@@ -30,7 +30,13 @@ namespace CommitteeAdministration.Services
                 conditions.Add(new IndicatorsConditionModel
                 {
                     ConditionPercentage = indicatorCondition,
-                    Indicator = indicator
+                    Indicator = indicator,
+                    State =
+                        indicatorCondition < 100 && indicatorCondition > 85
+                            ? State.VeryIdeal
+                            : indicatorCondition > 75
+                                ? State.Ideal
+                                : indicatorCondition > 55 ? State.NonIdeal : State.VeryNonIdeal
                 });
             }
             return conditions;
@@ -92,7 +98,13 @@ namespace CommitteeAdministration.Services
                 subCriterionsCondition.Add(new SubCriterionConditionModel()
                 {
                     Percentage = subCriterionCondition,
-                    SubCriterion = subCriterion
+                    SubCriterion = subCriterion,
+                    State =
+                        subCriterionCondition < 100 && subCriterionCondition > 85
+                            ? State.VeryIdeal
+                            : subCriterionCondition > 75
+                                ? State.Ideal
+                                : subCriterionCondition > 55 ? State.NonIdeal : State.VeryNonIdeal
                 });
             }
             return subCriterionsCondition;
@@ -122,7 +134,17 @@ namespace CommitteeAdministration.Services
                 double criterionCondition =
                     subCriterionsCondition.Sum(
                         subCriterionCond => subCriterionCond.Percentage*subCriterionCond.SubCriterion.Coefficient);
-                criteriaCondition.Add(new CriterionConditionModel() {Criterion = criterion,Percentage = criterionCondition});
+                criteriaCondition.Add(new CriterionConditionModel()
+                {
+                    Criterion = criterion,
+                    Percentage = criterionCondition,
+                    State =
+                        criterionCondition < 100 && criterionCondition > 85
+                            ? State.VeryIdeal
+                            : criterionCondition > 75
+                                ? State.Ideal
+                                : criterionCondition > 55 ? State.NonIdeal : State.VeryNonIdeal
+                });
             }
             return criteriaCondition;
         }

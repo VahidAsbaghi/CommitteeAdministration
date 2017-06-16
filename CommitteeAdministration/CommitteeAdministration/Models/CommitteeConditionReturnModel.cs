@@ -32,18 +32,21 @@ namespace CommitteeAdministration.Models
     {
         public Indicator Indicator { get; set; }
         public double ConditionPercentage { get; set; }
+        public State State { get; set; }
     }
 
     public class SubCriterionConditionModel
     {
         public SubCriterion SubCriterion { get; set; }
         public double Percentage { get; set; }
+        public State State { get; set; }
     }
 
     public class CriterionConditionModel
     {
         public Criterion Criterion { get; set; }
         public double Percentage { get; set; }
+        public State State { get; set; }
     }
 
     public class IndicatorConditionRateModel
@@ -51,5 +54,13 @@ namespace CommitteeAdministration.Models
         public Indicator Indicator { get; set; }
         public DateTime ConditionTime { get; set; }
         public double ConditionPercentage { get; set; }
+    }
+
+    public enum State
+    {
+        VeryIdeal,
+        Ideal,
+        NonIdeal,
+        VeryNonIdeal
     }
 }

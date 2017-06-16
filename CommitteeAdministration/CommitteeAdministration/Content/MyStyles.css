@@ -1,6 +1,20 @@
 ﻿
-
-
+.mainBlueColor {
+    background-color: #3366ff;
+}
+.mainRedColor {
+    background-color: #ff0000;
+}
+.mainOrangeColor {
+    background-color: #ff5030;
+    
+}
+.mainYellowColor {
+    background-color: #ffff00;
+}
+.mainGreenColor {
+    background-color: #00ffbb;
+}
 .div_footer_first {
     color:  blue !important;
     background-color: blue !important;

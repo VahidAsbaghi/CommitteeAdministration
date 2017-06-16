@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CommitteeAdministration.Models;
 using CommitteeManagement.Model;
 using CommitteeManagement.Repository;
 using Microsoft.Practices.Unity;
@@ -77,6 +78,18 @@ namespace CommitteeAdministration.ViewModels
         public Criterion Criterion { get; set; }
         public List<SubCriterion> SubCriterionList { get; set; }
         public List<Indicator> Indicators { get; set; }
+        public SelectList Committees { get; set; }
+        public int SelectedCommitteeId { get; set; }
+    }
+
+    /// <summary>
+    /// view model of whole committee including the state of the criteria/sub-criterions/indicators with the percent of the ideality 
+    /// </summary>
+    public class CommitteeStatusViewModel
+    {
+        public List<CriterionConditionModel> CriteriaList { get; set; }        
+        public List<SubCriterionConditionModel> SubCriterionList { get; set; }        
+        public List<IndicatorsConditionModel> Indicators { get; set; }
         public SelectList Committees { get; set; }
         public int SelectedCommitteeId { get; set; }
     }

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using CommitteeAdministration.Helper;
+using CommitteeAdministration.Models;
+using CommitteeAdministration.Services;
 using CommitteeAdministration.ViewModels;
 using CommitteeManagement.Model;
 using CommitteeManagement.Repository;
@@ -21,6 +23,7 @@ namespace CommitteeAdministration.Controllers
     public class CriteriaScIndController : Controller
     {
         private readonly IMainContainer _mainContainer = ModelContainer.Instance.Resolve<IMainContainer>();
+        private readonly CommitteeStatus _committeeStatus = ModelContainer.Instance.Resolve<CommitteeStatus>();
         /// <summary>
         /// Gets the current user.Retrieve user info using httpcontext
         /// </summary>
@@ -34,6 +37,36 @@ namespace CommitteeAdministration.Controllers
         //{
         //    return View();
         //}
+        public ActionResult CommitteeStatusMain()
+        {
+            var model = new CommitteeStatusViewModel()
+            {
+                Committees = new SelectList(
+                    _mainContainer.CommitteeRepository.All(), "Id", "Name")
+            };
+            return View(model);
+        }
+        public Task<PartialViewResult> CommitteeStatus(int committeeId)
+        {
+            var model = new CommitteeStatusViewModel();
+            var committee =
+                _mainContainer.CommitteeRepository.FirstOrDefault(
+                    committeeT => committeeT.Id == committeeId);
+            model.CriteriaList =
+                _committeeStatus.GetCriteriaCondition(DateTime.Now, committee);
+            model.SubCriterionList=new List<SubCriterionConditionModel>();
+            model.Indicators=new List<IndicatorsConditionModel>();
+            foreach (var criterionCondition in model.CriteriaList)
+            {
+                model.SubCriterionList.AddRange(_committeeStatus.GetSubCriterionsCondition(criterionCondition.Criterion,DateTime.Now));
+            }
+            foreach (var subCriterionCondition in model.SubCriterionList)
+            {
+                model.Indicators.AddRange(_committeeStatus.IndicatorsPercentage(subCriterionCondition.SubCriterion,DateTime.Now));
+            }
+            
+            return Task.Factory.StartNew(() => PartialView(model));
+        }
         public ActionResult ViewAll()
         {
             var model = new ViewAllViewModel()

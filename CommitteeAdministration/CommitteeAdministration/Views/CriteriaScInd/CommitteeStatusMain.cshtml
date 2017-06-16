@@ -1,0 +1,63 @@
+﻿@using CommitteeAdministration.ViewModels
+@using Microsoft.Ajax.Utilities
+@model CommitteeAdministration.ViewModels.CommitteeStatusViewModel
+@{
+    ViewBag.Title = "CommitteeStatus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var allData = new CommitteeStatusViewModel();
+}
+
+<head>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<h2>Committee Status</h2>
+@using (Html.BeginForm())
+{
+
+    <div class="form-horizontal" align="center" dir="rtl">
+        <h4>اطلاعات کامل هر ستاد</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group" align="center">
+            @Html.LabelFor(model => model.Committees, new { @class = "control-label" })
+            <div align="center">
+                @Html.DropDownListFor(m => m.SelectedCommitteeId, Model.Committees, "Select", new
+           {
+               @id = "dropDownCommittee",
+               //@onchange="getAllData1()"
+           })
+
+            </div>
+        </div>
+        <div id="AllDataDiv" align="center">
+
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function getAllData() {
+            if (@Model != null) {
+
+
+                @*var url = '@Html.Partial("ViewAllTree", Model)';
+                $("#AllDataDiv").load(url);*@
+            }
+        }
+
+        $(document).ready(function() {
+            $('#dropDownCommittee').change(function() {
+                var id = $(this).find(":selected").val();
+                var url = '/CriteriaScInd/CommitteeStatus?committeeId=' + id; @*'@Url.Action("ViewAllTree", "CriteriaScInd",new { committeeId=Model.SelectedCommitteeId})';*@
+
+                @*// var url = '@Html.Action("ViewAllTree", Model.SelectedCommitteeId)';*@
+                $("#AllDataDiv").load(url);
+
+
+            });
+        });
+    </script>
+}
