@@ -11,6 +11,7 @@ using CommitteeAdministration.Helper;
 using CommitteeManagement.Model;
 using CommitteeManagement.Repository;
 using CommitteeManagement.Repository.Data;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Practices.Unity;
 
 namespace CommitteeAdministration.Controllers
@@ -22,7 +23,26 @@ namespace CommitteeAdministration.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class UsersController : Controller
     {
-        private readonly IMainContainer _mainContainer= ModelContainer.Instance.Resolve<IMainContainer>();
+
+        private ApplicationUserManager _userManager;
+        private readonly IMainContainer _mainContainer = ModelContainer.Instance.Resolve<IMainContainer>();
+        public UsersController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+     
         // GET: Users        
         /// <summary>
         /// List all Users
@@ -33,6 +53,7 @@ namespace CommitteeAdministration.Controllers
             var users = _mainContainer.UserRepository.AllIncluding(u => u.Committee).Include(u => u.ContactInfo);
             return View(await users.ToListAsync());
         }
+
 
         // GET: Users/Details/5        
         /// <summary>

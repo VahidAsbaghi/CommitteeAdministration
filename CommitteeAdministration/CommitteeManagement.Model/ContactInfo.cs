@@ -20,6 +20,6 @@ namespace CommitteeManagement.Model
         [Url]
         public string PhotoLink { get; set; }
         public DateTime? ModifiedTime { get; set; }
-        public virtual  User User{ get; set; }
+        public virtual User User{ get; set; }
     }
 }
