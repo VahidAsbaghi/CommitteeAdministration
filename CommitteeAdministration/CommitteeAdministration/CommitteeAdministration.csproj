@@ -222,8 +222,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Management\Controllers\ManagementController.cs" />
-    <Compile Include="Areas\Management\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Management\ManagementAreaRegistration.cs" />
+    <Compile Include="Areas\Management\Models\UserViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ChartsController.cs" />
@@ -266,6 +266,7 @@
     <Compile Include="Services\MockDataGenerator.cs" />
     <Compile Include="Services\RealValueAlarm.cs" />
     <Compile Include="Services\ShamsiToMiladi.cs" />
+    <Compile Include="Services\UserInfoManager.cs" />
     <Compile Include="Services\UserManagement.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
@@ -6715,6 +6716,9 @@
     <Content Include="Content\FirstPage\SliderImage.css" />
     <Content Include="Content\FontStyles.css" />
     <Content Include="Content\fonts\BTitrBold.woff" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\MdBootstrapPersianDateTimePicker\jquery.Bootstrap-PersianDateTimePicker.css" />
     <Content Include="Content\MyStyles.css" />
@@ -6723,6 +6727,9 @@
     <Content Include="Content\PersianCalender\jspc-peach.css" />
     <Content Include="Content\PersianCalender\jspc-royal_blue.css" />
     <Content Include="Content\PersianCalender\main.css" />
+    <Content Include="Content\plugins\bootstrap-dialog\bootstrap-dialog.js" />
+    <Content Include="Content\plugins\bootstrap-dialog\bootstrap-dialog.min.css" />
+    <Content Include="Content\plugins\bootstrap-dialog\bootstrap-dialog.min.js" />
     <Content Include="css\font-awesome.css" />
     <Content Include="css\font-awesome.min.css" />
     <Content Include="favicon.ico" />
@@ -7252,6 +7259,12 @@
     <Content Include="assets\Admin-Panel\assets\pages\media\pages\Thumbs.db" />
     <Content Include="Areas\Management\Views\Management\Index.cshtml" />
     <Content Include="Areas\Management\Views\Profile\Index.cshtml" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Areas\Management\Views\Management\UserPartial.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap-select.js.map" />
@@ -7628,7 +7641,6 @@
     <Folder Include="AdminLTE-RTL-master\bootstrap\js\" />
     <Folder Include="AdminTemplate\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Management\Models\" />
     <Folder Include="assets\Admin-Panel\assets\apps\img\" />
     <Folder Include="assets\Admin-Panel\assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
   </ItemGroup>

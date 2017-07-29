@@ -1,89 +1,123 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using CommitteeAdministration.Areas.Management.Models;
+using CommitteeAdministration.Helper;
+using CommitteeAdministration.Services.Contract;
+using CommitteeManagement.Model;
+using CommitteeManagement.Repository;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Practices.Unity;
 
 namespace CommitteeAdministration.Areas.Management.Controllers
 {
+    //[Authorize(Roles = "SuperAdmin")]
     public class ManagementController : Controller
     {
-        
-        public ActionResult Index()
+        private readonly IMainContainer _mainContainer = ModelContainer.Instance.Resolve<IMainContainer>();
+        private readonly IUserInfoManager _userInfoManager = ModelContainer.Instance.Resolve<IUserInfoManager>();
+        private ApplicationUserManager _userManager;
+
+        public ManagementController()
         {
-            return View();
+            
+        }
+        public ManagementController(ApplicationUserManager userManager)
+        {
+            UserManager = userManager;
+
         }
 
-        //// GET: Management/Management/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
+        public ApplicationUserManager UserManager
+        {
+            get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+            private set { _userManager = value; }
+        }
 
-        //// GET: Management/Management/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+        public ActionResult Index()
+        {
+            var users = _userInfoManager.GetUsersInfo();
+            //ViewBag.Users = users;
+            //Must Return Roles
+            return View(users);
+        }
 
-        //// POST: Management/Management/Create
-        //[HttpPost]
-        //public ActionResult Create(FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add insert logic here
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
 
-        //// GET: Management/Management/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
+        public ActionResult CreateUser()
+        {
 
-        //// POST: Management/Management/Edit/5
-        //[HttpPost]
-        //public ActionResult Edit(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add update logic here
+            return null;
+        }
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
 
-        //// GET: Management/Management/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
+        [HandleError]
+        public ActionResult CreateUserPartail(long? UserId)
+        {
 
-        //// POST: Management/Management/Delete/5
-        //[HttpPost]
-        //public ActionResult Delete(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add delete logic here
+            UserViewModel userViewModel = new UserViewModel();
+            return View("UserPartial", userViewModel);
+        }
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        [HandleError]
+        [ValidateInput(false)]
+        public async Task<ActionResult> SaveCategory(UserViewModel userModel)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                // Re-assign select list if returning the view
+                var listData = _mainContainer.CommitteeRepository.All().ToList();
+                userModel.CommitteeName = new SelectList(listData, "Id ", "Name");
+                return PartialView("UserPartial", userModel);
+            }
+
+            var user = new User
+            {
+                UserName = userModel.Email,
+                Email = userModel.Email,
+                CommitteeRefId = userModel.ReturnedCommitteeId,
+                Committee = _mainContainer.CommitteeRepository.FindById(userModel.ReturnedCommitteeId)
+            };
+            IdentityResult result;
+            try
+            {
+                result = await UserManager.CreateAsync(user, userModel.Password);
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}",
+                            validationError.PropertyName,
+                            validationError.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+            if (result.Succeeded)
+            {
+
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                return RedirectToAction("Index", "Home");
+            }
+            //AddErrors(result);
+
+            userModel.CommitteeName = (SelectList) _mainContainer.CommitteeRepository.All();
+            // If we got this far, something failed, redisplay form
+            //return System.Web.UI.WebControls.View(model);
+            return RedirectToAction("index", "Management");
+
+        }
+
+
+
     }
+
 }
