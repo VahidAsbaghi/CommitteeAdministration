@@ -27,7 +27,9 @@ namespace CommitteeAdministration.Areas.Management.Models
         public SelectList CommitteeName { get; set; }
 
         public int ReturnedCommitteeId { get; set; }
+        [Display(Name = "نام ")]
         public string Name { get; set; }
+        [Display(Name = "نام خانوادگی")]
         public string FamilyName { get; set; }
          
     }

@@ -58,7 +58,6 @@ namespace CommitteeAdministration.Areas.Management.Controllers
         [HandleError]
         public ActionResult CreateUserPartail(long? UserId)
         {
-
             UserViewModel userViewModel = new UserViewModel();
             return View("UserPartial", userViewModel);
         }
