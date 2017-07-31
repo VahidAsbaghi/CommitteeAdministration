@@ -56,15 +56,17 @@ namespace CommitteeAdministration.Areas.Management.Controllers
 
 
         [HandleError]
-        public ActionResult CreateUserPartail(long? UserId)
+        public ActionResult CreateUserPartail(string UserId)
         {
             UserViewModel userViewModel = new UserViewModel();
+            var listData = _mainContainer.CommitteeRepository.All().ToList();
+            userViewModel.CommitteeName = new SelectList(listData, "Id ", "Name");
             return View("UserPartial", userViewModel);
         }
 
         [HandleError]
         [ValidateInput(false)]
-        public async Task<ActionResult> SaveCategory(UserViewModel userModel)
+        public async Task<ActionResult> SaveUser(UserViewModel userModel)
         {
 
             if (!ModelState.IsValid)

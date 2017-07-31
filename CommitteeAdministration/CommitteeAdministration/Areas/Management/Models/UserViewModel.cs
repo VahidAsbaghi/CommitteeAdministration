@@ -7,6 +7,10 @@ namespace CommitteeAdministration.Areas.Management.Models
     {
         //public User User { get; set; }
         //public List<Committee> Committees { get; set; }
+
+      
+        public string UserId { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

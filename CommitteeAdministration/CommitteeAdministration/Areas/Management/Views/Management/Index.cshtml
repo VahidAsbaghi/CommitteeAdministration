@@ -116,7 +116,7 @@
 
                                         <td>
 
-                                            <a style="margin-left: 2px" class="to-be-tooltip" title="ویرایش اطلاعات" data-placement="top" href="..//?ID=@item.UserId">
+                                            <a style="margin-left: 2px" class="to-be-tooltip" title="ویرایش اطلاعات" data-placement="top" href="#" onclick="javascript:AddNewUser('@item.UserId');">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>
 
@@ -169,9 +169,10 @@
 
 @section scripts{
     <script>
-        function AddNewUser() {
-            $.post(encodeURI("/Management/Management/CreateUserPartail"), {
-
+        function AddNewUser(id) {
+            $.post(encodeURI("/Management/Management/CreateUserPartail"),
+            {
+                UserId: id
             }).success(function (data) {
                 BootstrapDialog.show({
                     title: 'کاربر جدید',

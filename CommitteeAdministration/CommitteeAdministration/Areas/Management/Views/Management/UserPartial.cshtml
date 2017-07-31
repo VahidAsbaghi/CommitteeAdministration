@@ -13,7 +13,7 @@
 
 
 @*<form method="post" id="frmCategory" name="frmCategory" class="form-to-be-validated" action="~/Management/Management/SaveCategory">*@
-@using (Ajax.BeginForm("SaveCategory", new { Controller = "management", area = "Management" }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "frmEmp" }))
+@using (Ajax.BeginForm("SaveUser", new { Controller = "management", area = "Management" }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "frmEmp" }))
 {
     <div class="container-fluid" style="direction: rtl">
         <div id="frmEmp">
