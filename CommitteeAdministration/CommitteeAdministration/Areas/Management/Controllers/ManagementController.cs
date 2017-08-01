@@ -24,12 +24,11 @@ namespace CommitteeAdministration.Areas.Management.Controllers
 
         public ManagementController()
         {
-            
+
         }
         public ManagementController(ApplicationUserManager userManager)
         {
             UserManager = userManager;
-
         }
 
         public ApplicationUserManager UserManager
@@ -60,6 +59,17 @@ namespace CommitteeAdministration.Areas.Management.Controllers
         {
             UserViewModel userViewModel = new UserViewModel();
             var listData = _mainContainer.CommitteeRepository.All().ToList();
+            var user = UserManager.FindByIdAsync(UserId).Result;
+            if (user != null)
+            {
+                userViewModel.Name = user.Name;
+                userViewModel.FamilyName = user.LastName;
+                userViewModel.UserId = user.Id;
+                userViewModel.Email = user.Email;
+                userViewModel.
+
+
+            }
             userViewModel.CommitteeName = new SelectList(listData, "Id ", "Name");
             return View("UserPartial", userViewModel);
         }
@@ -110,7 +120,7 @@ namespace CommitteeAdministration.Areas.Management.Controllers
             }
             //AddErrors(result);
 
-            userModel.CommitteeName = (SelectList) _mainContainer.CommitteeRepository.All();
+            userModel.CommitteeName = (SelectList)_mainContainer.CommitteeRepository.All();
             // If we got this far, something failed, redisplay form
             //return System.Web.UI.WebControls.View(model);
             return RedirectToAction("index", "Management");
