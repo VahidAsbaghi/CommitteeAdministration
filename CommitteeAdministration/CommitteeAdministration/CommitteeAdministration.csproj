@@ -223,6 +223,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Management\Controllers\ManagementController.cs" />
     <Compile Include="Areas\Management\ManagementAreaRegistration.cs" />
+    <Compile Include="Areas\Management\Models\ProfileViewModel.cs" />
     <Compile Include="Areas\Management\Models\UserViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -232,6 +233,7 @@
     <Compile Include="Controllers\ContactInfoesController.cs" />
     <Compile Include="Controllers\CriteriaController.cs" />
     <Compile Include="Controllers\CriteriaScIndController.cs" />
+    <Compile Include="Controllers\EditUserPassword.cs" />
     <Compile Include="Controllers\Enums.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndicatorIdealValuesController.cs" />
@@ -7258,7 +7260,7 @@
     <Content Include="assets\Admin-Panel\assets\pages\media\blog\Thumbs.db" />
     <Content Include="assets\Admin-Panel\assets\pages\media\pages\Thumbs.db" />
     <Content Include="Areas\Management\Views\Management\Index.cshtml" />
-    <Content Include="Areas\Management\Views\Profile\Index.cshtml" />
+    <Content Include="Areas\Management\Views\Management\Profile.cshtml" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
@@ -7644,6 +7646,7 @@
     <Folder Include="AdminLTE-RTL-master\bootstrap\js\" />
     <Folder Include="AdminTemplate\" />
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Management\Views\Profile\" />
     <Folder Include="assets\Admin-Panel\assets\apps\img\" />
     <Folder Include="assets\Admin-Panel\assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
   </ItemGroup>

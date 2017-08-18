@@ -66,9 +66,10 @@ namespace CommitteeAdministration.Areas.Management.Controllers
                 userViewModel.FamilyName = user.LastName;
                 userViewModel.UserId = user.Id;
                 userViewModel.Email = user.Email;
-                userViewModel.
-
-
+                //userViewModel.
+                userViewModel.UserId = user.Id;
+                if (user.CommitteeRefId != null) userViewModel.ReturnedCommitteeId = user.CommitteeRefId.Value;
+                
             }
             userViewModel.CommitteeName = new SelectList(listData, "Id ", "Name");
             return View("UserPartial", userViewModel);
@@ -128,7 +129,13 @@ namespace CommitteeAdministration.Areas.Management.Controllers
         }
 
 
-
+        public ActionResult Profile()
+        {
+            var users = _userInfoManager.GetUsersInfo();
+            //ViewBag.Users = users;
+            //Must Return Roles
+            return View();
+        }
     }
 
 }
