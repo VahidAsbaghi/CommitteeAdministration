@@ -60,9 +60,9 @@ namespace CommitteeAdministration.Controllers
                     {
                         valuesObject.Add(value);
                     }
-                    var chart = chartDrawer.DrawColumnChart("نمودار ستونی تغییرات مقدار واقعی شاخص بر اساس زمان",
-                        "مقدار واقعی", new List<string>() {"مقدار واقعی"}, valuesObject);
-                    return PartialView("_BarChart", chart);
+                    //var chart = chartDrawer.DrawColumnChart("نمودار ستونی تغییرات مقدار واقعی شاخص بر اساس زمان",
+                    //    "مقدار واقعی", new List<string>() {"مقدار واقعی"}, valuesObject);
+                    return PartialView("_BarChart", null);
 
                 }
                 else if (chartType==IndicatorChart.RealValuesChangesByMultipleTimesColumn.ToString())
@@ -102,8 +102,8 @@ namespace CommitteeAdministration.Controllers
                             columnChartDataModel.SeriesNameList.Add("از "+ fromDatesList[i]+"تا "+ toDatesList[i]);
                         
                         }
-                        var chart = chartDrawer.BasicColumn(columnChartDataModel);
-                        return PartialView("_BarChart", chart);
+                        //var chart = chartDrawer.BasicColumn(columnChartDataModel);
+                        return PartialView("_BarChart", null);
                     }
                 }
             }
@@ -133,9 +133,9 @@ namespace CommitteeAdministration.Controllers
                     {
                         valuesObject.Add(value);
                     }
-                    var chart = chartDrawer.DrawColumnChart("نمودار ستونی تغییرات مقدار واقعی شاخص بر اساس زمان",
-                        "مقدار واقعی", new List<string>() { "مقدار واقعی" }, valuesObject);
-                    return PartialView("_BarChart", chart);
+                    //var chart = chartDrawer.DrawColumnChart("نمودار ستونی تغییرات مقدار واقعی شاخص بر اساس زمان",
+                    //    "مقدار واقعی", new List<string>() { "مقدار واقعی" }, valuesObject);
+                    return PartialView("_BarChart", null);
                 }
             }
             
@@ -345,8 +345,9 @@ namespace CommitteeAdministration.Controllers
                     .ToList();
             var values= realValues.Select(realValue => (object)realValue.Value.GetValueOrDefault(0)).ToList();
 
-           return PartialView("_BarChart",_chartDrawer.DrawColumnChart("نمودار تغییرات شاخص بر حسب زمان", "مقدار واقعی شاخص",
-                new List<string>() {realValues[0].Indicator.Subject}, values));
+            return PartialView("_BarChart", null);
+            //_chartDrawer.DrawColumnChart("نمودار تغییرات شاخص بر حسب زمان", "مقدار واقعی شاخص",
+            //    new List<string>() {realValues[0].Indicator.Subject}, values));
         }
          
         
@@ -433,7 +434,7 @@ namespace CommitteeAdministration.Controllers
         CriteriaWeightPie,
     }
 
-    public enum ChartType
+    public enum ChartTypeT
     {
         RealValuesChangesByTimeColumn,
         RealValuesChangesByMultipleTimesColumn,
@@ -462,7 +463,7 @@ namespace CommitteeAdministration.Controllers
     }
     public interface IChart
     {
-        Highcharts GetChart(ChartType chart);
+        Highcharts GetChart(ChartTypeT chart);
     }
     
     public class IndicatorChartC

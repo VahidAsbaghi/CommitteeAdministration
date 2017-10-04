@@ -1,15 +1,17 @@
 ﻿@model CommitteeAdministration.ViewModels.IndicatorRealValueViewModel
 @{
     ViewBag.Title = "AddRealValues";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 <head>
-    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <link href="~/Content/MyStyles.css" rel="stylesheet"/>
 </head>
-<h2>AddRealValues</h2>
+<h2>مقادیر مطلوب و واقعی</h2>
 @using (Html.BeginForm())
 {
+
     @Html.AntiForgeryToken()
     <div class="form-horizontal" align="center" dir="rtl">
         <h4>جدول ورود اطلاعات مقادیر شاخص واقعی</h4>
@@ -39,6 +41,8 @@
                 var id = $(this).find(":selected").val();
                 var url = '/IndicatorRealValues/AddRealValuePartial?committeeId=' + id;
                 $("#AllDataDiv").load(url);
+                
+                    
             });
         });
     </script>

@@ -1,0 +1,139 @@
+﻿@model CommitteeAdministration.ViewModels.ChartsViewModel
+
+@{
+    ViewBag.Title = "صفحه اصلی";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<head>
+    <script src="~/BootstrapPersianCalendar/Scripts/jQuery-2.1.4.min.js"></script>
+    <link href="../../Content/bootstrap-theme-rtl.min.css" rel="stylesheet" />
+    <link href="~/BootstrapPersianCalendar/Content/jquery.Bootstrap-PersianDateTimePicker.css" rel="stylesheet" />
+    <!--<link href="../Content/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../Content/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="../Content/MdBootstrapPersianDateTimePicker/jquery.Bootstrap-PersianDateTimePicker.css"/>-->
+    <!--<script src="../../Scripts/jquery-3.1.1.min.js"></script>-->
+
+
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <style>
+        .ui-widget-header, .ui-state-default, .ui-button {
+            background: #b9cd6d;
+            border: 1px solid #b9cd6d;
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+    </style>
+
+
+    <script src="../../Scripts/bootstrap-rtl.min.js"></script>
+    <!--<script src="../Scripts/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="../Scripts/bootstrap.min.js" type="text/javascript"></script>-->
+    <style type="text/css">
+        body, table {
+            font-family: 'Segoe UI', Tahoma;
+            font-size: 14px;
+        }
+        .myPosition {
+    position: absolute;
+    top: 200px; /* use a length or percentage */
+}
+    </style>
+</head>
+<h2>Index</h2>
+<script>
+    
+    $(document).ready(function () {
+
+            $('#dropDownCommittee').change(function() {
+                var id = $(this).find(":selected").val();
+                var url = '/NewCharts/ReturnCommitteeId?committeeId=' + id;
+                $('#chartDataSelector').load(url,
+                    function () {
+                        //########
+                        //DisableAllControls();
+                        //######
+                       // $('#chartDataSelector').top = "150px";
+                       // document.getElementById("chartDataSelector").style.top = "150px";
+                        $("#chartDataSelector").dialog({
+                            autoOpen: true,
+                            resizable: false,
+                            height: "auto",
+                            width: "700px",
+                            dialogClass: 'myPosition',
+                            modal: true,
+                            hide: "puff",
+                            show: "slide",
+                            buttons: {
+                                "رسم نمودار": function () {
+                                    var chartsData =$("#ChartsSubmitForm").serialize();
+                                    var indic = $('#indicDropDown').val();
+                                    var chartType = $('#TypeDropDown').val();
+                                    
+                                    var url = '/NewCharts/DrawChart';
+                                    $('#ChartsDataDiv').load(url, chartsData + '&indicType=' + indic + '&chartType=' + chartType);
+
+                                    $(this).dialog("close");
+                                },
+                                "انصراف": function() {
+                                    $(this).dialog("close");
+                                }
+                            }
+                        }).display = "block";
+                        
+                    });
+
+            });
+    });
+    function DisableAllControls() {
+        var indicDropDownObject = document.getElementById('indicDropDown');
+        var nameDropDownObject = document.getElementById('NameDropDown');
+        var typeDropDownObject = document.getElementById('TypeDropDown');
+        var dropDownCriterionObject = document.getElementById('dropDownCriterion');
+        var dropDownSubCriterionObject = document.getElementById('dropDownSubCriterion');
+        var dropDownIndicatorObject = document.getElementById('dropDownIndicator');
+        var fromDateObject = document.getElementById('fromDate1');
+        var toDateObject = document.getElementById('toDate1');
+        indicDropDownObject.disabled = true;
+        nameDropDownObject.disabled = true;
+        typeDropDownObject.disabled = true;
+        dropDownCriterionObject.disabled = true;
+        dropDownSubCriterionObject.disabled = true;
+        dropDownIndicatorObject.disabled = true;
+        fromDateObject.disabled = true;
+        toDateObject.disabled = true;
+        
+        //document.getElementById(target).disabled = true;
+    
+    }
+
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>رسم نمودارها</h4>
+        <hr/>
+        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group" align="center">
+            @Html.LabelFor(model => model.Committees, new { @class = "control-label" })
+            <div align="center">
+                @Html.DropDownListFor(m => m.SelectedCommitteeId, Model.Committees, "Select", new
+           {
+               @id = "dropDownCommittee",
+
+           })
+
+            </div>
+        </div>
+        <div id="ChartsDataDiv">
+
+        </div>
+        <div id="chartDataSelector" title="اطلاعات نمودار" style="display:none; ">
+
+        </div>
+    </div>
+}

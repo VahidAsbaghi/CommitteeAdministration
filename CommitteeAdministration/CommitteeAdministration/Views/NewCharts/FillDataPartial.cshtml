@@ -1,0 +1,293 @@
+﻿@using CommitteeAdministration.Models.ChartModels
+@model CommitteeAdministration.ViewModels.ChartsViewModel
+<head>
+    
+</head>
+<script>
+    $(document).ready(function() {
+        var indicDropDownObject = document.getElementById('indicDropDown');
+        indicDropDownObject.disabled = false;
+        var indicatorDropDown = document.getElementById('dropDownIndicator');
+        var subCriterionDropDown = document.getElementById('dropDownSubCriterion');
+        var criterionDropDown = document.getElementById('dropDownCriterion');
+        $('#indicDropDown').change(function() {
+            var indic = $(this).find(":selected").val();
+            indicatorDropDown.disabled = false;
+            subCriterionDropDown.disabled = false;
+            criterionDropDown.disabled = false;
+            var nameDropDownObject = document.getElementById('NameDropDown');
+            if (indic === 'Indicator') {
+                for (var i = 0; i < nameDropDownObject.options.length; i++) {
+                    if (!nameDropDownObject.options[i].text.startsWith("Indicator")) {
+                        nameDropDownObject.options[i].disabled = true;
+                        //console.log(nameDropDownObject.options[i].text);
+                    } else {
+                        nameDropDownObject.options[i].disabled = false;
+                    }
+                }
+            } else if (indic === 'SubCriterion') {
+                indicatorDropDown.disabled = true;
+                for (var i = 0; i < nameDropDownObject.options.length; i++) {
+                    if (nameDropDownObject.options[i].text.startsWith("SubCriterion") || nameDropDownObject.options[i].text.startsWith("SubCriteria")) {
+                        nameDropDownObject.options[i].disabled = false;
+                    } else {
+                        nameDropDownObject.options[i].disabled = true;
+                    }
+
+                }
+            }
+            else if (indic === 'Criterion') {
+                indicatorDropDown.disabled = true;
+                subCriterionDropDown.disabled = true;
+                for (var i = 0; i < nameDropDownObject.options.length; i++) {
+                    if (nameDropDownObject.options[i].text.startsWith("Criterion") || nameDropDownObject.options[i].text.startsWith("Criteria")) {
+                        nameDropDownObject.options[i].disabled = false; 
+                    } else {
+                        nameDropDownObject.options[i].disabled = true;
+                    }
+
+                }
+            }
+        });
+    });
+    
+    function OnClickAddDateTime() {
+        var fromDateTime1 = $('#fromDate1').val();
+        var toDateTime1 = $('#toDate1').val();
+        $.ajax({
+            url: "/NewCharts/PostSelectedDateTime",
+            type: 'POST',
+            dataType: 'json',
+            async: false,
+            data: {fromDateTime:fromDateTime1,toDateTime:toDateTime1},
+            success: function (response) {
+                var result = response.StatusCode;
+                if (result === 200) {
+                    alert("تاریخ ها با موفقیت افزوده شد");
+                    
+                } else {
+                    alert("در انتخاب تاریخ ها مشکلی وجود دارد. مجددا سعی کنید");
+                    
+                }
+            },
+            error: function (xhr) {
+                alert("Something went wrong, please try again");
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $('#NameDropDown').change(function () {
+            var id = $(this).find(":selected").val();
+
+            $.ajax({
+                url: "/NewCharts/GetChart",
+                type: 'POST',
+                dataType: 'json',
+                async: false,
+                data: {selectedChartId:id},
+                success: function (response) {
+                    var criterionDropDown = document.getElementById('dropDownCriterion');
+                    var subCriterionDropDown = document.getElementById('dropDownSubCriterion');
+                    var indicatorDropDown = document.getElementById('dropDownIndicator');
+                    var result = response;
+                    var mySelect = $('#TypeDropDown');
+                    mySelect.empty();
+                    //console.log(result);
+                    $.each(result.ChartType, function (val, text) {
+                            mySelect.append(
+                                $('<option></option>').val(text).html(text)
+                        );
+                    });
+                    if (result.IsMultiple) {
+                        if (result.ChartIndicType === 0) {
+                            criterionDropDown.multiple = 'multiple';
+                        }
+                        else if (result.ChartIndicType===1) {
+                            subCriterionDropDown.multiple = 'multiple';
+                        }
+                        else if (result.ChartIndicType === 2) {
+                            indicatorDropDown.multiple = 'multiple';
+                        }
+                    } else {
+                        criterionDropDown.multiple = '';
+                        subCriterionDropDown.multiple = '';
+                        indicatorDropDown.multiple = '';
+                    }
+                },
+                error: function(xhr) {
+                    alert("Something went wrong, please try again");
+                }
+            });
+        });
+    });
+    $(document).ready(function() {
+        $('#dropDownCriterion').change(function () {
+            if (this.multiple==='multiple') {
+                return;
+            }
+            var id = $(this).find(":selected").val();
+            $.ajax({
+                url: "/NewCharts/GetSubCriteria",
+                type: 'POST',
+                dataType: 'json',
+                async: false,
+                data: { selectedCriterionId: id },
+                success: function (response) {
+                    
+                    var result = response;
+                    var mySelect = $('#dropDownSubCriterion');
+                    mySelect.empty();
+                    mySelect.append(
+                        $('<option></option>').html('انتخاب'));
+                    //console.log(result);
+                    $.each(result, function (index, value) {
+                        mySelect.append(
+                            $('<option></option>').val(value.Id).html(value.Subject)
+                    );
+                    });
+                   
+                },
+                error: function (xhr) {
+                    alert("Something went wrong, please try again!!!");
+                   // console.log(xhr);
+                }
+            });
+        });
+
+        $('#dropDownSubCriterion').change(function () {
+            if (this.multiple === 'multiple') {
+                return;
+            }
+            var id = $(this).find(":selected").val();
+            $.ajax({
+                url: "/NewCharts/GetIndicators",
+                type: 'POST',
+                dataType: 'json',
+                async: false,
+                data: { selectedSubCriterionId: id },
+                success: function (response) {
+
+                    var mySelect = $('#dropDownIndicator');
+                    //console.log(result);
+                    mySelect.empty();
+                    mySelect.append(
+                        $('<option></option>').html('انتخاب'));
+                    $.each(response, function (index, value) {
+                        mySelect.append(
+                            $('<option></option>').val(value.Id).html(value.Subject)
+                    );
+                    });
+
+                },
+                error: function (xhr) {
+                    alert("Something went wrong, please try again!!!");
+                    //console.log(xhr);
+                }
+            });
+        });
+    });
+</script>
+@using (Html.BeginForm("CreateIndicatorPartial", "Indicators", FormMethod.Post, new { @id = "ChartsSubmitForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>ChartsViewModel</h4>
+        <hr/>
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        <div>
+            @Html.HiddenFor(model=>model.SelectedCommitteeId);
+        </div>
+        <div class="form-group" align="center">
+            @Html.Label("انتخاب شاخصه رسم نمودار", htmlAttributes: new {@class = "control-label"})
+            <div align="center">
+                @Html.DropDownList("SelectComparisonIndic", new List<SelectListItem>
+                {
+                    new SelectListItem() {Text = "معیار", Value = "Criterion"},
+                    new SelectListItem() {Text = "زیر معیار", Value = "SubCriterion"},
+                    new SelectListItem() {Text = "شاخص", Value = "Indicator"}
+                },"انتخاب", new {@id = "indicDropDown", @style = "display: block;"})
+            </div>
+        </div>
+        <div class="form-group" align="center">
+            @Html.Label("انتخاب نام نمودار", htmlAttributes: new {@class = "control-label"})
+            <div align="center">
+                 @Html.DropDownListFor(model=>model.SelectedChartId,Model.Charts,"انتخاب نمودار", new {@id = "NameDropDown"})
+               @* @Html.DropDownListFor(model=>model.Charts,new SelectList(Model.Charts),"انتخاب نوع نمودار", new { @id = "NameDropDown" })*@
+            </div>
+        </div>
+
+        <div class="form-group" align="center">
+            @Html.Label("انتخاب نوع نمودار", htmlAttributes: new {@class = "control-label"})
+            <div align="center">
+                @Html.DropDownList("SelectChartType", new List<SelectListItem>(), new {@id = "TypeDropDown"})
+            </div>
+        </div>
+        <div class="form-group" align="center">
+            @Html.LabelFor(model => model.Criteria, new {@class = "control-label"})
+            <div align="center">
+                @Html.DropDownListFor(m => m.SelectedCriterionId, Model.Criteria, "انتخاب", new
+                {
+                    @id = "dropDownCriterion",
+                    //@multiple="multiple"
+                })
+            </div>
+        </div>
+        <div class="form-group" align="center">
+            @Html.LabelFor(model => model.SubCriterions, new {@class = "control-label"})
+            <div align="center">
+                @Html.DropDownListFor(m => m.SelectedSubCriterionId, Model.SubCriterions, "انتخاب", new
+                {
+                    @id = "dropDownSubCriterion",
+
+                })
+            </div>
+        </div>
+        @*<div class="form-group" align="center">
+            @Html.LabelFor(model => model.ChartIndics, new { @class = "control-label" })
+            <div align="center">
+                @Html.DropDownListFor(m => m.SelectedChartIndicId, Model.ChartIndics, "انتخاب", new
+           {
+               @id = "dropDownSelectedType",
+
+           })
+
+            </div>
+        </div>*@
+        
+        <div class="form-group" align="center">
+            @Html.LabelFor(model => model.Indicators, new {@class = "control-label"})
+            <div align="center">
+                @Html.DropDownListFor(m => m.SelectedIndicatorId, Model.Indicators, "انتخاب", new
+                {
+                    @id = "dropDownIndicator",
+
+                })
+            </div>
+        </div>
+        <div class="container" style="max-width: 400px;">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon" data-mddatetimepicker="true" data-trigger="click" data-targetselector="#fromDate1" data-groupid="group1" data-fromdate="true" data-enabletimepicker="true" data-placement="left">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                    <input type="text" class="form-control" id="fromDate1" placeholder="از تاریخ" data-mddatetimepicker="true" data-trigger="click" data-targetselector="#fromDate1" data-groupid="group1" data-fromdate="true" data-enabletimepicker="true" data-placement="right"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon" data-mddatetimepicker="true" data-trigger="click" data-targetselector="#toDate1" data-groupid="group1" data-todate="true" data-enabletimepicker="false" data-placement="left">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                    <input type="text" class="form-control" id="toDate1" placeholder="تا تاریخ" data-mddatetimepicker="true" data-trigger="click" data-targetselector="#toDate1" data-groupid="group1" data-todate="true" data-enabletimepicker="false" data-placement="right"/>
+                </div>
+            </div>
+            <input type="button"  value="افزودن تاریخ" class="btn btn-info" onclick="OnClickAddDateTime()"/>
+        </div>
+
+    </div>
+
+}
+<script src="~/BootstrapPersianCalendar/Scripts/jalaali.js"></script>
+<script src="~/BootstrapPersianCalendar/Scripts/jquery.Bootstrap-PersianDateTimePicker.js"></script>

@@ -78,6 +78,7 @@ namespace CommitteeAdministration.ViewModels
         public Criterion Criterion { get; set; }
         public List<SubCriterion> SubCriterionList { get; set; }
         public List<Indicator> Indicators { get; set; }
+        [Display(Name="ستادها")]
         public SelectList Committees { get; set; }
         public int SelectedCommitteeId { get; set; }
     }
@@ -90,6 +91,7 @@ namespace CommitteeAdministration.ViewModels
         public List<CriterionConditionModel> CriteriaList { get; set; }        
         public List<SubCriterionConditionModel> SubCriterionList { get; set; }        
         public List<IndicatorsConditionModel> Indicators { get; set; }
+        [Display(Name = "ستادها")]
         public SelectList Committees { get; set; }
         public int SelectedCommitteeId { get; set; }
     }
@@ -98,10 +100,14 @@ namespace CommitteeAdministration.ViewModels
     /// </summary>
     public class IndicatorRealValueViewModel
     {
+        [Display(Name = "ستادها")]
         public SelectList Committees { get; set; }
         public int SelectedCommitteeId { get; set; }
+        [Display(Name = "معیارها")]
         public List<Criterion> Criteria { get; set; }
+        [Display(Name = "زیر معیارها")]
         public List<SubCriterion> SubCriterions { get; set; }
+        [Display(Name = "شاخص ها")]
         public List<Indicator> Indicators { get; set; }
         public List<IndicatorIdealValue> IdealValues { get; set; }
         public List<IndicatorRealValue> RealValues { get; set; }

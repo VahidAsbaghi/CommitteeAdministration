@@ -1,0 +1,23 @@
+﻿@using CommitteeAdministration.ViewModels
+@model HighChartViewModel
+
+
+    @if (Model.CodeResult.StatusCode == 200)
+    {
+        @Model.Highcharts
+    }
+    @if (Model.CodeResult.StatusCode >= 420)
+    {
+        <script>
+            alert("یکی از مقادیر ورودی اشتباه وارد شده است.\nلطفا مجددا تلاش کنید");
+            document.reload();
+        </script>
+    }
+    @if (Model.CodeResult.StatusCode != 200 && Model.CodeResult.StatusCode < 420)
+    {
+        <script>
+            alert("Something went wrong. Please try again later");
+            document.reload();
+        </script>
+    }
+

@@ -2,16 +2,16 @@
 @using Microsoft.Ajax.Utilities
 @model CommitteeAdministration.ViewModels.ViewAllViewModel
 @{
-    ViewBag.Title = "ViewAll";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "اطلاعات ستاد";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
     var allData= new ViewAllViewModel();
 }
 
 <head>
-    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 </head>
-<h2>ViewAll</h2>
+<h2>@ViewBag.Title</h2>
 @using (Html.BeginForm())
 {
 
@@ -36,8 +36,6 @@
     </div>
 }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
     <script>
         function getAllData() {
             if (@Model != null) {
@@ -90,4 +88,4 @@
             console.log("success");
         }
     </script>
-}
+

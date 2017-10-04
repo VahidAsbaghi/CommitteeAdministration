@@ -1472,7 +1472,7 @@ namespace DotNet.Highcharts.Samples.Controllers
         public ActionResult PieChart()
         {
             Highcharts chart = new Highcharts("chart")
-                .InitChart(new Chart { PlotShadow = false })
+                .InitChart(new Chart {Type = ChartTypes.Pie,PlotShadow = false })
                 .SetTitle(new Title { Text = "Browser market shares at a specific website, 2010" })
                 .SetTooltip(new Tooltip { Formatter = "function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %'; }" })
                 .SetPlotOptions(new PlotOptions
@@ -1491,7 +1491,7 @@ namespace DotNet.Highcharts.Samples.Controllers
                 })
                 .SetSeries(new Series
                 {
-                    Type = ChartTypes.Pie,
+                    //Type = ChartTypes.Pie,
                     Name = "Browser share",
                     Data = new Data(new object[]
                     {
@@ -1501,8 +1501,8 @@ namespace DotNet.Highcharts.Samples.Controllers
                         {
                             Name = "Chrome",
                             Y = 12.8,
-                            Sliced = true,
-                            Selected = true
+                            //Sliced = true,
+                            //Selected = true
                         },
                         new object[] { "Safari", 8.5 },
                         new object[] { "Opera", 6.2 },

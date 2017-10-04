@@ -1,0 +1,89 @@
+﻿@model CommitteeAdministration.ViewModels.CreateCriterionViewModel
+
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+   
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <style>
+        .ui-widget-header, .ui-state-default, .ui-button {
+            background: #b9cd6d;
+            border: 1px solid #b9cd6d;
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            console.log("rrrrr");
+            ('form').submit(function (e) {
+                console.log("inter function");
+                e.preventDefault();
+                var dd = $("#CriterionSubmitForm").serialize();
+                console.log(dd);
+                $.ajax({
+                    url: "/Criteria/CreateCriterionPartial",
+                    type: 'post',
+                    dataType: 'json',
+                    async: false,
+                    data: $("#CriterionSubmitForm").serialize(),
+                    success: function (response) {
+                        var result = response.StatusCode;
+                        if (result === 200) {
+                            alert("افزودن معیار با موفقیت انجام شد");
+                            $("#CriterionSubmitForm").hide();
+                        } else {
+                            alert("مشکلی در افزودن پیش آمد. مجددا تلاش کنید.");
+                            $("#CriterionSubmitForm").hide();
+                        }
+                    },
+                    error: function (xhr) {
+
+                        alert("Something went wrong, please try again");
+                        $("#CriterionSubmitForm").hide();
+                    }
+
+                });
+
+            });
+            
+        })
+
+    </script>
+
+
+    @using (Html.BeginForm("CreateCriterionPartial", "Criteria", FormMethod.Post, new { @id = "CriterionSubmitForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal" dir="rtl" align="right">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "control-label", @dir = "rtl", @align = "right" })
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Coefficient, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Coefficient, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.Coefficient, htmlAttributes: new { @class = "control-label", @dir = "rtl", @align = "right" })
+
+            </div>
+            <div class="form-group" style="display: none">
+                @Html.EditorFor(model => model.Committee)
+            </div>
+           
+
+        </div>
+    }
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

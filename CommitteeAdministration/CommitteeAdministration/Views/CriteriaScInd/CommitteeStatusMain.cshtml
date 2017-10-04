@@ -3,15 +3,15 @@
 @model CommitteeAdministration.ViewModels.CommitteeStatusViewModel
 @{
     ViewBag.Title = "CommitteeStatus";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
     var allData = new CommitteeStatusViewModel();
 }
 
 <head>
-    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/jQuery.flip.min.js"></script>
 </head>
-<h2>Committee Status</h2>
+<h2>وضعیت ستاد</h2>
 @using (Html.BeginForm())
 {
 
@@ -36,8 +36,7 @@
     </div>
 }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+
     <script>
         function getAllData() {
             if (@Model != null) {

@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using CommitteeAdministration.Helper;
+using CommitteeAdministration.ViewModels;
 using CommitteeManagement.Model;
 using CommitteeManagement.Repository;
 using CommitteeManagement.Repository.Data;
@@ -19,7 +21,7 @@ namespace CommitteeAdministration.Controllers
     /// main controller of criterion 
     /// </summary>
     /// <seealso cref="System.Web.Mvc.Controller" />
-    [Authorize(Roles = "SuperAdmin,Manager")]
+   // [Authorize(Roles = "SuperAdmin,Manager")]
     public class CriteriaController : Controller
     {
         private readonly IMainContainer _mainContainer = ModelContainer.Instance.Resolve<IMainContainer>();
@@ -41,7 +43,75 @@ namespace CommitteeAdministration.Controllers
         {
             return View(await _mainContainer.CriterionRepository.All().Where(criterion=> !criterion.IsDeleted.Value || criterion.IsDeleted == null).ToListAsync());
         }
+        ///HttpGet
+        /// <summary>
+        /// Creates the criterion using a partial view.
+        /// used in the viewall view that shows all data of committee
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult CreateCriterionPartial(int committeeId)
+        {
+           
+            var committee = _mainContainer.CommitteeRepository.FirstOrDefault(committeeT => committeeT.Id == committeeId);
+            var model = new CreateCriterionViewModel {Committee = committee};
+            return PartialView(model);
+        }
+        // POST: Criteria/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.        
+        /// <summary>
+        /// Creates the specified criterion.
+        /// </summary>
+        /// <param name="criterion">The criterion.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateCriterionPartial(CreateCriterionViewModel criterion)
+        {
+            if (ModelState.IsValid)
+            {
+                var criterionT=new Criterion
+                {
+                    Coefficient = criterion.Coefficient,
+                    Committee = criterion.Committee,
+                    CommitteeId = criterion.Committee.Id,
+                    Subject = criterion.Subject
+                };
 
+                _mainContainer.CriterionRepository.Add(criterionT);
+                
+                CriterionModification(criterionT, CriterionAction.Add);
+                _mainContainer.SaveChangesAsync();
+                return Json(new HttpStatusCodeResult(HttpStatusCode.OK));
+            }
+
+            return Json(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
+        }
+        /// <summary>
+        /// Edits the criterion in a partial view.
+        /// </summary>
+        /// <param name="criterionId">The criterion identifier.</param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult EditCriterionPartial(int criterionId)
+        {
+            var criterion = _mainContainer.CriterionRepository.FirstOrDefault(criterionT => criterionT.Id == criterionId);
+            return PartialView(criterion);
+        }
+        [HttpPost]
+        public ActionResult EditCriterionPartial(Criterion postCriterion)
+        {
+            if (ModelState.IsValid)
+            {
+                var criterion = _mainContainer.CriterionRepository.FirstOrDefault(criterionT => criterionT.Id == postCriterion.Id);
+                criterion.Subject = postCriterion.Subject;
+                _mainContainer.CriterionRepository.Attach(criterion);
+                return Json(new HttpStatusCodeResult(HttpStatusCode.OK));
+            }
+            
+            return Json(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
+        }
         // GET: Criteria/Details/5        
         /// <summary>
         /// Detailses the specified identifier.
@@ -62,6 +132,7 @@ namespace CommitteeAdministration.Controllers
             return View(criterion);
         }
 
+        
         // GET: Criteria/Create        
         /// <summary>
         /// Creates this instance.
@@ -161,18 +232,37 @@ namespace CommitteeAdministration.Controllers
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        public async Task<ActionResult> Delete(int? id)
+        [HttpPost]
+        public async Task<ActionResult> DeletePartial(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return Json(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
             }
             Criterion criterion = await _mainContainer.CriterionRepository.FirstOrDefaultAsync(criterionT => criterionT.Id == id);
             if (criterion == null)
             {
-                return HttpNotFound();
+                return Json(new HttpStatusCodeResult(HttpStatusCode.InternalServerError));//HttpNotFound());
             }
-            return View(criterion);
+            criterion.IsDeleted = true;
+            _mainContainer.CriterionRepository.Attach(criterion);
+            var subCriterions =
+                _mainContainer.SubCriterionRepository.Where(subCriterion => subCriterion.Criterion.Id == criterion.Id);
+            var indicators=new List<Indicator>();
+            foreach (var subCriterion in subCriterions)
+            {
+                subCriterion.IsDeleted = true;
+                _mainContainer.SubCriterionRepository.Attach(subCriterion);
+                indicators.AddRange(_mainContainer.IndicatorRepository.Where(indicator=>indicator.SubCriterion.Id==subCriterion.Id));
+            }
+            foreach (var indicator in indicators)
+            {
+                indicator.IsDeleted = true;
+                _mainContainer.IndicatorRepository.Attach(indicator);
+            }
+           
+            
+            return Json(new HttpStatusCodeResult(HttpStatusCode.OK));// View(criterion);
         }
 
         // POST: Criteria/Delete/5        

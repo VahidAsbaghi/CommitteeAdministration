@@ -127,7 +127,9 @@ namespace CommitteeManagement.Repository.Data
 	    public DbSet<SubCriterionModification> SubCriterionModifications { get; set; }
 	    public DbSet<Visitor> Visitors { get; set; }
 	    public DbSet<Session> Sessions { get; set; }
-	    
+
+      
+
         // public System.Data.Entity.DbSet<CommitteeManagement.Model.Password> Passwords { get; set; }
         #endregion
 

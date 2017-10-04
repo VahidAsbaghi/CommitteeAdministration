@@ -112,7 +112,7 @@ namespace CommitteeManagement.Repository.Migrations
                 };
                 criterions.Add(criterion7);
 
-                criterions.ForEach(n => context.Criteria.AddOrUpdate((i) => new { i.Subject, i.CommitteeId },n));
+                criterions.ForEach(n => context.Criteria.Add(n));
                 context.SaveChanges();
 
                 #endregion
@@ -124,6 +124,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var criterion_1_1_Sub = new SubCriterion()
                 {
+                    Committee = committee,
                     Criterion = criterion1,
                     Coefficient = 0.530025078,
                     Subject = "آموزش و توانمندسازي نیروی انسانی",
@@ -133,6 +134,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var criterion_1_2_Sub = new SubCriterion()
                 {
+                    Committee = committee,
                     Criterion = criterion1,
                     Coefficient = 0.469974922,
                     Subject = "ترویج و فرهنگ‏سازی",
@@ -144,6 +146,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var criterion_2_1_Sub = new SubCriterion()
                 {
+                    Committee = committee,
                     Criterion = criterion2,
                     Coefficient = 0.475335177,
                     Subject = "منابع مالی تحقيق و توسعه و فعالیت‌های آموزشي و پژوهشي",
@@ -153,6 +156,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var criterion_2_2_Sub = new SubCriterion()
                 {
+                    Committee = committee,
                     Criterion = criterion2,
                     Coefficient = 0.524664823,
                     Subject = "زيرساخت توسعه پژوهش، فناوری و اقتصاد دانش بنیان",
@@ -164,6 +168,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var criterion_3_1_Sub = new SubCriterion()
                 {
+                    Committee = committee,
                     Criterion = criterion3,
                     Coefficient = 1,
                     Subject = "توسعه همکاری‏ها و تعاملات بین‌المللی",
@@ -175,17 +180,19 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var criterion_4_1_Sub = new SubCriterion()
                 {
+                    Committee = committee,
                     Criterion = criterion4,
                     Coefficient = 0.531671694,
-                    Subject = "زيرساخت توسعه پژوهش، فناوری و اقتصاد دانش بنیان",
+                    Subject = "تولید و صادرات",
 
                 };
                 subcriterions.Add(criterion_4_1_Sub);
                 var criterion_4_2_Sub = new SubCriterion()
                 {
+                    Committee = committee,
                     Criterion = criterion4,
                     Coefficient = 0.468328306,
-                    Subject = "زيرساخت توسعه پژوهش، فناوری و اقتصاد دانش بنیان",
+                    Subject = "ایجاد اشتغال",
 
                 };
                 subcriterions.Add(criterion_4_2_Sub);
@@ -193,6 +200,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var criterion_5_1_Sub = new SubCriterion()
                 {
+                    Committee = committee,
                     Criterion = criterion5,
                     Coefficient = 0.339859342,
                     Subject = "انتقال فناوری",
@@ -201,6 +209,7 @@ namespace CommitteeManagement.Repository.Migrations
                 subcriterions.Add(criterion_5_1_Sub);
                 var criterion_5_2_Sub = new SubCriterion()
                 {
+                    Committee = committee,
                     Criterion = criterion5,
                     Coefficient = 0.31343851,
                     Subject = "توسعه بازار",
@@ -209,6 +218,7 @@ namespace CommitteeManagement.Repository.Migrations
                 subcriterions.Add(criterion_5_2_Sub);
                 var criterion_5_3_Sub = new SubCriterion()
                 {
+                    Committee = committee,
                     Criterion = criterion5,
                     Coefficient = 0.346702148,
                     Subject = "تجاری‌سازی",
@@ -220,6 +230,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var criterion_6_1_Sub = new SubCriterion()
                 {
+                    Committee = committee,
                     Criterion = criterion6,
                     Coefficient = 0.445955973,
                     Subject = "انتشارات و دستاوردهای علمی",
@@ -228,6 +239,7 @@ namespace CommitteeManagement.Repository.Migrations
                 subcriterions.Add(criterion_6_1_Sub);
                 var criterion_6_2_Sub = new SubCriterion()
                 {
+                    Committee = committee,
                     Criterion = criterion6,
                     Coefficient = 0.554044027,
                     Subject = "دارائی‏های فکری",
@@ -238,6 +250,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var criterion_7_1_Sub = new SubCriterion()
                 {
+                    Committee = committee,
                     Criterion = criterion7,
                     Coefficient = 1,
                     Subject = "فعالیت‏های اجرایی ستاد",
@@ -246,7 +259,7 @@ namespace CommitteeManagement.Repository.Migrations
                 subcriterions.Add(criterion_7_1_Sub);
 
 
-                subcriterions.ForEach(n => context.SubCriterions.AddOrUpdate((i) => new { i.Subject, i.CriterionId },n));
+                subcriterions.ForEach(n => context.SubCriterions.Add(n));
                 context.SaveChanges();
 
                 #endregion
@@ -258,6 +271,7 @@ namespace CommitteeManagement.Repository.Migrations
                 var indicators = new List<Indicator>();
                 var indic_1_1_1 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.110092769,
                     Subject = "تعداد دانشجويان كشور در آن حوزه‌",
                     SubCriterion = criterion_1_1_Sub,
@@ -268,6 +282,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_1_1_2 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.126858165,
                     Subject = "تعداد فارغ‌التحصیل كشور در آن حوزه‌",
                     SubCriterion = criterion_1_1_Sub,
@@ -276,6 +291,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_1_1_3 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.134682016,
                     Subject = "تعداد دانشگاه‌ها و مؤسسات آموزشی فعال كشور در آن حوزه",
                     SubCriterion = criterion_1_1_Sub,
@@ -284,6 +300,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_1_1_4 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.163742036,
                     Subject = "تعداد پژوهشگران آن حوزه و نسبت آن به کل پژوهشگران كشور",
                     SubCriterion = criterion_1_1_Sub,
@@ -292,6 +309,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_1_1_5 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.14697664,
                     Subject = "تعداد اعضاي هیئت‌علمی در آن حوزه",
                     SubCriterion = criterion_1_1_Sub,
@@ -300,6 +318,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_1_1_6 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.141388175,
                     Subject = "تعداد و میزان حمایت از برگزاری کارگاه‏های آموزشی",
                     SubCriterion = criterion_1_1_Sub,
@@ -308,6 +327,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_1_1_7 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.176260199,
                     Subject =
                         "تعداد نيروي انساني تحقيق و توسعه آن حوزه و  نسبت آن به‌کل نيروي انساني تحقيق و توسعه کشور‌ ",
@@ -318,6 +338,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_1_2_1 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.325,
                     Subject = "تعداد نشست‏های تخصصی، سمینارها، همایش‌های ملی و بین المللی برگزار شده در آن حوزه‌",
                     SubCriterion = criterion_1_2_Sub,
@@ -326,6 +347,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_1_2_2 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.347058824,
                     Subject = "تعداد و میزان حمایت از جشنواره‌ها، المپیادها و مسابقات تخصصی‌",
                     SubCriterion = criterion_1_2_Sub,
@@ -334,6 +356,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_1_2_3 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.327941176,
                     Subject = "تعداد مجلات تخصصی آن حوزه",
                     SubCriterion = criterion_1_2_Sub,
@@ -346,9 +369,10 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_2_1_1 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.24094442,
                     Subject = "میزان هزینه‏کرد تحقیق و توسعه آن حوزه  و سهم آن از کل هزینه‏کرد تحقیق و توسعه کشور",
-                    SubCriterion = criterion_1_1_Sub,
+                    SubCriterion = criterion_2_1_Sub,
                 };
                 indicators.Add(indic_2_1_1);
 
@@ -356,6 +380,7 @@ namespace CommitteeManagement.Repository.Migrations
                 //معیار دوم-زیر معیار اول
                 var indic_2_1_2 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.23625165,
                     Subject = "تعداد و میزان حمایت‌های صورت گرفته ستاد جهت انجام فعالیت‌های تحقيق و توسعه",
                     SubCriterion = criterion_2_1_Sub,
@@ -364,6 +389,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_2_1_3 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.185511072,
                     Subject = "تعداد و میزان منابع تخصیص یافته ستاد به منظور حمایت از طرح‏های پژوهشی (طرفا پژوهشی)",
                     SubCriterion = criterion_2_1_Sub,
@@ -372,14 +398,16 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_2_1_4 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.183311336,
-                    Subject = "تعداد و میزان حمایت از پژوهشسراها در بخش تحقیق و پژوهش",
+                    Subject = "تعداد و میزان حمایت از پژوهش سراها در بخش تحقیق و پژوهش",
                     SubCriterion = criterion_2_1_Sub,
                 };
                 indicators.Add(indic_2_1_4);
 
                 var indic_2_1_5 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.153981522,
                     Subject = "تعداد و میزان اعطای پژوهانه‏های تحقیقاتی به دانشجویان و پژوهشگران",
                     SubCriterion = criterion_2_1_Sub,
@@ -392,96 +420,108 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_2_2_1 = new Indicator()
                 {
-                    Coefficient = 0.23625165,
-                    Subject = "تعداد و میزان حمایت‌های صورت گرفته ستاد جهت انجام فعالیت‌های تحقيق و توسعه",
+                    Committee = committee,
+                    Coefficient = 0.07335031,
+                    Subject = "حجم و میزان حمایت از راه‌اندازی و توسعه مراکز نوآوري",
                     SubCriterion = criterion_2_2_Sub,
                 };
                 indicators.Add(indic_2_2_1);
 
                 var indic_2_2_2 = new Indicator()
                 {
-                    Coefficient = 0.185511072,
-                    Subject = "تعداد و میزان منابع تخصیص یافته ستاد به منظور حمایت از طرح‏های پژوهشی (طرفا پژوهشی)",
+                    Committee = committee,
+                    Coefficient = 0.075287865,
+                    Subject = " تعداد و میزان حمایت از تکمیل، تجهیز و توانمندسازی آزمایشگاه‏های موجود و احداث آزمایشگاه‌های تخصصی",
                     SubCriterion = criterion_2_2_Sub,
                 };
                 indicators.Add(indic_2_2_2);
 
                 var indic_2_2_3 = new Indicator()
                 {
-                    Coefficient = 0.183311336,
-                    Subject = "تعداد و میزان حمایت از پژوهشسراها در بخش تحقیق و پژوهش",
+                    Committee = committee,
+                    Coefficient = 0.07943977,
+                    Subject = "تعداد آزمایشگاه‏های تخصصی موجود کشور در آن حوزه",
                     SubCriterion = criterion_2_2_Sub,
                 };
                 indicators.Add(indic_2_2_3);
 
                 var indic_2_2_4 = new Indicator()
                 {
-                    Coefficient = 0.153981522,
-                    Subject = "تعداد و میزان اعطای پژوهانه‏های تحقیقاتی به دانشجویان و پژوهشگران",
+                    Committee = committee,
+                    Coefficient = 0.07943977,
+                    Subject = "تعداد پارک‌ها و مراکز رشد فعال آن حوزه ",
                     SubCriterion = criterion_2_2_Sub,
                 };
                 indicators.Add(indic_2_2_4);
 
                 var indic_2_2_5 = new Indicator()
                 {
-                    Coefficient = 0.24094442,
-                    Subject = "میزان هزینه‏کرد تحقیق و توسعه آن حوزه  و سهم آن از کل هزینه‏کرد تحقیق و توسعه کشور",
+                    Committee = committee,
+                    Coefficient = 0.076948627,
+                    Subject = "تعداد و میزان حمایت از پارک‌ها و مراکز رشد فعال آن حوزه ",
                     SubCriterion = criterion_2_2_Sub,
                 };
                 indicators.Add(indic_2_2_5);
 
                 var indic_2_2_6 = new Indicator()
                 {
-                    Coefficient = 0.23625165,
-                    Subject = "تعداد و میزان حمایت‌های صورت گرفته ستاد جهت انجام فعالیت‌های تحقيق و توسعه",
+                    Committee = committee,
+                    Coefficient = 0.090345438,
+                    Subject = " تعداد شرکت‌های دانش‌بنیان فعال در آن حوزه ",
                     SubCriterion = criterion_2_2_Sub,
                 };
                 indicators.Add(indic_2_2_6);
 
                 var indic_2_2_7 = new Indicator()
                 {
-                    Coefficient = 0.185511072,
-                    Subject = "تعداد و میزان منابع تخصیص یافته ستاد به منظور حمایت از طرح‏های پژوهشی (طرفا پژوهشی)",
+                    Committee = committee,
+                    Coefficient = 0.088573959,
+                    Subject = " تعداد و میزان حمایت از شرکت‌های دانش‌بنیان فعال در آن حوزه",
                     SubCriterion = criterion_2_2_Sub,
                 };
                 indicators.Add(indic_2_2_7);
 
                 var indic_2_2_8 = new Indicator()
                 {
-                    Coefficient = 0.183311336,
-                    Subject = "تعداد و میزان حمایت از پژوهشسراها در بخش تحقیق و پژوهش",
+                    Committee = committee,
+                    Coefficient = 0.093722321,
+                    Subject = " تعداد پروژه‏ها و حجم سرمایه‌های مشترک با بخش خصوصی در توسعه فعالیت‏هاي آن حوزه ",
                     SubCriterion = criterion_2_2_Sub,
                 };
                 indicators.Add(indic_2_2_8);
 
                 var indic_2_2_9 = new Indicator()
                 {
-                    Coefficient = 0.153981522,
-                    Subject = "تعداد و میزان اعطای پژوهانه‏های تحقیقاتی به دانشجویان و پژوهشگران",
+                    Committee = committee,
+                    Coefficient = 0.095770593,
+                    Subject = " تعداد صندوق‌های سرمایه‌گذاری جسورانه فعال در آن حوزه و حجم حمایت صورت گرفته توسط این صندوق‏ها",
                     SubCriterion = criterion_2_2_Sub,
                 };
                 indicators.Add(indic_2_2_9);
 
                 var indic_2_2_10 = new Indicator()
                 {
-                    Coefficient = 0.24094442,
-                    Subject = "میزان هزینه‏کرد تحقیق و توسعه آن حوزه  و سهم آن از کل هزینه‏کرد تحقیق و توسعه کشور",
+                    Committee = committee,
+                    Coefficient = 0.085750664,
+                    Subject = "تعداد و میزان حمایت ستاد از صندوق‌های سرمایه‌گذاری جسورانه و صندوق پژوهش و فناوری",
                     SubCriterion = criterion_2_2_Sub,
                 };
                 indicators.Add(indic_2_2_10);
 
                 var indic_2_2_11 = new Indicator()
                 {
-                    Coefficient = 0.153981522,
-                    Subject = "تعداد و میزان اعطای پژوهانه‏های تحقیقاتی به دانشجویان و پژوهشگران",
+                    Committee = committee,
+                    Coefficient = 0.078055802,
+                    Subject = "تعداد و میزان حمایت از شهرک‌های صنعتی تخصصی و صنایع کوچك و متوسط، توسط ستاد",
                     SubCriterion = criterion_2_2_Sub,
                 };
                 indicators.Add(indic_2_2_11);
 
                 var indic_2_2_12 = new Indicator()
                 {
-                    Coefficient = 0.24094442,
-                    Subject = "میزان هزینه‏کرد تحقیق و توسعه آن حوزه  و سهم آن از کل هزینه‏کرد تحقیق و توسعه کشور",
+                    Committee = committee,
+                    Coefficient = 0.08331488,
+                    Subject = " تعداد قوانين، استانداردها و تأییدیه‌های معتبر پیشنهادشده",
                     SubCriterion = criterion_2_2_Sub,
                 };
                 indicators.Add(indic_2_2_12);
@@ -491,6 +531,7 @@ namespace CommitteeManagement.Repository.Migrations
                 //معیار سوم - زیر معیار اول
                 var indic_3_1_1 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.123699422,
                     Subject = "تعداد و میزان پروژه‌های مشترک پژوهش و فناوری با دیگر کشورها",
                     SubCriterion = criterion_3_1_Sub,
@@ -499,6 +540,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_3_1_2 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.105587669,
                     Subject = "تعداد رویدادهای مشترک (همایش و نمایشگاه) با دیگر کشورها",
                     SubCriterion = criterion_3_1_Sub,
@@ -507,6 +549,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_3_1_3 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.105587669,
                     Subject = "تعداد اساتید خارجی کشور در آن حوزه",
                     SubCriterion = criterion_3_1_Sub,
@@ -515,6 +558,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_3_1_4 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.104046243,
                     Subject = "تعداد متخصصین خارجی شاغل در صنعت آن حوزه",
                     SubCriterion = criterion_3_1_Sub,
@@ -523,6 +567,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_3_1_5 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.100963391,
                     Subject = "تعداد دانشجویان خارجی در کشور ",
                     SubCriterion = criterion_3_1_Sub,
@@ -531,6 +576,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_3_1_6 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.105973025,
                     Subject = "تعداد دانشجویان ایرانی در دیگر کشورها",
                     SubCriterion = criterion_3_1_Sub,
@@ -539,6 +585,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_3_1_7 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.101734104,
                     Subject = "تعداد مقالات مشترک با دیگر کشورهای در آن حوزه  و سهم آن از کل مقالات در آن حوزه",
                     SubCriterion = criterion_3_1_Sub,
@@ -547,6 +594,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_3_1_8 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.122157996,
                     Subject = "تعداد و میزان تفاهم‌نامه و قراردادهای بین‌المللی منعقد شده با دیگر کشورها ",
                     SubCriterion = criterion_3_1_Sub,
@@ -555,6 +603,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_3_1_9 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.130250482,
                     Subject = "میزان سرمایه‏گذاری خارجی در آن حوزه",
                     SubCriterion = criterion_3_1_Sub,
@@ -566,6 +615,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_4_1_1 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.253807107,
                     Subject = "حجم صادرات آن حوزه و سهم آن از كل صادرات غیرنفتی كشور",
                     SubCriterion = criterion_4_1_Sub,
@@ -575,6 +625,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_4_1_2 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.255747984,
                     Subject = " سهم آن حوزه از تولید ناخالص داخلی",
                     SubCriterion = criterion_4_1_Sub,
@@ -583,6 +634,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_4_1_3 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.253807107,
                     Subject = " سهم آن حوزه از رشد ساليانه توليد ناخالص داخلي",
                     SubCriterion = criterion_4_1_Sub,
@@ -591,6 +643,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_4_1_4 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.236637802,
                     Subject = "میزان حمایت‏های توانمندسازی در توسعه صادرات",
                     SubCriterion = criterion_4_1_Sub,
@@ -600,6 +653,7 @@ namespace CommitteeManagement.Repository.Migrations
                 //معیار چهارم- زیر معیار دوم
                 var indic_4_2_1 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.488135593,
                     Subject = "تعداد شاغلین آن حوزه و سهم آن از کل شاغلین کشور",
                     SubCriterion = criterion_4_2_Sub,
@@ -609,6 +663,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_4_2_2 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.511864407,
                     Subject = "تعداد اشتغال ایجاد شده در اثر اجرای برنامه حمایتی ستاد",
                     SubCriterion = criterion_4_2_Sub,
@@ -621,6 +676,7 @@ namespace CommitteeManagement.Repository.Migrations
                 /// 
                 var indic_5_1_1 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.244127517,
                     Subject = "تعداد پروژه‏ها و حجم انتقال و بومی‌سازی فناوري",
                     SubCriterion = criterion_5_1_Sub,
@@ -629,6 +685,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_5_1_2 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.246979866,
                     Subject = "تعداد ارتباطات سازمان‌یافته بین‌المللی (پروتکل، تفاهم‏نامه و ...) جهت انتقال فناوری",
                     SubCriterion = criterion_5_1_Sub,
@@ -637,6 +694,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_5_1_3 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.23204698,
                     Subject = "تعداد و میزان خرید لیسانس و حق امتیاز (رویالتی) از کشورهای دیگر درآن حوزه",
                     SubCriterion = criterion_5_1_Sub,
@@ -645,6 +703,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_5_1_4 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.276845638,
                     Subject = "تعداد و میزان فروش لیسانس و حق امتیاز (رویالتی) به کشورهای دیگر در آن حوزه",
                     SubCriterion = criterion_5_1_Sub,
@@ -655,6 +714,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_5_2_1 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.172225591,
                     Subject = "تعداد محصولات معرفی‌شده در فن بازارها و بورس ایده در آن حوزه",
                     SubCriterion = criterion_5_2_Sub,
@@ -663,6 +723,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_5_2_2 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.172225591,
                     Subject = "تعداد و میزان فروش ساليانه محصولات معرفی‌شده در فن بازارها  و بورس ایده در آن حوزه",
                     SubCriterion = criterion_5_2_Sub,
@@ -671,6 +732,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_5_2_3 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.176470588,
                     Subject = "تعداد دفعات برگزاري فن‏بازارهاي تخصصي فيزيكي و مجازي در آن حوزه",
                     SubCriterion = criterion_5_2_Sub,
@@ -679,6 +741,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_5_2_4 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.188599151,
                     Subject = "تعدا برندهای ایجاد شده در اثر اجرای برنامه حمایتی ستاد",
                     SubCriterion = criterion_5_2_Sub,
@@ -687,6 +750,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_5_2_5 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.14978775,
                     Subject = "تعداد نمایشگاه‌های تخصصی برگزار شده آن حوزه",
                     SubCriterion = criterion_5_2_Sub,
@@ -695,6 +759,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_5_2_6 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.140691328,
                     Subject = "تعداد و میزان حمایت ستاد از برگزاری نمایشگاه‏‏های تخصصی آن حوزه",
                     SubCriterion = criterion_5_2_Sub,
@@ -704,6 +769,7 @@ namespace CommitteeManagement.Repository.Migrations
                 //معیار پنجم- زیر معیار سوم
                 var indic_5_3_1 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.511513158
                     ,
                     Subject = "تعداد و میزان خدمات تخصصي تجاری‌سازی ارائه شده",
@@ -713,6 +779,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_5_3_2 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.488486842,
                     Subject = "تعداد و میزان تسهیلات ارائه شده به منظور تجاری‏سازی دست آوردهای فناورانه",
                     SubCriterion = criterion_5_3_Sub,
@@ -724,15 +791,17 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_6_1_1 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.247920133,
                     Subject =
-                        "تعداد دستاوردهای علمی منتج شده (تولید کالا/ ساخت تجهیزات/ ثبت اختراع/ مقالات ISI و ...) از پروژه‌های تحقیقاتی حمایت‌شده",
+                        " تعداد دستاوردهای علمی منتج شده (تولید کالا/ ساخت تجهیزات/ ثبت اختراع/ مقالات ISI و ...) از پروژه‌های تحقیقاتی حمایت‌شده",
                     SubCriterion = criterion_6_1_Sub,
                 };
                 indicators.Add(indic_6_1_1);
 
                 var indic_6_1_2 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.193011647,
                     Subject = "تعداد و میزان حمایت از مجلات علمی-پژوهشی و بین‌المللی معتبر آن حوزه",
                     SubCriterion = criterion_6_1_Sub,
@@ -741,6 +810,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_6_1_3 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.167221298,
                     Subject = "تعداد و میزان حمایت ستاد از مقالات علمی-پژوهشی و بین‌المللی معتبر آن حوزه",
                     SubCriterion = criterion_6_1_Sub,
@@ -749,6 +819,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_6_1_4 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.185524126,
                     Subject = "تعداد مقالات علمی-پژوهشی داخلی و بین‌المللی معتبر نمایه شده آن حوزه",
                     SubCriterion = criterion_6_1_Sub,
@@ -757,6 +828,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_6_1_5 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.206322795,
                     Subject = "متوسط ارجاعات مقالات علمی-پژوهشی و بین‌المللی معتبر نمایه شده آن حوزه",
                     SubCriterion = criterion_6_1_Sub,
@@ -767,6 +839,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_6_2_1 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.356026786,
                     Subject = " تعداد درخواست‏ها و پتنت‏های ثبت شده ملی و بین‌المللی آن حوزه",
                     SubCriterion = criterion_6_2_Sub,
@@ -775,6 +848,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_6_2_2 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.338169643,
                     Subject = "تعداد طرح‌های صنعتی ایرانی ثبت‌شده در کشور",
                     SubCriterion = criterion_6_2_Sub,
@@ -783,6 +857,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_6_2_3 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.305803571,
                     Subject = "تعداد مخترعان کشور در آن حوزه و سهم آن از کل مخترعان کشور",
                     SubCriterion = criterion_6_2_Sub,
@@ -794,6 +869,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_7_1_1 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.231111111,
                     Subject = " تعداد دفعات برگزاری منظم جلسات کارگروه‌های تخصصی",
                     SubCriterion = criterion_7_1_Sub,
@@ -802,6 +878,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_7_1_2 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.245333333,
                     Subject = "تعداد طرح‏های بررسی شده",
                     SubCriterion = criterion_7_1_Sub,
@@ -810,6 +887,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_7_1_3 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.244444444,
                     Subject = "تعداد طرح‏های معرفی شده به صندوق نوآوری و شکوفایی",
                     SubCriterion = criterion_7_1_Sub,
@@ -818,6 +896,7 @@ namespace CommitteeManagement.Repository.Migrations
 
                 var indic_7_1_4 = new Indicator()
                 {
+                    Committee = committee,
                     Coefficient = 0.279111111,
                     Subject = "تعداد معرفی طرح های جسورانه به صندوق های خطر پذیر",
                     SubCriterion = criterion_7_1_Sub,

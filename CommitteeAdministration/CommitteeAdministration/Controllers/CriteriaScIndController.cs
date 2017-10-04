@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -37,6 +38,7 @@ namespace CommitteeAdministration.Controllers
         //{
         //    return View();
         //}
+       
         public ActionResult CommitteeStatusMain()
         {
             var model = new CommitteeStatusViewModel()
@@ -67,6 +69,7 @@ namespace CommitteeAdministration.Controllers
             
             return Task.Factory.StartNew(() => PartialView(model));
         }
+        [HttpGet]
         public ActionResult ViewAll()
         {
             var model = new ViewAllViewModel()
@@ -91,7 +94,7 @@ namespace CommitteeAdministration.Controllers
 
             //};
         }
-
+        [HttpGet]
         public Task<PartialViewResult> ViewAllTree(int committeeId)
         {
             var model=new ViewAllViewModel();
@@ -99,10 +102,126 @@ namespace CommitteeAdministration.Controllers
                 _mainContainer.CommitteeRepository.FirstOrDefault(
                     committeeT => committeeT.Id == committeeId);
             model.CriteriaList =
-                _mainContainer.CriterionRepository.Where(criterionT => criterionT.Committee.Id == committee.Id).ToList();
-            model.SubCriterionList = _mainContainer.SubCriterionRepository.All().ToList();
-            model.Indicators = _mainContainer.IndicatorRepository.All().ToList();
+                _mainContainer.CriterionRepository.Where(criterionT => criterionT.Committee.Id == committee.Id && (!criterionT.IsDeleted.HasValue || !criterionT.IsDeleted.Value)).ToList();
+            model.SubCriterionList = _mainContainer.SubCriterionRepository.Where(subCriterion=>(!subCriterion.IsDeleted.HasValue || !subCriterion.IsDeleted.Value) && subCriterion.Committee.Id == committee.Id).ToList();
+            model.Indicators = _mainContainer.IndicatorRepository.Where(indicator=> (!indicator.IsDeleted.HasValue || !indicator.IsDeleted.Value) && indicator.Committee.Id == committee.Id).ToList();
+            model.SelectedCommitteeId = committeeId;
             return Task.Factory.StartNew(()=>PartialView(model));
+        }
+        [HttpGet]
+        public ActionResult CriterionCoefficientsPartial(int committeeId)
+        {
+            var model=new CriterionCoefficient();
+            model.Coefficients=new List<Coefficient>();
+            var criteria = _mainContainer.CriterionRepository.Where(criterion => criterion.Committee.Id == committeeId);
+            foreach (var criterion in criteria)
+            {
+                model.Coefficients.Add(new Coefficient() {CoefficientValue = criterion.Coefficient.GetValueOrDefault(0),Id = criterion.Id});
+            }
+            return PartialView(model);
+        }
+        [HttpPost]
+        public ActionResult CriterionCoefficientsPartial(CriterionCoefficient criterionCoefficient)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var coefficient in criterionCoefficient.Coefficients)
+                {
+                    var criterion =
+                        _mainContainer.CriterionRepository.FirstOrDefault(criterionT => criterionT.Id == coefficient.Id);
+                    criterion.Coefficient = coefficient.CoefficientValue;
+                    var criterionModification = new CriterionModification
+                    {
+                        User = GetCurrentUser(),
+                        Update = true,
+                        Criterion = criterion,
+                        CriterionId = criterion.Id,
+                        Time = DateTime.Now
+                    };
+                    _mainContainer.CriterionRepository.Attach(criterion);
+                    _mainContainer.CriterionModificationRepository.Add(criterionModification);
+                }
+                _mainContainer.SaveChanges();
+                return Json(new HttpStatusCodeResult(HttpStatusCode.OK));
+            }
+            return Json(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
+        }
+
+        [HttpGet]
+        public ActionResult SubCriterionCoefficientsPartial(int criterionId)
+        {
+            var model = new SubCriterionCoefficient {Coefficients = new List<Coefficient>()};
+           
+            var subCriteria = _mainContainer.SubCriterionRepository.Where(subCriterion => subCriterion.Criterion.Id == criterionId);
+            foreach (var subCriterion in subCriteria)
+            {
+                model.Coefficients.Add(new Coefficient() { CoefficientValue = subCriterion.Coefficient, Id = subCriterion.Id });
+            }
+            return PartialView(model);
+        }
+        [HttpPost]
+        public ActionResult SubCriterionCoefficientsPartial(SubCriterionCoefficient subCriterionCoefficient)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var coefficient in subCriterionCoefficient.Coefficients)
+                {
+                    var subCriterion =
+                        _mainContainer.SubCriterionRepository.FirstOrDefault(subCriterionT => subCriterionT.Id == coefficient.Id);
+                    subCriterion.Coefficient = coefficient.CoefficientValue;
+                    var subCriterionModification = new SubCriterionModification()
+                    {
+                        User = GetCurrentUser(),
+                        Update = true,
+                        SubCriterion = subCriterion,
+                        SubCriterionId = subCriterion.Id,
+                        Time = DateTime.Now
+                    };
+                    _mainContainer.SubCriterionRepository.Attach(subCriterion);
+                    _mainContainer.SubCriterionModificationRepository.Add(subCriterionModification);
+                }
+                _mainContainer.SaveChanges();
+                return Json(new HttpStatusCodeResult(HttpStatusCode.OK));
+            }
+            return Json(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
+        }
+        [HttpGet]
+        public ActionResult IndicatorCoefficientsPartial(int subCriterionId)
+        {
+            var model = new IndicatorCoefficient { Coefficients = new List<Coefficient>() };
+          
+            var indicators = _mainContainer.IndicatorRepository.Where(indicator => indicator.SubCriterion.Id == subCriterionId);
+            foreach (var indicator in indicators)
+            {
+                model.Coefficients.Add(new Coefficient() { CoefficientValue = indicator.Coefficient.GetValueOrDefault(0), Id = indicator.Id });
+            }
+            return PartialView(model);
+        }
+        [HttpPost]
+        public ActionResult IndicatorCoefficientsPartial(IndicatorCoefficient indicatorCoefficient)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var coefficient in indicatorCoefficient.Coefficients)
+                {
+                    var indicator =
+                        _mainContainer.IndicatorRepository.FirstOrDefault(indicatorT => indicatorT.Id == coefficient.Id);
+                    indicator.Coefficient = coefficient.CoefficientValue;
+                    var indicatorModification = new IndicatorModification
+                    {
+                        User = GetCurrentUser(),
+                        UpdateIndicator = true,
+                        Indicator = indicator,
+                        IndicatorId = indicator.Id,
+                        Time = DateTime.Now
+                    };
+                    _mainContainer.IndicatorRepository.Attach(indicator);
+                    _mainContainer.IndicatorModificationRepository.Add(indicatorModification);
+                }
+                _mainContainer.SaveChanges();
+                return Json(new HttpStatusCodeResult(HttpStatusCode.OK));
+            }
+            return Json(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
         }
         public ActionResult FirstPartial()
         {

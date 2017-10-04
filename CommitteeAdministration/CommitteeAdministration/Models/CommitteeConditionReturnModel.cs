@@ -33,6 +33,7 @@ namespace CommitteeAdministration.Models
         public Indicator Indicator { get; set; }
         public double ConditionPercentage { get; set; }
         public State State { get; set; }
+        public string PersianState { get; set; }
     }
 
     public class SubCriterionConditionModel
@@ -40,6 +41,7 @@ namespace CommitteeAdministration.Models
         public SubCriterion SubCriterion { get; set; }
         public double Percentage { get; set; }
         public State State { get; set; }
+        public string PersianState { get; set; }
     }
 
     public class CriterionConditionModel
@@ -47,6 +49,7 @@ namespace CommitteeAdministration.Models
         public Criterion Criterion { get; set; }
         public double Percentage { get; set; }
         public State State { get; set; }
+        public string PersianState { get; set; }
     }
 
     public class IndicatorConditionRateModel
@@ -63,4 +66,6 @@ namespace CommitteeAdministration.Models
         NonIdeal,
         VeryNonIdeal
     }
+
+ 
 }

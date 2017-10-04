@@ -3,80 +3,183 @@
 @using WebGrease.Css.Ast.Animation
 @model CommitteeAdministration.ViewModels.ViewAllViewModel
 <head>
-    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/jquery-3.1.1.js"></script>
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <style>
+        .ui-widget-header, .ui-state-default, .ui-button {
+            background: #b9cd6d;
+            border: 1px solid #b9cd6d;
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+    </style>
+ 
 </head>
+
+<div id="AddCriterionDiv" title="افزودن معیار" style="display: none;">
+    @Html.Action("CreateCriterionPartial", "Criteria")
+</div>
+<div id="AddSubCriterionDiv" title="افزودن زیر معیار" style="display: none;">
+
+</div>
+<div id="AddIndicatorDiv" title="افزودن شاخص" style="display: none;">
+
+</div>
+<div id="EditCriterionDiv" title="تغییر معیار" style="display: none;">
+
+</div>
+<div id="EditSubCriterionDiv" title="تغییر زیر معیار" style="display: none;">
+
+</div>
+<div id="EditIndicatorDiv" title="تغییر شاخص" style="display: none;">
+
+</div>
+<div id="ChangeCoefficientsDiv" title="تغییر ضرایب" style="display: none;">
+    
+</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary("", new { @class = "text-danger" })
 
     <div class="row" align="right" dir="rtl">
-        <table class="table table-bordered " id="dataTable">
-            <thead>
-                <tr>
-                    <th class="myTdThClass" rowspan="3">
-                        @Html.DisplayName("معیارها")
-                    </th>
-                    <th class="myTdThClass" rowspan="3">
-                        @Html.DisplayName("زیر معیارها")
-                    </th>
-                    <th class="myTdThClass" rowspan="3">
-                        @Html.DisplayName("شاخص ها")
-                    </th>
-
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <div id="deleteCriterionAlertDiv" title="حذف معیار" style="display: none;">
+            <p dir="rtl" align="center">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin: 12px 12px 20px 0;"></span>با حذف این معیار کلیه زیر معیار ها و شاخص های آن نیز حذف میشوند.
+                آیا مطمئن هستید؟
+            </p>
+        </div>
+        <div id="deleteSubCriterionAlertDiv" title="حذف زیر معیار" style="display: none;">
+            <p dir="rtl" align="center">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin: 12px 12px 20px 0;"></span>با حذف این زیر معیار کلیه شاخص های آن نیز حذف میشوند.
+                آیا مطمئن هستید؟
+            </p>
+        </div>
+        <div id="deleteIndicatorAlertDiv" title="حذف شاخص" style="display: none;">
+            <p dir="rtl" align="center">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin: 12px 12px 20px 0;"></span>آیا از حذف مطمئن هستید؟
+            </p>
+        </div>
+       
         <ul class="criterionUlStyle">
+
+            <li class="criterionLiStyle">
+                <div id="AddCriterion" style="background-color:  #b9cd6d; border: ridge; border-radius: 25px; height: fill-available;" align="right" class="innerDivStyle divWidthS divWidthVS divWidthM divWidthL divWidthVL divWidthML">
+                    <div style="display: inline-block; width: 40%;">
+                        <input value="افزودن معیار" id="AddCriterionInput" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" onclick="onClickAddCritrerion(@Model.SelectedCommitteeId)"/>
+                    </div>
+                    <div align="center" style="display: inline-block; width: 50%; height: 100%; horiz-align: center;">
+                        <label id="AddCriterionLabel" style="width: 100%; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color:  #b9cd6d; border-radius: 25px"></label>
+                    </div>
+                </div>
+            </li>
+            <li class="criterionLiStyle">
+                <div id="ChangeCoefficients" style="background-color:  #b9cd6d; border: ridge; border-radius: 25px; height: fill-available;" align="right" class="innerDivStyle divWidthS divWidthVS divWidthM divWidthL divWidthVL divWidthML">
+                    <div style="display: inline-block; width: 40%;">
+                        <input value="تغییر ضرایب معیارها" id="ChangeCoefficientsInput" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" onclick="OnClickChangeCriterionCoefficients(@Model.SelectedCommitteeId)" />
+                    </div>
+                    <div align="center" style="display: inline-block; width: 50%; height: 100%; horiz-align: center;">
+                        <label id="ChangeCoefficientsLabel" style="width: 100%; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color:  #b9cd6d; border-radius: 25px"></label>
+                    </div>
+                </div>
+            </li>
             @for (int index = 0; index < Model.CriteriaList.Count; index++)
             {
 
                 var criterion = Model.CriteriaList[index];
                 var subCriterions = Model.SubCriterionList.Where(subCriterionT => subCriterionT.Criterion.Id == criterion.Id).ToList();
-
-
                 <li class="criterionLiStyle">
 
-                    <div id="@criterion.Id Criterion" style="background-color: ThreeDDarkShadow; width: fit-content; border: ridge; border-radius: 25px; height: fill-available;" align="center" class="innerDivStyle">
-                        <input id="@criterion.Id CriterionInput" type="submit" value="تغییرات" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" formaction="/Criteria/Edit/@criterion.Id" formmethod="Get" />
-                        <label id="@criterion.Id CriterionLabel" style="width: 5cm; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color: ThreeDDarkShadow; border-radius: 25px" onclick="onClickCriterion(@criterion.Id)">@criterion.Subject</label>
+                    <div id="@criterion.Id Criterion" style="background-color: ThreeDDarkShadow; border: ridge; border-radius: 25px; height: fill-available;" align="right" class="innerDivStyle divWidthS divWidthVS divWidthM divWidthL divWidthVL divWidthML">
+                        <div style="display: inline-block; width: 40%; ">
+                            <input id="@criterion.Id CriterionInput" type="button" value="تغییرات" style="display: block; border-radius: 25px; height: 100%; width: 100%;" class="btn btn-default" onclick="onClickEditCriterion(@criterion.Id)" formaction="/Criteria/Edit/@criterion.Id" formmethod="Get"/>
+                            <input id="@criterion.Id CriterionInput" type="button" value="حذف" style="display: block; border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" onclick="onClickDeleteCriterion(@criterion.Id)"/>
+                        </div>
+                        <div align="center" style="display: inline-block; width: 50%; height: 100%;  horiz-align: center;" >
+                            <label id="@criterion.Id CriterionLabel" style="width: 100%; height: 100%;margin-right: 0.2cm; margin-left: 0.2cm; color: white;  background-color: ThreeDDarkShadow; border-radius: 25px" onclick="onClickCriterion(@criterion.Id)">@criterion.Subject</label>
+                        </div>
                     </div>
 
-                    <div style="margin-right: 6cm">
+                    <div class="divMarginRS divMarginRL divMarginRM divMarginRML divMarginRVL">
                         <ul class="criterionUlStyle" id="@criterion.Id SubCriterionUl" style="display: none;">
-                            
+                            <li class="criterionLiStyle">
+                                <div id="AddSubCriterion" style="background-color:  #b9cd6d; border: ridge; border-radius: 25px; height: fill-available;" align="right" class="innerDivStyle divWidthS divWidthVS divWidthM divWidthL divWidthVL divWidthML">
+                                    <div style="display: inline-block; width: 40%;">
+                                        <input id="@criterion.Id AddSubCriterionInput" value="افزودن زیر معیار" class="btn btn-default" style="border-radius: 25px; height: 100%; width: 100%;" onclick="onClickAddSubCriterion(@criterion.Id)"/>
+                                    </div>
+                                    <div align="center" style="display: inline-block; width: 50%; height: 100%; horiz-align: center;">
+                                        <label id="AddSubCriterionLabel" style="width: 100%; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color:  #b9cd6d; border-radius: 25px"></label>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li class="criterionLiStyle">
+                                <div id="ChangeSubCoefficients" style="background-color:  #b9cd6d; border: ridge; border-radius: 25px; height: fill-available;" align="right" class="innerDivStyle divWidthS divWidthVS divWidthM divWidthL divWidthVL divWidthML">
+                                    <div style="display: inline-block; width: 40%;">
+                                        <input value="تغییر ضرایب زیر معیارها" id="ChangeSubCoefficientsInput" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" onclick="OnClickChangeSubCriterionCoefficients(@criterion.Id)" />
+                                    </div>
+                                    <div align="center" style="display: inline-block; width: 50%; height: 100%; horiz-align: center;">
+                                        <label id="ChangeSubCoefficientsLabel" style="width: 100%; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color:  #b9cd6d; border-radius: 25px"></label>
+                                    </div>
+                                </div>
+                            </li>
                             @for (int j = 0; j < subCriterions.Count; j++)
                             {
                                 var subCriterion = subCriterions[j];
                                 var indicators = Model.Indicators.Where(indicatorT => indicatorT.SubCriterion.Id == subCriterion.Id).ToList();
                                 <li class="criterionLiStyle">
-
-                                    <div id="@subCriterion.Id SubCriterion" style="background-color: cornflowerblue; width: fit-content; border: ridge; border-radius: 25px; height: fill-available;" class="innerDivStyle">
-                                        <input id="@subCriterion.Id SubCriterionInput" type="submit" value="تغییرات" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" formaction="/SubCriterions/Edit/@subCriterion.Id" formmethod="Get"/>
-                                        <label id="@subCriterion.Id SubCriterionLabel" style="width: 5cm; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color: cornflowerblue; border-radius: 25px" onclick="onClickSubCriterion(@subCriterion.Id)">@subCriterion.Subject</label>
+                                    
+                                    <div id="@subCriterion.Id SubCriterion" style="background-color: cornflowerblue; border: ridge; border-radius: 25px; height: fill-available;" align="right" class="innerDivStyle divWidthS divWidthVS divWidthM divWidthL divWidthVL divWidthML">
+                                        <div style="display: inline-block; width: 40%;">
+                                            <input id="@subCriterion.Id SubCriterionInput" type="button" value="تغییرات" style="display: block; border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" onclick="onClickEditSubCriterion(@subCriterion.Id)" />
+                                            <input id="@subCriterion.Id DeleteSubCriterionInput" type="button" value="حذف" style="display: block; border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" onclick="onClickDeleteSubCriterion(@subCriterion.Id)" />
+                                        </div>
+                                        <div align="center" style="display: inline-block; width: 50%; height: 100%;  horiz-align: center;">
+                                            <label id="@subCriterion.Id SubCriterionLabel" style="width: 100%; margin-right: 0.2cm; margin-left: 0.2cm; color: white; background-color: cornflowerblue; border-radius: 25px" onclick="onClickSubCriterion(@subCriterion.Id)">@subCriterion.Subject</label>
+                                        </div>
                                     </div>
-
-                                    <div style="margin-right: 5cm">
+                                    <div class="divMarginRS divMarginRL divMarginRM divMarginRML divMarginRVL">
                                         <ul class="criterionUlStyle" id="@subCriterion.Id indicatorUl" style="display: none;">
+                                            <li>
+                                                <div width="200px" id="@subCriterion.Id AddIndicatorArea" dir="rtl" align="right">
+
+                                                </div>
+                                            </li>
                                             <li class="criterionLiStyle">
-                                                <div id="addIndicator" style="background-color: black; width: fit-content; border: ridge; border-radius: 25px; height: fill-available;" class="innerDivStyle">
-                                                    <input id="addIndicatorInput" type="submit" value="افزودن شاخص" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" formaction="/Indicators/Create" formmethod="Get"/>
-                                                    <label id="addIndicatorLabel" style="width: 4.6cm; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color: black; border-radius: 25px"></label>
+                                                <div id="AddIndicator" style="background-color: #b9cd6d; border: ridge; border-radius: 25px; height: fill-available;" align="right" class="innerDivStyle divWidthS divWidthVS divWidthM divWidthL divWidthVL divWidthML">
+                                                    <div style="display: inline-block; width: 40%;">
+                                                        <input id="@subCriterion.Id AddSubCriterionInput" value="افزودن شاخص" class="btn btn-default" style="border-radius: 25px; height: 100%; width: 100%;" onclick="onClickAddIndicaor(@subCriterion.Id)"/>
+                                                    </div>
+                                                    <div align="center" style="display: inline-block; width: 50%; height: 100%; horiz-align: center;">
+                                                        <label id="AddIndicatorLabel" style="width: 100%; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color: #b9cd6d; border-radius: 25px"></label>
+                                                    </div>
+                                                </div>
+
+                                            </li>
+                                            <li class="criterionLiStyle">
+                                                <div id="ChangeIndicatorCoefficients" style="background-color:  #b9cd6d; border: ridge; border-radius: 25px; height: fill-available;" align="right" class="innerDivStyle divWidthS divWidthVS divWidthM divWidthL divWidthVL divWidthML">
+                                                    <div style="display: inline-block; width: 40%;">
+                                                        <input value="تغییر ضرایب شاخص ها" id="ChangeIndicatorCoefficientsInput" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" onclick="OnClickChangeIndicatorCoefficients(@subCriterion.Id)" />
+                                                    </div>
+                                                    <div align="center" style="display: inline-block; width: 50%; height: 100%; horiz-align: center;">
+                                                        <label id="ChangeIndicatorCoefficientsLabel" style="width: 100%; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color:  #b9cd6d; border-radius: 25px"></label>
+                                                    </div>
                                                 </div>
                                             </li>
                                             @for (int k = 0; k < indicators.Count; k++)
                                             {
                                                 var indicator = indicators[k];
                                                 <li class="criterionLiStyle">
-
-                                                    <div id="@indicator.Id indicator" style="background-color: black; width: fit-content; border: ridge; border-radius: 25px; height: fill-available;" class="innerDivStyle">
-                                                        <input id="@indicator.Id indicatorInput" type="submit" value="تغییرات" style="border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" formaction="/Indicators/Edit/@indicator.Id" formmethod="Get"/>
-                                                        <label id="@indicator.Id indicatorLabel" style="width: 5cm; margin-right: 0.2cm; margin-left: 0.2cm; color: white; display: inline-flex; background-color: black; border-radius: 25px">@indicator.Subject</label>
+                                                    
+                                                    <div id="@indicator.Id indicator" style="background-color: black; border: ridge; border-radius: 25px; height: fill-available;" align="right" class="innerDivStyle divWidthS divWidthVS divWidthM divWidthL divWidthVL divWidthML">
+                                                        <div style="display: inline-block; width: 40%;">
+                                                            <input id="@indicator.Id indicatorInput" type="button" value="تغییرات" style="display: block; border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" onclick="onClickEditIndicator(@indicator.Id)" />
+                                                            <input id="@indicator.Id DeleteIndicatorInput" type="button" value="حذف" style="display: block; border-radius: 25px; height: 100%; width: 100%" class="btn btn-default" onclick="onClickDeleteIndicator(@indicator.Id)" />
+                                                        </div>
+                                                        <div align="center" style="display: inline-block; width: 50%; height: 100%;  horiz-align: center;">
+                                                            <label id="@indicator.Id indicatorLabel" style="width: 100%; margin-right: 0.2cm; margin-left: 0.2cm; color: white;  background-color: black; border-radius: 25px">@indicator.Subject</label>
+                                                        </div>
                                                     </div>
-
                                                 </li>
                                             }
                                         </ul>
@@ -94,11 +197,116 @@
 
 
     </div>
-}
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function onClickAddSubCriterion(criterionId) {
+            $('#AddSubCriterionDiv').load("/SubCriterions/CreateSubCriterionPartial?criterionId=" + criterionId,
+                function () {
+                    $("#AddSubCriterionDiv").dialog({
+                        autoOpen: true,
+                        resizable: false,
+                        height: "auto",
+                        width: "500px",
+                        modal: true,
+                        hide: "puff",
+                        show: "slide",
+                        buttons: {
+                            "افزودن": function () {
+                                $.ajax({
+                                    url: "/SubCriterions/CreateSubCriterionPartial",
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    async: false,
+                                    data: $("#SubCriterionSubmitForm").serialize(),
+                                    success: function(response) {
+                                        var result = response.StatusCode;
+                                        if (result === 200) {
+                                            alert("افزودن زیر معیار با موفقیت انجام شد");
+                                            $("#SubCriterionSubmitForm").hide();
+                                        } else {
+                                            alert("مشکلی در افزودن پیش آمد. مجددا تلاش کنید.");
+                                            $("#SubCriterionSubmitForm").hide();
+                                        }
+                                    },
 
+                                    error: function(xhr) {
+
+                                        alert("Something went wrong, please try again");
+
+                                    }
+
+                                });
+
+                                $(this).dialog("close");
+                            },
+                            "انصراف": function() {
+                                $(this).dialog("close");
+                            }
+                        }
+                    }).display = "block";
+
+                });
+        }
+        function onClickAddIndicaor(subCriterionId) {
+            $('#AddIndicatorDiv').load("/Indicators/CreateIndicatorPartial?subCriterionId=" + subCriterionId,
+                function () {
+                    $("#AddIndicatorDiv").dialog({
+                        autoOpen: true,
+                        resizable: false,
+                        height: "auto",
+                        width: "500px",
+                        modal: true,
+                        hide: "puff",
+                        show: "slide",
+                        buttons: {
+                            "افزودن": function () {
+                                $.ajax({
+                                    url: "/Indicators/CreateIndicatorPartial",
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    async: false,
+                                    data: $("#IndicatorSubmitForm").serialize(),
+                                    success: function(response) {
+                                        var result = response.StatusCode;
+                                        if (result === 200) {
+                                            alert("افزودن شاخص با موفقیت انجام شد");
+                                            $("#IndicatorSubmitForm").hide();
+                                        } else {
+                                            alert("مشکلی در افزودن پیش آمد. مجددا تلاش کنید.");
+                                            $("#IndicatorSubmitForm").hide();
+                                        }
+                                    },
+
+                                    error: function(xhr) {
+
+                                        alert("Something went wrong, please try again");
+
+                                    }
+
+                                });
+
+                                $(this).dialog("close");
+                            },
+                            "انصراف": function() {
+                                $(this).dialog("close");
+                            }
+                        }
+                    }).display = "block";
+
+                });
+            //console.log("before run");
+            
+            //var addAreaName = subCriterionId + " AddIndicatorArea";
+            //console.log(addAreaName);
+            //var selectObject = $(document.getElementById(addAreaName));
+            //// $(addAreaName).load("/SubCriterions/CreateSubCriterionPartial");
+            //selectObject.load("/Indicators/CreateIndicatorPartial?subCriterionId=" + subCriterionId);
+
+            //console.log("after locate");
+        }
+    </script>
 }
+
+
 <script>
     $(document).ready(function () {
 
@@ -113,9 +321,10 @@
         } else {
             subCriterionUl.style.display = 'none';
         }
-       // $("#" + criterionId + " SubCriterionUl").attr("hidden","visible");
+        // $("#" + criterionId + " SubCriterionUl").attr("hidden","visible");
         //subCriterionUl.show();
     };
+
     function onClickSubCriterion(subCriterionId) {
         var indicatorUl = document.getElementById(subCriterionId + " indicatorUl");
         console.log(indicatorUl.id);
@@ -124,25 +333,533 @@
         } else {
             indicatorUl.style.display = 'none';
         }
+    };
+
+    
+</script>
+<script type="text/javascript">
+    
+    
+        
+    function onClickAddCritrerion(committeeId) {
+        $(function () {
+            $("#AddCriterionDiv").dialog({
+                autoOpen: true,
+                resizable: false,
+                height: "auto",
+                width: "500px",
+                modal: true,
+                hide: "puff",
+                show: "slide",
+                buttons: {
+                    "افزودن": function () {
+                        $.ajax({
+                            url: "/Criteria/CreateCriterionPartial",
+                            type: 'POST',
+                            dataType: 'json',
+                            async: false,
+                            data: $("#CriterionSubmitForm").serialize(),
+                            success: function(response) {
+                                var result = response.StatusCode;
+                                if (result === 200) {
+                                    alert("افزودن معیار با موفقیت انجام شد");
+                                    $("#CriterionSubmitForm").hide();
+                                } else {
+                                    alert("مشکلی در افزودن پیش آمد. مجددا تلاش کنید.");
+                                    $("#CriterionSubmitForm").hide();
+                                }
+                            },
+
+                            error: function(xhr) {
+
+                                alert("Something went wrong, please try again");
+
+                            }
+
+                        });
+
+                        $(this).dialog("close");
+                    },
+                    "انصراف": function() {
+                        $(this).dialog("close");
+                    }
+                }
+            }).display = "block";
+
+        });
+    };              
+</script>
+<script type="text/javascript">
+        function onClickDeleteCriterion(id) {
+            $(function() {
+                $("#deleteCriterionAlertDiv").dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    height: "auto",
+                    width: 400,
+                    modal: true,
+                    hide: "puff",
+                    show: "slide",
+                    buttons: {
+                        "حذف کن": function() {
+                            $.ajax({
+                                url: "/Criteria/DeletePartial",
+                                type: 'POST',
+                                dataType: 'json',
+                                async: false,
+                                data: { "id": id },
+                                success: function(response) {
+                                    OnSuccess(response);
+                                },
+
+                                error: function(xhr) {
+
+                                    alert("Something went wrong, please try again");
+
+                                }
+
+                            });
+
+                            $(this).dialog("close");
+                        },
+                        "انصراف": function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                }).display = "block";
+
+            });
+        }
+
+        function onClickDeleteSubCriterion(id) {
+            $(function() {
+                $("#deleteSubCriterionAlertDiv").dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    height: "auto",
+                    width: 400,
+                    modal: true,
+                    hide: "puff",
+                    show: "slide",
+                    buttons: {
+                        "حذف کن": function() {
+                            $.ajax({
+                                url: "/SubCriterions/DeletePartial",
+                                type: 'POST',
+                                dataType: 'json',
+                                async: false,
+                                data: { "id": id },
+                                success: function(response) {
+                                    OnSuccess(response);
+                                },
+
+                                error: function(xhr) {
+
+                                    alert("Something went wrong, please try again");
+
+                                }
+
+                            });
+
+                            $(this).dialog("close");
+                        },
+                        "انصراف": function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                }).display = "block";
+
+            });
+        }
+
+        function onClickDeleteIndicator(id) {
+            $(function() {
+                $("#deleteIndicatorAlertDiv").dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    height: "auto",
+                    width: 400,
+                    modal: true,
+                    hide: "puff",
+                    show: "slide",
+                    buttons: {
+                        "حذف کن": function() {
+                            $.ajax({
+                                url: "/Indicators/DeletePartial",
+                                type: 'POST',
+                                dataType: 'json',
+                                async: false,
+                                data: { "id": id },
+                                success: function(response) {
+                                    OnSuccess(response);
+                                },
+
+                                error: function(xhr) {
+
+                                    alert("Something went wrong, please try again");
+
+                                }
+
+                            });
+
+                            $(this).dialog("close");
+                        },
+                        "انصراف": function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                }).display = "block";
+
+            });
+        }
+
+        function OnSuccess(response) {
+            var result = response.StatusCode;
+            if (result === 200) {
+                alert("حذف با موفقیت انجام شد");
+                location.reload(true);
+            } else {
+                alert("خطایی رخ داده است. لطفا مجدد اقدام کنید.");
+            }
+        }
+</script>
+<script>
+    function onClickEditCriterion(criterionId) {
+        $('#EditCriterionDiv').load("/Criteria/EditCriterionPartial?criterionId=" + criterionId,
+            function() {
+                //var formData = $("#CriterionEditForm").serialize();
+                //console.log(formData);
+                $("#EditCriterionDiv").dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    height: "auto",
+                    width: "500px",
+                    modal: true,
+                    hide: "puff",
+                    show: "slide",
+                    buttons: {
+                        "ذخیره": function() {
+                            $.ajax({
+                                url: "/Criteria/EditCriterionPartial",
+                                type: 'POST',
+                                dataType: 'json',
+                                async: false,
+                                data: $("#CriterionEditForm").serialize(),
+                                success: function(response) {
+                                    var result = response.StatusCode;
+                                    if (result === 200) {
+                                        alert("تغییرات معیار با موفقیت انجام شد");
+                                        $("#CriterionEditForm").hide();
+                                    } else {
+                                        alert("مشکلی در تغییرات پیش آمد. مجددا تلاش کنید.");
+                                        $("#CriterionEditForm").hide();
+                                    }
+                                },
+
+                                error: function(xhr) {
+
+                                    alert("Something went wrong, please try again");
+
+                                }
+
+                            });
+
+                            $(this).dialog("close");
+                        },
+                        "انصراف": function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                }).display = "block";
+
+            });
+    }
+
+    function onClickEditSubCriterion(subCriterionId) {
+        $('#EditSubCriterionDiv').load("/SubCriterions/EditSubCriterionPartial?subCriterionId=" + subCriterionId,
+            function() {
+                $("#EditSubCriterionDiv").dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    height: "auto",
+                    width: "500px",
+                    modal: true,
+                    hide: "puff",
+                    show: "slide",
+                    buttons: {
+                        "ذخیره": function() {
+                            $.ajax({
+                                url: "/SubCriterions/EditSubCriterionPartial",
+                                type: 'POST',
+                                dataType: 'json',
+                                async: false,
+                                data: $("#SubCriterionEditForm").serialize(),
+                                success: function(response) {
+                                    var result = response.StatusCode;
+                                    if (result === 200) {
+                                        alert("تغییرات زیر معیار با موفقیت انجام شد");
+                                        $("#SubCriterionEditForm").hide();
+                                    } else {
+                                        alert("مشکلی در تغییرات پیش آمد. مجددا تلاش کنید.");
+                                        $("#SubCriterionEditForm").hide();
+                                    }
+                                },
+
+                                error: function(xhr) {
+
+                                    alert("Something went wrong, please try again");
+
+                                }
+
+                            });
+
+                            $(this).dialog("close");
+                        },
+                        "انصراف": function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                }).display = "block";
+
+            });
+    }
+
+    function onClickEditIndicator(indicatorId) {
+        $('#EditIndicatorDiv').load("/Indicators/EditIndicatorPartial?indicatorId=" + indicatorId,
+            function() {
+                $("#EditIndicatorDiv").dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    height: "auto",
+                    width: "500px",
+                    modal: true,
+                    hide: "puff",
+                    show: "slide",
+                    buttons: {
+                        "ذخیره": function() {
+                            $.ajax({
+                                url: "/Indicators/EditIndicatorPartial",
+                                type: 'POST',
+                                dataType: 'json',
+                                async: false,
+                                data: $("#IndicatorEditForm").serialize(),
+                                success: function(response) {
+                                    var result = response.StatusCode;
+                                    if (result === 200) {
+                                        alert("تغییرات شاخص با موفقیت انجام شد");
+                                        $("#IndicatorEditForm").hide();
+                                    } else {
+                                        alert("مشکلی در تغییرات پیش آمد. مجددا تلاش کنید.");
+                                        $("#IndicatorEditForm").hide();
+                                    }
+                                },
+
+                                error: function(xhr) {
+
+                                    alert("Something went wrong, please try again");
+
+                                }
+
+                            });
+
+                            $(this).dialog("close");
+                        },
+                        "انصراف": function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                }).display = "block";
+
+            });
     }
 </script>
-@*<script>
-    $(document).ready(function inp(modelJ) {
-        
-        for (var i = 0; i < @Model.CriteriaList.Count; i++) {
+<script>
+    function OnClickChangeCriterionCoefficients(committeeId) {
+        $('#ChangeCoefficientsDiv').load("/CriteriaScInd/CriterionCoefficientsPartial?committeeId=" + committeeId,
+           function () {
+               $("#ChangeCoefficientsDiv").dialog({
+                   autoOpen: true,
+                   resizable: false,
+                   height: "auto",
+                   width: "500px",
+                   modal: true,
+                   hide: "puff",
+                   show: "slide",
+                   buttons: {
+                       "ذخیره": function () {
+                           var editors = $('.CriterionCoefficientEditor');
 
-            var criterionId = @Model.CriteriaList[0].id;
-            var criterionSubject = @Model.CriteriaList[i].Subject;
-                var div = html.getElementById("#" + criterionId + " Criterion");
-                div.append("<input id="+criterionId+"' CriterionInput' type='submit' value='تغییرات' style='border-radius: 25px; height: 100%; width: 100%' class='btn btn-default' formaction='FirstPartial' formmethod='Post'/>");
-                div.append("<label id=" + criterionId + "' CriterionLabel' style='width: 2cm; color: white; display: inline-flex; background-color: ThreeDDarkShadow; border-radius: 25px'>" + criterionSubject + "</label>");
-                Sleep(10);
-                //$("#" + criterionId + " Criterion").visibility = "visible";
-                //$("#" + criterionId + " Criterion").reload();
-}
-        });
-    </script>*@
+                           var sum = 0;
+                           editors.each(function () {
+                               console.log($(this).val());
+                               sum = sum + parseFloat($(this).val());
 
+                           });
+                           if (sum<=0.999999 || sum>=1.000001) {
+                               alert("مجموع مقادیر ضرایب باید برابر با یک باشد");
+                               $(this).dialog("close");
+                               return;
+                           }
+                           $.ajax({
+                               url: "/CriteriaScInd/CriterionCoefficientsPartial",
+                               type: 'POST',
+                               dataType: 'json',
+                               async: false,
+                               data: $("#CoefficientsEditForm").serialize(),
+                               success: function (response) {
+                                   var result = response.StatusCode;
+                                   if (result === 200) {
+                                       alert("تغییرات ضرایب با موفقیت انجام شد");
+                                       $("#CoefficientsEditForm").hide();
+                                   } else {
+                                       alert("مشکلی در تغییرات پیش آمد. مجددا تلاش کنید.");
+                                       $("#CoefficientsEditForm").hide();
+                                   }
+                               },
+
+                               error: function (xhr) {
+
+                                   alert("Something went wrong, please try again");
+
+                               }
+
+                           });
+
+                           $(this).dialog("close");
+                       },
+                       "انصراف": function () {
+                           $(this).dialog("close");
+                       }
+                   }
+               }).display = "block";
+
+           });
+    }
+    function OnClickChangeSubCriterionCoefficients(criterionId) {
+        $('#ChangeCoefficientsDiv').load("/CriteriaScInd/SubCriterionCoefficientsPartial?criterionId=" + criterionId,
+           function () {
+               $("#ChangeCoefficientsDiv").dialog({
+                   autoOpen: true,
+                   resizable: false,
+                   height: "auto",
+                   width: "500px",
+                   modal: true,
+                   hide: "puff",
+                   show: "slide",
+                   buttons: {
+                       "ذخیره": function () {
+                           var editors = $('.SubCriterionCoefficientEditor');
+
+                           var sum = 0;
+                           editors.each(function () {
+                               console.log($(this).val());
+                               sum = sum + parseFloat($(this).val());
+
+                           });
+                           if (sum <= 0.999999 || sum >= 1.000001) {
+                               alert("مجموع مقادیر ضرایب باید برابر با یک باشد");
+                               $(this).dialog("close");
+                               return;
+                           }
+                           $.ajax({
+                               url: "/CriteriaScInd/SubCriterionCoefficientsPartial",
+                               type: 'POST',
+                               dataType: 'json',
+                               async: false,
+                               data: $("#SubCriterionCoefficientsEditForm").serialize(),
+                               success: function (response) {
+                                   var result = response.StatusCode;
+                                   if (result === 200) {
+                                       alert("تغییرات ضرایب با موفقیت انجام شد");
+                                       $("#SubCriterionCoefficientsEditForm").hide();
+                                   } else {
+                                       alert("مشکلی در تغییرات پیش آمد. مجددا تلاش کنید.");
+                                       $("#SubCriterionCoefficientsEditForm").hide();
+                                   }
+                               },
+
+                               error: function (xhr) {
+
+                                   alert("Something went wrong, please try again");
+
+                               }
+
+                           });
+
+                           $(this).dialog("close");
+                       },
+                       "انصراف": function () {
+                           $(this).dialog("close");
+                       }
+                   }
+               }).display = "block";
+
+           });
+    }
+
+    function OnClickChangeIndicatorCoefficients(subCriterionId) {
+        $('#ChangeCoefficientsDiv').load("/CriteriaScInd/IndicatorCoefficientsPartial?subCriterionId=" + subCriterionId,
+           function () {
+               $("#ChangeCoefficientsDiv").dialog({
+                   autoOpen: true,
+                   resizable: false,
+                   height: "auto",
+                   width: "500px",
+                   modal: true,
+                   hide: "puff",
+                   show: "slide",
+                   buttons: {
+                       "ذخیره": function () {
+                           var editors = $('.IndicatorCoefficientEditor');
+
+                           var sum = 0;
+                           editors.each(function () {
+                               console.log($(this).val());
+                               sum = sum +parseFloat($(this).val());
+
+                           });
+                           console.log(sum);
+                           if (sum <= 0.999999 || sum >= 1.000001) {
+                               alert("مجموع مقادیر ضرایب باید برابر با یک باشد");
+                               $(this).dialog("close");
+                               return;
+                           }
+                           $.ajax({
+                               url: "/CriteriaScInd/IndicatorCoefficientsPartial",
+                               type: 'POST',
+                               dataType: 'json',
+                               async: false,
+                               data: $("#IndicatorCoefficientsEditForm").serialize(),
+                               success: function (response) {
+                                   var result = response.StatusCode;
+                                   if (result === 200) {
+                                       alert("تغییرات ضرایب با موفقیت انجام شد");
+                                       $("#IndicatorCoefficientsEditForm").hide();
+                                   } else {
+                                       alert("مشکلی در تغییرات پیش آمد. مجددا تلاش کنید.");
+                                       $("#IndicatorCoefficientsEditForm").hide();
+                                   }
+                               },
+
+                               error: function (xhr) {
+
+                                   alert("Something went wrong, please try again");
+
+                               }
+
+                           });
+
+                           $(this).dialog("close");
+                       },
+                       "انصراف": function () {
+                           $(this).dialog("close");
+                       }
+                   }
+               }).display = "block";
+
+           });
+    }
+</script>
 <style type="text/css">
     .criterionLiStyle {
         direction: rtl;
@@ -182,10 +899,70 @@
         list-style-type: none;
     }
 
+
+    .myTdThClass {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    @@media (min-width: 300px) {
+        .divWidthVS {
+            width: 100px;
+
+        }}
+    @@media (min-width: 500px) {
+         .divWidthS{
+            width: 200px;
+
+        }}
+    @@media (min-width: 768px) {
+        .divWidthM {
+            width: 300px;
+
+        }
+    }
+    @@media (min-width: 1000px) {
+        .divWidthML {
+            width: 350px;
+
+        }}
+    @@media (min-width: 1200px) {
+        .divWidthL {
+            width: 400px;
+
+        }}
+    @@media (min-width: 1500px) {
+        .divWidthVL {
+            width: 500px;
+
+        }}
     
-            .myTdThClass {
-                vertical-align: middle;
-                text-align: center;
-            }
-        
+
+    @@media (min-width: 500px) {
+         .divMarginRS{
+            margin-right: 2cm;
+
+        }}
+    @@media (min-width: 768px) {
+        .divMarginRM {
+            margin-right: 5cm;
+
+        }
+    }
+    @@media (min-width: 1000px) {
+        .divMarginRML {
+            margin-right: 6cm;
+
+        }}
+    @@media (min-width: 1200px) {
+        .divMarginRL {
+            margin-right: 7cm;
+
+        }}
+    @@media (min-width: 1500px) {
+        .divMarginRVL {
+            margin-right: 8cm;
+
+        }}
+    
 </style>
