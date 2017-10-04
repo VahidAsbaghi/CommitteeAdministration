@@ -96,6 +96,7 @@ namespace CommitteeAdministration.Controllers
                     //var alarmViewModel =
                     //    _realValueAlarm.AlarmUsers(
                     //        _mainContainer.UserRepository.FirstOrDefault(userT => userT.Email == model.Email));
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -440,7 +441,7 @@ namespace CommitteeAdministration.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        
+
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
@@ -468,21 +469,23 @@ namespace CommitteeAdministration.Controllers
             //base.Dispose(disposing);
         }
 
-        [HttpPost]
-        public async Task<JsonResult> ChangePassword(EditUserPassword model)
+        //[HttpPost]
+        public async Task<ActionResult> ChangePassword(EditUserPassword model)
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (model.NewPassword != model.ConfirmNewPassword)
+                {
+                    return Json(new { Result = "ERROR", error = "تاییده رمز عبور با رمز عبور جدید یکسان نیست." }, JsonRequestBehavior.AllowGet);
+                }
 
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 IdentityResult result = UserManager.ChangePassword(user.Id, model.OldPassword, model.NewPassword);
                 if (result.Succeeded)
                 {
+                    await UserManager.UpdateSecurityStampAsync(user.Id);
                     return Json(new { Result = "OK" }, JsonRequestBehavior.AllowGet);
-
-                    // await SignInAsync(user, isPersistent: false);
-
-
+                    //await SignInAsync(user, isPersistent: false);
                 }
                 else
                 {

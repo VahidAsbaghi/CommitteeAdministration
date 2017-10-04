@@ -69,63 +69,10 @@ License: You must have a valid license purchased only from themeforest(the above
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
             <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
             <!-- END RESPONSIVE MENU TOGGLER -->
-            <!-- BEGIN PAGE ACTIONS -->
-            <!-- DOC: Remove "hide" class to enable the page header actions -->
-            <div class="page-actions">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-circle btn-outline red dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-plus"></i>&nbsp;
-                        <span class="hidden-sm hidden-xs">New&nbsp;</span>&nbsp;
-                        <i class="fa fa-angle-down"></i>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-docs"></i> New Post
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-tag"></i> New Comment
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-share"></i> Share
-                            </a>
-                        </li>
-                        <li class="divider"> </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-flag"></i> Comments
-                                <span class="badge badge-success">4</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-users"></i> Feedbacks
-                                <span class="badge badge-danger">2</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- END PAGE ACTIONS -->
+          
             <!-- BEGIN PAGE TOP -->
             <div class="page-top">
-                <!-- BEGIN HEADER SEARCH BOX -->
-                <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
-                <form class="search-form search-form-expanded" action="page_general_search_3.html" method="GET">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search..." name="query">
-                        <span class="input-group-btn">
-                            <a href="javascript:;" class="btn submit">
-                                <i class="icon-magnifier"></i>
-                            </a>
-                        </span>
-                    </div>
-                </form>
-                <!-- END HEADER SEARCH BOX -->
+       
                 <!-- BEGIN TOP NAVIGATION MENU -->
                 <div class="top-menu">
                     <ul class="nav navbar-nav pull-right">
@@ -449,29 +396,29 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <i class="icon-user"></i> My Profile
                                     </a>
                                 </li>
-                                <li>
+                                @*<li>
                                     <a href="app_calendar.html">
                                         <i class="icon-calendar"></i> My Calendar
                                     </a>
-                                </li>
-                                <li>
+                                </li>*@
+                                @*<li>
                                     <a href="app_inbox.html">
                                         <i class="icon-envelope-open"></i> My Inbox
                                         <span class="badge badge-danger"> 3 </span>
                                     </a>
-                                </li>
-                                <li>
+                                </li>*@
+                                @*<li>
                                     <a href="app_todo_2.html">
                                         <i class="icon-rocket"></i> My Tasks
                                         <span class="badge badge-success"> 7 </span>
                                     </a>
-                                </li>
+                                </li>*@
                                 <li class="divider"> </li>
-                                <li>
+                                @*<li>
                                     <a href="page_user_lock_1.html">
                                         <i class="icon-lock"></i> Lock Screen
                                     </a>
-                                </li>
+                                </li>*@
                                 <li>
                                     <a href="page_user_login_1.html">
                                         <i class="icon-key"></i> Log Out
@@ -875,58 +822,10 @@ License: You must have a valid license purchased only from themeforest(the above
                         </ul>
                     </li>
                    
-                    <li class="nav-item  ">
-                        <a href="javascript:;" class="nav-link nav-toggle">
-                            <i class="icon-pointer"></i>
-                            <span class="title">Maps</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item  ">
-                                <a href="maps_google.html" class="nav-link ">
-                                    <span class="title">Google Maps</span>
-                                </a>
-                            </li>
-                            <li class="nav-item  ">
-                                <a href="maps_vector.html" class="nav-link ">
-                                    <span class="title">Vector Maps</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="javascript:;" class="nav-link">
-                            <i class="icon-layers"></i>
-                            <span class="title">Page Layouts</span>
-
-                        </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item  ">
-                                <a href="layout_language_bar.html" class="nav-link ">
-                                    <span class="title">Header Language Bar</span>
-                                </a>
-                            </li>
-                            <li class="nav-item  ">
-                                <a href="layout_footer_fixed.html" class="nav-link ">
-                                    <span class="title">Fixed Footer</span>
-                                </a>
-                            </li>
-                            <li class="nav-item  ">
-                                <a href="layout_boxed_page.html" class="nav-link ">
-                                    <span class="title">Boxed Page</span>
-                                </a>
-                            </li>
-                            <li class="nav-item  active open">
-                                <a href="layout_blank_page.html" class="nav-link ">
-                                    <span class="title">Blank Page</span>
-                                    <span class="selected"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                  
             
                  
-                    <li class="nav-item  ">
+                    <li id="userManagementArea" class="nav-item">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="icon-user"></i>
                             <span class="title">حوزه کاربری</span>
@@ -935,25 +834,25 @@ License: You must have a valid license purchased only from themeforest(the above
                         <ul class="sub-menu">
 
                             <li class="nav-item  ">
-                                <a href="@Url.Action("Index", "Profile", new { area = "Management", controller = "Profile" }, Request.Url.Scheme)" class="nav-link ">
+                                <a href="@Url.Action("Index", "Profile", new { area = "UM" }, Request.Url.Scheme)" class="nav-link ">
                                     <i class="icon-user-following"></i>
-                                    <span class="title">مشاهده اطلاعات کاربری</span>
+                                    <span class="title">مشاهده اطلاعات خصوصی</span>
                                 </a>
                             </li>
 
 
-                            <li class="nav-item  ">
-                                <a href="@Url.Action("Details", new { id = 1})" data-ajax='true' data-ajax-update='#detailsPlace' data-ajax-mode='replace' class="nav-link ">
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "Manage", new { area = "UM" }, Request.Url.Scheme)" data-ajax='true' data-ajax-update='#detailsPlace' data-ajax-mode='replace' class="nav-link ">
                                     <i class="icon-user"></i>
-                                    <span class="title">مشاهده کاربران</span>
+                                    <span class="title">مدیریت کاربران</span>
                                 </a>
                             </li>
-                            <li class="nav-item  ">
+                            @*<li class="nav-item  ">
                                 <a href="page_user_profile_1_account.html" class="nav-link ">
                                     <i class="icon-user-female"></i>
                                     <span class="title">ساخت کاربر جدید</span>
                                 </a>
-                            </li>
+                            </li>*@
                             @*<li class="nav-item  ">
                                     <a href="page_user_profile_1_help.html" class="nav-link ">
                                         <i class="icon-user-following"></i>
@@ -1007,108 +906,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </li>*@
                         </ul>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="javascript:;" class="nav-link nav-toggle">
-                            <i class="icon-social-dribbble"></i>
-                            <span class="title">General</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item  ">
-                                <a href="page_general_about.html" class="nav-link ">
-                                    <i class="icon-info"></i>
-                                    <span class="title">About</span>
-                                </a>
-                            </li>
-                            <li class="nav-item  ">
-                                <a href="page_general_contact.html" class="nav-link ">
-                                    <i class="icon-call-end"></i>
-                                    <span class="title">Contact</span>
-                                </a>
-                            </li>
-                            <li class="nav-item  ">
-                                <a href="javascript:;" class="nav-link nav-toggle">
-                                    <i class="icon-notebook"></i>
-                                    <span class="title">Portfolio</span>
-                                    <span class="arrow"></span>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li class="nav-item ">
-                                        <a href="page_general_portfolio_1.html" class="nav-link "> Portfolio 1 </a>
-                                    </li>
-                                    <li class="nav-item ">
-                                        <a href="page_general_portfolio_2.html" class="nav-link "> Portfolio 2 </a>
-                                    </li>
-                                    <li class="nav-item ">
-                                        <a href="page_general_portfolio_3.html" class="nav-link "> Portfolio 3 </a>
-                                    </li>
-                                    <li class="nav-item ">
-                                        <a href="page_general_portfolio_4.html" class="nav-link "> Portfolio 4 </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item  ">
-                                <a href="javascript:;" class="nav-link nav-toggle">
-                                    <i class="icon-magnifier"></i>
-                                    <span class="title">Search</span>
-                                    <span class="arrow"></span>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li class="nav-item ">
-                                        <a href="page_general_search.html" class="nav-link "> Search 1 </a>
-                                    </li>
-                                    <li class="nav-item ">
-                                        <a href="page_general_search_2.html" class="nav-link "> Search 2 </a>
-                                    </li>
-                                    <li class="nav-item ">
-                                        <a href="page_general_search_3.html" class="nav-link "> Search 3 </a>
-                                    </li>
-                                    <li class="nav-item ">
-                                        <a href="page_general_search_4.html" class="nav-link "> Search 4 </a>
-                                    </li>
-                                    <li class="nav-item ">
-                                        <a href="page_general_search_5.html" class="nav-link "> Search 5 </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item  ">
-                                <a href="page_general_pricing.html" class="nav-link ">
-                                    <i class="icon-tag"></i>
-                                    <span class="title">Pricing</span>
-                                </a>
-                            </li>
-                            <li class="nav-item  ">
-                                <a href="page_general_faq.html" class="nav-link ">
-                                    <i class="icon-wrench"></i>
-                                    <span class="title">FAQ</span>
-                                </a>
-                            </li>
-                            <li class="nav-item  ">
-                                <a href="page_general_blog.html" class="nav-link ">
-                                    <i class="icon-pencil"></i>
-                                    <span class="title">Blog</span>
-                                </a>
-                            </li>
-                            <li class="nav-item  ">
-                                <a href="page_general_blog_post.html" class="nav-link ">
-                                    <i class="icon-note"></i>
-                                    <span class="title">Blog Post</span>
-                                </a>
-                            </li>
-                            <li class="nav-item  ">
-                                <a href="page_general_invoice.html" class="nav-link ">
-                                    <i class="icon-envelope"></i>
-                                    <span class="title">Invoice</span>
-                                </a>
-                            </li>
-                            <li class="nav-item  ">
-                                <a href="page_general_invoice_2.html" class="nav-link ">
-                                    <i class="icon-envelope"></i>
-                                    <span class="title">Invoice 2</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                  
                     <li class="nav-item  ">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="icon-settings"></i>

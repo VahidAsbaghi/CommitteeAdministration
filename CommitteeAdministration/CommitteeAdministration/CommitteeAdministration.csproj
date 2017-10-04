@@ -221,10 +221,11 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Areas\Management\Controllers\ManagementController.cs" />
-    <Compile Include="Areas\Management\ManagementAreaRegistration.cs" />
-    <Compile Include="Areas\Management\Models\ProfileViewModel.cs" />
-    <Compile Include="Areas\Management\Models\UserViewModel.cs" />
+    <Compile Include="Areas\UM\Controllers\ManageController.cs" />
+    <Compile Include="Areas\UM\ManagementAreaRegistration.cs" />
+    <Compile Include="Areas\UM\ViewModels\UserProfileViewModel.cs" />
+    <Compile Include="Areas\UM\ViewModels\UserViewModel.cs" />
+    <Compile Include="BaseClasses\WebBaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ChartsController.cs" />
@@ -241,7 +242,7 @@
     <Compile Include="Controllers\IndicatorsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
-    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Areas\UM\Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SubCriterionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -278,7 +279,7 @@
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\PermissionViewModel.cs" />
     <Compile Include="ViewModels\RealValueAlarmViewModel.cs" />
-    <Compile Include="ViewModels\UserProfileViewModel.cs" />
+    <Compile Include="Areas\UM\ViewModels\ProfileViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin-lte\css\AdminLTE.css" />
@@ -6732,6 +6733,11 @@
     <Content Include="Content\plugins\bootstrap-dialog\bootstrap-dialog.js" />
     <Content Include="Content\plugins\bootstrap-dialog\bootstrap-dialog.min.css" />
     <Content Include="Content\plugins\bootstrap-dialog\bootstrap-dialog.min.js" />
+    <Content Include="Content\plugins\bootstrap-validator\bootstrapValidator.js" />
+    <Content Include="Content\plugins\bootstrap-validator\bootstrapValidator.min.js" />
+    <Content Include="Content\plugins\bootstrap-validator\css\bootstrapValidator.css" />
+    <Content Include="Content\plugins\bootstrap-validator\css\bootstrapValidator.min.css" />
+    <Content Include="Content\plugins\bootstrap-validator\fa_IR.js" />
     <Content Include="css\font-awesome.css" />
     <Content Include="css\font-awesome.min.css" />
     <Content Include="favicon.ico" />
@@ -6891,9 +6897,9 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="Areas\Management\Views\web.config" />
-    <Content Include="Areas\Management\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Management\Views\Shared\_BaseLayout.cshtml" />
+    <Content Include="Areas\UM\Views\web.config" />
+    <Content Include="Areas\UM\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\UM\Views\Shared\_BaseLayout.cshtml" />
     <Content Include="assets\Admin-Panel\assets\global\img\social\Thumbs.db" />
     <Content Include="assets\Admin-Panel\assets\global\plugins\amcharts\amcharts\plugins\dataloader\examples\data\gauge.json" />
     <Content Include="assets\Admin-Panel\assets\global\plugins\amcharts\amcharts\plugins\dataloader\examples\data\map.json" />
@@ -7259,15 +7265,15 @@
     <Content Include="assets\Admin-Panel\assets\layouts\layout7\img\Thumbs.db" />
     <Content Include="assets\Admin-Panel\assets\pages\media\blog\Thumbs.db" />
     <Content Include="assets\Admin-Panel\assets\pages\media\pages\Thumbs.db" />
-    <Content Include="Areas\Management\Views\Management\Index.cshtml" />
-    <Content Include="Areas\Management\Views\Management\Profile.cshtml" />
+    <Content Include="Areas\UM\Views\Manage\Index.cshtml" />
+    <Content Include="Areas\UM\Views\Profile\Index.cshtml" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\fonts\FontAwesome.otf" />
-    <Content Include="Areas\Management\Views\Management\UserPartial.cshtml" />
-    <Content Include="Areas\Management\Views\Management\_partialuserinfo.cshtml" />
+    <Content Include="Areas\UM\Views\Manage\UserPartial.cshtml" />
+    <Content Include="Areas\UM\Views\Manage\_partialuserinfo.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap-select.js.map" />
@@ -7591,8 +7597,6 @@
     <Content Include="Views\Committees\Details.cshtml" />
     <Content Include="Views\Committees\Edit.cshtml" />
     <Content Include="Views\Committees\Index.cshtml" />
-    <Content Include="Views\Profile\EditProfile.cshtml" />
-    <Content Include="Views\Profile\ViewProfile.cshtml" />
     <Content Include="Views\Indicators\Create.cshtml" />
     <Content Include="Views\Indicators\Delete.cshtml" />
     <Content Include="Views\Indicators\Details.cshtml" />
@@ -7646,9 +7650,9 @@
     <Folder Include="AdminLTE-RTL-master\bootstrap\js\" />
     <Folder Include="AdminTemplate\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Management\Views\Profile\" />
     <Folder Include="assets\Admin-Panel\assets\apps\img\" />
     <Folder Include="assets\Admin-Panel\assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
+    <Folder Include="Views\WebBase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

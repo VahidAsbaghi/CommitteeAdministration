@@ -1,4 +1,4 @@
-﻿using CommitteeAdministration.Areas.Management.Controllers;
+﻿using CommitteeAdministration.Areas.UM.Controllers;
 using CommitteeAdministration.Controllers;
 using CommitteeAdministration.Services;
 using CommitteeAdministration.Services.Contract;
@@ -37,10 +37,10 @@ namespace CommitteeAdministration.Helper
                 _Instance.RegisterType<IUserStore<User>, UserStore<User>>(new HierarchicalLifetimeManager());
                 _Instance.RegisterType<UserManager<User>>(new HierarchicalLifetimeManager());
                 _Instance.RegisterType<AccountController>(new InjectionConstructor());
-                _Instance.RegisterType<ManageController>(new InjectionConstructor());
+                _Instance.RegisterType<Controllers.ManageController>(new InjectionConstructor());
                 //_Instance.RegisterType<UsersController>(new InjectionConstructor());
                 _Instance.RegisterType<CommitteesController>(new InjectionConstructor());
-                _Instance.RegisterType<ManagementController>(new InjectionConstructor());
+                _Instance.RegisterType<Areas.UM.Controllers.ManageController>(new InjectionConstructor());
                 _Instance.RegisterType<ContactInfoesController>(new InjectionConstructor());
                 _Instance.RegisterType<CriteriaController>(new InjectionConstructor());
                 _Instance.RegisterType<HomeController>(new InjectionConstructor());

@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 
-namespace CommitteeAdministration.Areas.Management.Models
+namespace CommitteeAdministration.Areas.UM.ViewModels
 {
-    public class ProfileViewModel
+    public class UserProfileViewModel
     {
    
 

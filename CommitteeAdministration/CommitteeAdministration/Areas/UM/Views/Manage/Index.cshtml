@@ -1,7 +1,7 @@
 ﻿@model List<CommitteeAdministration.Services.usersReturmModel>
 @{
     ViewBag.Title = "UserProfile";
-    Layout = "~/Areas/Management/Views/Shared/_BaseLayout.cshtml";
+    Layout = "~/Areas/UM/Views/Shared/_BaseLayout.cshtml";
 }
 
 @section Styles{
@@ -9,7 +9,7 @@
     <link href="~/assets/Admin-Panel/assets/pages/css/profile-rtl.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/plugins/bootstrap-dialog/bootstrap-dialog.min.css" rel="stylesheet" />
     <!-- BEGIN PAGE LEVEL PLUGINS -->
-    @*<link href="~/assets/Admin-Panel/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/assets/Admin-Panel/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
 
     <!-- END PAGE LEVEL PLUGINS -->
 }
@@ -19,8 +19,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            New User Profile | Account
-            <small>user account page</small>
+            مدیریت کاربران
         </h3>
         <!-- END PAGE HEADER-->
 
@@ -52,9 +51,9 @@
                                 <div class="col-md-12">
                                     <div class="btn-group">
 
-                                        <a class="btn yellow btn-outline sbold" href="/Management/Management/CreateUserPartail" data-target="#ajax" data-toggle="modal"> View Demo </a>
+                                        @*<a class="btn yellow btn-outline sbold" href="/Management/Management/CreateUserPartail" data-target="#ajax" data-toggle="modal"> View Demo </a>*@
 
-                                        <button id="sample_editable_1_new" class="btn sbold green" onclick="AddNewUser()">
+                                        <button id="addNewUserButton" class="btn sbold green" onclick="AddNewUser()">
                                             اضافه کردن کاربر جدید
                                             <i class="fa fa-plus"></i>
                                         </button>
@@ -169,17 +168,24 @@
 
 @section scripts{
     <script>
-        function AddNewUser(id) {
-            $.post(encodeURI("/Management/Management/CreateUserPartail"),
+
+
+        $(document).ready(function() {
+            $('#userManagementArea').addClass("active");
+        });
+
+
+        function AddNewUser(userId) {
+            $.post(encodeURI("/UM/Manage/CreateUserPartail"),
             {
-                UserId: id
-            }).success(function (data) {
+                UserId: userId
+            }).success(function(data) {
                 BootstrapDialog.show({
-                    title: 'کاربر جدید',
+                    title: 'ویرایش کاربر',
                     size: BootstrapDialog.SIZE_WIDE,
                     message: $(data)
                 });
-            }).error(function () {
+            }).error(function() {
                 BootstrapDialog.show({
                     type: BootstrapDialog.TYPE_DANGER,
                     title: 'خطا ',
@@ -191,8 +197,6 @@
 
 
         function DeleteUser(userId) {
-
-
             bootbox.confirm({
                 message: "This is a confirm with custom button text and color! Do you like it?",
                 buttons: {
@@ -206,39 +210,32 @@
                     }
 
                 },
-                callback: function (result) {
+                callback: function(result) {
                     //console.log('This was logged in the callback: ' + result);
                     if (result === true) {
-                        $.post(encodeURI("/Management/deleteusr"), {
-                            usrId: userId
-                        }).success(function (data) {
-                            BootstrapDialog.show({
-                                title: 'اطلاعات گروه',
-                                message: $(data)
-                            });
-                        })
-                             .error(function () {
-                                 BootstrapDialog.show({
-                                     type: BootstrapDialog.TYPE_DANGER,
-                                     title: 'خطا ',
-                                     message: 'خطا در حذف ، لطفا مجددا تلاش کنید'
+                        $.post(encodeURI("/manage/deleteusr"), {
+                                usrId: userId
+                            }).success(function(data) {
+                                BootstrapDialog.show({
+                                    title: 'اطلاعات گروه',
+                                    message: $(data)
+                                });
+                            })
+                            .error(function() {
+                                BootstrapDialog.show({
+                                    type: BootstrapDialog.TYPE_DANGER,
+                                    title: 'خطا ',
+                                    message: 'خطا در حذف ، لطفا مجددا تلاش کنید'
 
-                                 });
-                             });
+                                });
+                            });
                     }
                 }
             });
 
 
-
-
         };
 
-
-        function showCategoryInfo(id) {
-
-
-        };
 
     </script>
     <script src="~/assets/Admin-Panel/assets/global/scripts/datatable.js"></script>

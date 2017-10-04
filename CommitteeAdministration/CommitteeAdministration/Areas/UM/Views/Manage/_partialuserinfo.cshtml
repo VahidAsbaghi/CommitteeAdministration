@@ -1,0 +1,181 @@
+﻿
+@using System
+@model CommitteeAdministration.Areas.UM.ViewModels.UserViewModel
+
+<link href="~/Content/plugins/bootstrap-validator/css/bootstrapValidator.css" rel="stylesheet" />
+
+<span class="alert-danger">
+    @Html.ValidationSummary()
+</span>
+
+<fieldset>
+    <div class="form-group col-sm-12">
+        <label class="control-label">نام</label>
+        <div class="inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                @*<input name="Name" placeholder="نام" class="Validated form-control" type="text">*@
+                @Html.TextBoxFor(model => model.Name, new { @class = "Validated form-control", placeholder = "نام خود را وارد کنید" })
+            </div>
+        </div>
+    </div> <!-- end .form-group -->
+
+    <div class="form-group col-sm-12">
+        <label class="control-label">نام خانوادگی</label>
+        <div class="inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                @Html.TextBoxFor(model => model.FamilyName, new { @class = "Validated form-control", placeholder = "نام خانوادگی خود را وارد کنید" })
+            </div>
+        </div>
+    </div> <!-- end .form-group -->
+
+
+
+
+    <div class="col-sm-12 form-group">
+        @Html.LabelFor(m => m.CommitteeName, new { @class = "control-label" })
+        <div class="selectContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                
+                
+                
+                @*@Html.DropDownListFor(m => m.ReturnedCommitteeId, Model.CommitteeName, "نام ستاد را انتخاب کنید-")*@ 
+                
+                
+
+                <select name="CommitteeName" class="Validated form-control selectpicker">
+                    <option value=" ">نام ستاد را انتخاب کنید</option>
+                    @foreach (var item in Model.CommitteeName)
+                    {
+                        if (item != null && Convert.ToInt32(item.Value) == Model.ReturnedCommitteeId)
+                        {
+                            <option value="@item.Value" selected>@item.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Value">@item.Text</option>
+
+                        }
+
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group col-sm-12">
+        @*<label class="control-label">پست الکترونیک</label>*@
+        @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+        <div class="inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                @*<input name="Email" placeholder="آدرس ایمیل" class="Validated form-control" type="text">*@
+                @Html.TextBoxFor(model => model.Email, new { @class = "Validated form-control", placeholder = "آدرس ایمیل را وارد کنید" })
+            </div>
+        </div> <!-- end .form-group -->
+    </div> <!-- end .col-sm-12 -->
+
+    <div class="form-group col-sm-12">
+        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+        <div class="inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                @Html.PasswordFor(model => model.Password, new { @class = "Validated form-control", placeholder = "رمز عبور را وارد کنید" })
+            </div>
+        </div> <!-- end .form-group -->
+    </div> <!-- end .col-sm-12 -->
+
+    <div class="form-group col-sm-12">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+        <div class="inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "Validated form-control", placeholder = "تایید رمز عبور را وارد کنید" })
+            </div>
+        </div> <!-- end .form-group -->
+    </div> <!-- end .col-sm-12 -->
+
+
+    <div class="form-group col-sm-12" style="direction: rtl">
+        <div class="col-sm-6" style="float: left">
+            <button type="reset" class="btn btn-primary" style="float: left; margin-top: 10px; margin-left: 10px">پاک شدن</button>
+            <button type="submit" class="btn btn-warning" style="float: left; margin-top: 10px; margin-left: 10px">ثبت</button>
+            <button type="button" class="btn default" style="float: left; margin-top: 10px; margin-left: 10px" data-dismiss="modal">بستن</button>
+        </div>
+    </div>
+
+</fieldset>
+
+@*<div class="row">
+        <div class="form-group">
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-warning">@SendBtnText <span class="glyphicon glyphicon-send"></span></button>
+            </div>
+        </div>
+    </div>*@
+
+
+@*
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.CommitteeName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.ReturnedCommitteeId, Model.CommitteeName, "--Select--")  @*new List<SelectListItem>()) ((m) => m.CommitteeName, Model.CommitteeName, "--Select--")
+            @Html.ValidationMessageFor(m => m.ReturnedCommitteeId)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.FamilyName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.FamilyName, new { @class = "form-control" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+*@
+
+
+
+
+
