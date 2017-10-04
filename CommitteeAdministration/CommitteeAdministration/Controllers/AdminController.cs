@@ -75,7 +75,7 @@ namespace CommitteeAdministration.Controllers
                 }
             }
 
-            var chart =CommitteeStatusController.DrawColumnChart("نمودار وضعیت ستاد در شاخص ها" + committee.Name, "درصد کارایی", categories,
+            var chart = CommitteeStatusController.DrawColumnChart("نمودار وضعیت ستاد در شاخص ها" + committee.Name, "درصد کارایی", categories,
                 datas);
             return View("AllIndicatorsStatus_Bar","_MotherElementsLayout", chart);
         }

@@ -1,4 +1,5 @@
-﻿using CommitteeAdministration.Controllers;
+﻿using CommitteeAdministration.Areas.Management.Controllers;
+using CommitteeAdministration.Controllers;
 using CommitteeAdministration.Services;
 using CommitteeAdministration.Services.Contract;
 using CommitteeManagement.Model;
@@ -37,8 +38,9 @@ namespace CommitteeAdministration.Helper
                 _Instance.RegisterType<UserManager<User>>(new HierarchicalLifetimeManager());
                 _Instance.RegisterType<AccountController>(new InjectionConstructor());
                 _Instance.RegisterType<ManageController>(new InjectionConstructor());
-                _Instance.RegisterType<UsersController>(new InjectionConstructor());
+                //_Instance.RegisterType<UsersController>(new InjectionConstructor());
                 _Instance.RegisterType<CommitteesController>(new InjectionConstructor());
+                _Instance.RegisterType<ManagementController>(new InjectionConstructor());
                 _Instance.RegisterType<ContactInfoesController>(new InjectionConstructor());
                 _Instance.RegisterType<CriteriaController>(new InjectionConstructor());
                 _Instance.RegisterType<HomeController>(new InjectionConstructor());
@@ -55,6 +57,8 @@ namespace CommitteeAdministration.Helper
                 _Instance.RegisterType<IChartDrawer, ChartDrawer>(new HierarchicalLifetimeManager());
                 _Instance.RegisterType<ICustomEmailService, CustomEmailService>(new HierarchicalLifetimeManager());
                 _Instance.RegisterType<IMessageTerminal, MessageTerminal>(new HierarchicalLifetimeManager());
+
+                _Instance.RegisterType<IUserInfoManager, UserInfoManager>(new HierarchicalLifetimeManager());
                 return _Instance;
             }
         }

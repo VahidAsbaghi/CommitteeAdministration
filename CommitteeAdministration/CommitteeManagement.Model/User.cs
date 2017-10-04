@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CommitteeManagement.Model
 {
-    public class User:IdentityUser
+    public class User : IdentityUser
     {
         public User()
         {

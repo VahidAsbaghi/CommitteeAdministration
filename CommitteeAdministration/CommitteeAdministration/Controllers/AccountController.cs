@@ -23,7 +23,7 @@ using Microsoft.Practices.Unity;
 
 namespace CommitteeAdministration.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AccountController : Controller
     {
         private readonly IMainContainer _mainContainer = ModelContainer.Instance.Resolve<IMainContainer>();
@@ -87,7 +87,6 @@ namespace CommitteeAdministration.Controllers
             {
                 return View(model);
             }
-
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -441,7 +440,7 @@ namespace CommitteeAdministration.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //
+        
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
@@ -468,6 +467,38 @@ namespace CommitteeAdministration.Controllers
 
             //base.Dispose(disposing);
         }
+
+        [HttpPost]
+        public async Task<JsonResult> ChangePassword(EditUserPassword model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+
+                IdentityResult result = UserManager.ChangePassword(user.Id, model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    return Json(new { Result = "OK" }, JsonRequestBehavior.AllowGet);
+
+                    // await SignInAsync(user, isPersistent: false);
+
+
+                }
+                else
+                {
+
+                    return Json(new
+                    {
+                        Result = "ERROR",
+                        Message = "Form is not valid! " +
+                          "Please correct it and try again.",
+                        JsonRequestBehavior.AllowGet
+                    });
+                }
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
 
         #region Helpers
         // Used for XSRF protection when adding external logins
