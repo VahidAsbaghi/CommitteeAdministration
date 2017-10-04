@@ -15,492 +15,355 @@
     </style>
 
     @*<link href="~/bizpro-v3/css/nivoslider.css" rel="stylesheet" />*@
-    <link href="~/bizpro-v3/css-rtl/nivoslider.css" rel="stylesheet" />
-    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/bizpro-v3/css-rtl/font-awesome-rtl.css" rel="stylesheet" />
-    <link href="~/bizpro-v3/css-rtl/et-line.css" rel="stylesheet" />
+    <link href="~/assets/css-rtl/css/nivoslider.css" rel="stylesheet" />
+    <link href="~/assets/css-rtl/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/assets/css-rtl/css/font-awesome-rtl.css" rel="stylesheet" />
+    <link href="~/assets/css-rtl/css/et-line.css" rel="stylesheet" />
     @*<link rel="stylesheet" href="/Content/FirstPage/footerStyle.css" type="text/css" />
         <link rel="stylesheet" href="/Content/FirstPage/SliderImage.css" type="text/css" />*@
+}
+
+@section scripts{
+    <!-- Nivoslider js -->
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script src="/Scripts/js/jquery.nivoslider.js"></script>
+<script src="/Scripts/js/nivoslider-active.js"></script>
+     <!-- Chart js -->
+<script src="/Scripts/js/Chart.bundle.js"></script>
+<script src="/Scripts/js/chart.active.js"></script>
+
+<!-- Owl-carousel js -->
+<script src="/Scripts/js/owl.carousel.min.js"></script>
+
+<!-- Ajax Contact js -->
+<script src="/Scripts/js/ajax-contact.js"></script>
+    <!-- Sticky js -->
+    <script src="/Scripts/js/jquery.sticky.js"></script>
+
+    <!-- Simple-lens js -->
+    <script src="/Scripts/js/simple-lens.js"></script>
+}
+
+@section HomePage
+{
+
+    <!-- ***************** Welcome Area Start ***************** -->
+    <section class="welcome_area">
+        <!-- slider area start -->
+        <div class="slider-area educamp">
+            <!-- slider -->
+            <div class="edu-c edu-d edu-pre">
+                <div id="edu-n-slider" class="slides">
+                    <!-- Background Image 1 -->
+                    <img src="/bizpro-v3/img/bg-pattern/background-image-2.jpg" alt="" title="#slider-direction-1">
+                    <!-- Background Image 2 -->
+                    <img src="/bizpro-v3/img/bg-pattern/background-image-2.jpg" alt="" title="#slider-direction-2">
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <!-- direction 1 -->
+                            <div id="slider-direction-1" class="slider-direction">
+                                <div class="slider-content text-left lft-pr d-table slider-1">
+                                    <div class="title-container d-table-c title-compress">
+                                        <h2 class="title1"><span>WE BUILD </span>YOUR FUTURE
+                                        </h2>
+                                        <h3 class="title2">We're all working together; that's the secret.</h3>
+                                        <a class="btn btn-default" href="#" role="button">Get a Quote</a>
+                                    </div>
+                                </div>
+                                <!-- layer 1 -->
+                                <div class="layer-1">
+                                    <img src="/bizpro-v3/img/bg-pattern/layer-1.png" alt="">
+                                </div>
+                            </div>
+
+                            <!-- direction 2 -->
+                            <div id="slider-direction-2" class="slider-direction">
+                                <div class="slider-content text-left d-table slider-2 lft-pr">
+                                    <div class="title-container d-table-c">
+                                        <h2 class="title1">CREATE, WORK <span>AND INSPIRE</span></h2>
+                                        <h3 class="title2">If you don't drive your business, you will be driven out of business.</h3>
+                                        <a class="btn btn-default" href="#" role="button">Learn More</a>
+                                    </div>
+                                </div>
+                                <!-- layer 2 -->
+                                <div class="layer-2">
+                                    <img src="/bizpro-v3/img/bg-pattern/layer-2.png" alt="">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- slider end -->
+        </div>
+        <!-- end slider -->
+    </section>
+    <div class="clearfix"></div>
+    <!-- ************** Welcome Area End ************** -->
+    <!-- ***************** About Us Area Start ***************** -->
+    <div class="clearfix"></div>
+
+
+    <section class="about_area section_padding_100_70">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <!-- Section Heading Start -->
+                    <div class="section_heading">
+                        <h3>فعالیت های <span> ما </span></h3>
+                        <div class="color_border"></div>
+                    </div>
+                    <!-- Section Heading End -->
+                    <!-- About Us Text -->
+                    <div class="about_us_text wow fadeInUp" data-wow-delay="0.2s">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam maiores quam pariatur repellendus rerum facilis, atque voluptatum amet perferendis neque, recusandae inventore. Natus quo, veniam tempora laborum corporis eligendi numquam!</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia mollitia voluptates iure tempore blanditiis, aut reiciendis dicta, eos rem, esse minima saepe! Voluptatum perspiciatis dolorem minima suscipit reprehenderit, eligendi dignissimos!</p>
+                        <div class="about_us_button">
+                            <a class="btn btn-default" href="#" role="button">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6">
+                    <div class="single_feature_area_two">
+                        <div class="row">
+                            <!-- Single Feature Area Start -->
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="single_feature wow fadeInUp" data-wow-delay="0.2s">
+                                    <div class="feature_img">
+                                        <span class="icon-wallet"></span>
+                                    </div>
+                                    <!-- Single Feature Image Area End -->
+                                    <div class="feature_text">
+                                        <h5>بررسی روند توسعه فناوری و تأمین بودجه آن</h5>
+
+                                    </div>
+                                    <br/>
+                                    <!-- Single Feature Text Area End -->
+                                </div>
+                            </div>
+                            <!-- Single Feature Area End -->
+                            <!-- Single Feature Area Start -->
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="single_feature wow fadeInUp" data-wow-delay="0.4s">
+                                    <div class="feature_img">
+                                        <span class="icon-puzzle"></span>
+                                    </div>
+                                    <!-- Single Feature Image Area End -->
+                                    <div class="feature_text">
+                                        <h5>
+                                            گردآوری و ثبت اطلاعات در ارتباط با توسعه فناوری در کشور
+
+                                        </h5>
+                                        <br/>
+                                    </div>
+                                    <!-- Single Feature Text Area End -->
+                                </div>
+                            </div>
+                            <!-- Single Feature Area End -->
+                            <!-- Single Feature Area Start -->
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="single_feature wow fadeInUp" data-wow-delay="0.6s">
+                                    <div class="feature_img">
+                                        <span class="icon-profile-female"></span>
+                                    </div>
+                                    <!-- Single Feature Image Area End -->
+                                    <div class="feature_text">
+                                        <h5>تهیه و تدوین گزارش های آماری و نموداری کاربردی</h5>
+                                       <br/>
+                                    </div>
+                                    <!-- Single Feature Text Area End -->
+                                </div>
+                            </div>
+                            <!-- Single Feature Area End -->
+                            <!-- Single Feature Area Start -->
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="single_feature wow fadeInUp" data-wow-delay="0.8s">
+                                    <div class="feature_img">
+                                        <span class="icon-adjustments"></span>
+                                    </div>
+                                    <!-- Single Feature Image Area End -->
+                                    <div class="feature_text">
+                                        <h5>ارزیابی عملکرد ستادهای توسعه فناوری، پارک های فناوری و شرکت های دانش بنیان</h5>
+                                      
+                                    </div>
+                                    <!-- Single Feature Text Area End -->
+                                </div>
+                            </div>
+                            <!-- Single Feature Area End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end./ row -->
+        </div>
+        <!-- end./ container -->
+    </section>
+
+
+
+    <!-- ***************** Our Services Area Start ***************** -->
+    <section class="why_choose_us_area home2 section_padding_100">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- Section Heading Start -->
+                    <div class="section_heading">
+                        <h3>سرویس های <span>ما </span></h3>
+                        <div class="color_border"></div>
+                    </div>
+                    <!-- Section Heading End -->
+                </div>
+            </div>
+            <div class="row">
+
+                <!-- Single service area start -->
+                <div class="col-sm-6 col-lg-3 col-xs-12">
+                    <div class="single_service wow fadeInUp" data-wow-delay="0.2s">
+                        <!-- Single service image -->
+                        <div class="single_service_img">
+                            @*<img src="img/services-img/service-3.jpg" alt="">*@
+                            <img src="~/assets/Img/services-img/Amar.jpg"/>
+                        </div>
+                        <!-- Single service title -->
+                        <div class="single_service_text">
+                            <h4>آمارها و نمودارها</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam iure laboriosam blanditiis, explicabo animi expedita deleniti excepturi voluptate aut non!</p>
+                            <div class="discover_more">
+                                <a class="btn btn-default" href="#" role="button">بیشتر بدانید...</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single service area start -->
+                <div class="col-sm-6 col-lg-3 col-xs-12">
+                    <div class="single_service wow fadeInUp" data-wow-delay="0.4s">
+                        <!-- Single service image -->
+                        <div class="single_service_img">
+                            @*<img src="img/services-img/service-2.jpg" alt="">*@
+                            <img src="~/assets/Img/services-img/DaneshBonyan.jpg"/>
+                        </div>
+                        <!-- Single service title -->
+                        <div class="single_service_text">
+                            <h4>شرکتهای دانش بنیان</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam iure laboriosam blanditiis, explicabo animi expedita deleniti excepturi voluptate aut non!</p>
+                            <div class="discover_more">
+                                <a class="btn btn-default" href="#" role="button">بیشتر بدانید...</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single service area start -->
+                <div class="col-sm-6 col-lg-3 col-xs-12">
+                    <div class="single_service wow fadeInUp" data-wow-delay="0.6s">
+                        <!-- Single service image -->
+                        <div class="single_service_img">
+                            @*<img src="img/services-img/service-4.jpg" alt="">*@
+                            <img src="~/assets/Img/services-img/ToseEFanavari.jpg"/>
+                        </div>
+                        <!-- Single service title -->
+                        <div class="single_service_text">
+                            <h4>ستادهای توسعه فناوری</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam iure laboriosam blanditiis, explicabo animi expedita deleniti excepturi voluptate aut non!</p>
+                            <div class="discover_more">
+                                <a class="btn btn-default" href="#" role="button">بیشتر بدانید...</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single service area start -->
+                <div class="col-sm-6 col-lg-3 col-xs-12">
+                    <div class="single_service wow fadeInUp" data-wow-delay="0.8s">
+                        <!-- Single service image -->
+                        <div class="single_service_img">
+                            <img src="~/assets/Img/services-img/VorodDade.jpg"/>
+                        </div>
+                        <!-- Single service title -->
+                        <div class="single_service_text">
+                            <h4>ورود و ثبت اطلاعات</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam iure laboriosam blanditiis, explicabo animi expedita deleniti excepturi voluptate aut non!</p>
+                            <div class="discover_more">
+                                <a class="btn btn-default" href="#" role="button">بیشتر بدانید...</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- end. row -->
+        </div>
+        <!-- end. container -->
+    </section>
+
+    <!-- ***************** Our Services Area End ***************** -->
+    <!-- ***************** Cool Facts Area Start ***************** -->
+    <section class="cool_facts_area section_padding_60">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <!-- Single Cool Facts area Start -->
+                    <div class="cool_fact_text wow fadeInUp" data-wow-delay="0.2s">
+                        <i class="fa fa-institution" aria-hidden="true"></i>
+                        <h3><span class="counter">15</span></h3>
+                        <h5>تعداد ستادهای توسعه فناوری</h5>
+                    </div>
+                    <!-- Single Cool Facts area End -->
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <!-- Single Cool Facts area Start -->
+                    <div class="cool_fact_text wow fadeInUp" data-wow-delay="0.4s">
+                        <i class="fa fa-gears" aria-hidden="true"></i>
+                        <h3><span class="counter">12023</span></h3>
+                        <h5>تعداد پارک های فناوری</h5>
+                    </div>
+                    <!-- Single Cool Facts area End -->
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <!-- Single Cool Facts area Start -->
+                    <div class="cool_fact_text wow fadeInUp" data-wow-delay="0.6s">
+                        <i class="fa fa-group" aria-hidden="true"></i>
+                        <h3><span class="counter">40</span></h3>
+                        <h5>تعداد شرکت های دانش بنیان</h5>
+                    </div>
+                    <!-- Single Cool Facts area End -->
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <!-- Single Cool Facts area Start -->
+                    <div class="cool_fact_text wow fadeInUp" data-wow-delay="0.8s">
+                        <i class="fa fa-product-hunt" aria-hidden="true"></i>
+                        <h3><span class="counter">19000</span></h3>
+                        <h5>تعداد محصولات دانش بنیان</h5>
+                    </div>
+                    <!-- Single Cool Facts area End -->
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- ***************** Cool facts Area End ***************** -->
+
 }
 
 
 
 
 
-@*<section id="main">*@
-
-
-@*<div class="carousel  slide" data-ride="carousel" data-interval="4000" id="news-carousel">
-
-        <div class="carousel-inner">
-            @for (int index = 0; index < Model.News.Count; index++)
-            {
-                var news = Model.News[index];
-                if (index == 0)
-                {
-                    <div class="item slides active">
-                        <div style="background-color: #222222; width:100%">
-                            <a class="NewsFontStyle" href="@news.Link">@news.Title</a>
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="item slides">
-                        <div style="background-color: #222222; width:100% ">
-                            <a class="NewsFontStyle" href="@news.Link">@news.Title</a>
-                        </div>
-                    </div>
-                }
-            }
-
-        </div>
-    </div>
-
-    <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
-        <!-- Overlay -->
-        <div class="overlay"></div>
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#bs-carousel" data-slide-to="0" class="active"></li>
-            <li data-target="#bs-carousel" data-slide-to="1"></li>
-            <li data-target="#bs-carousel" data-slide-to="2"></li>
-        </ol>
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-            <div class="item slides active">
-                <div class="slide-1"></div>
-                <div class="hero">
-                    <hgroup>
-                        <h1>We are creative</h1>
-                        <h3>Get start your next awesome project</h3>
-                    </hgroup>
-                    <button class="btn btn-hero btn-lg" role="button">See all features</button>
-                </div>
-            </div>
-            <div class="item slides">
-                <div class="slide-2"></div>
-                <div class="hero">
-                    <hgroup>
-                        <h1>We are smart</h1>
-                        <h3>Get start your next awesome project</h3>
-                    </hgroup>
-                    <button class="btn btn-hero btn-lg" role="button">See all features</button>
-                </div>
-            </div>
-            <div class="item slides">
-                <div class="slide-3"></div>
-                <div class="hero">
-                    <hgroup>
-                        <h1>We are amazing</h1>
-                        <h3>Get start your next awesome project</h3>
-                    </hgroup>
-                    <button class="btn btn-hero btn-lg" role="button">See all features</button>
-                </div>
-            </div>
-        </div>
-    </div>*@
-
-
-
-<section class="welcome_area">
-    <!-- slider area start -->
-    <div class="slider-area educamp">
-        <!-- slider -->
-        <div class="edu-c edu-d edu-pre">
-            <div id="edu-n-slider" class="slides">
-                <!-- Background Image 1 -->
-                @*<img src="img/bg-pattern/background-image-2.jpg" alt="" title="#slider-direction-1">*@
-                <img src="~/assets/Img/01.jpg" alt="" title="#slider-direction-1" />
-
-                <!-- Background Image 2 -->
-                @* <img src="img/bg-pattern/background-image-2.jpg" alt="" title="#slider-direction-2">*@
-                <img src="~/assets/Img/02.jpg" alt="" title="#slider-direction-2" />
-
-                <img src="~/assets/Img/03.jpg" alt="" title="#slider-direction-2" />
-
-                <img src="~/assets/Img/04.png" alt="" title="#slider-direction-2" />
-            </div>
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <!-- direction 1 -->
-                        <div id="slider-direction-1" class="slider-direction">
-                            <div class="slider-content text-left lft-pr d-table slider-1">
-                                <div class="title-container d-table-c title-compress">
-                                    <h2 class="title1">
-                                        <span>WE BUILD </span>YOUR DREAM
-                                    </h2>
-                                    <h3 class="title2">We're all working together; that's the secret.</h3>
-                                    <a class="btn btn-default" href="#" role="button">Get a Quote</a>
-                                </div>
-                            </div>
-                            <!-- layer 1 -->
-                            <div class="layer-1">
-                                <img src="img/bg-pattern/layer-3.png" alt="">
-                            </div>
-                        </div>
-
-                        <!-- direction 2 -->
-                        <div id="slider-direction-2" class="slider-direction">
-                            <div class="slider-content text-left d-table slider-2 lft-pr">
-                                <div class="title-container d-table-c">
-                                    <h2 class="title1">WORK HARD <span>NEVER GIVE UP</span></h2>
-                                    <h3 class="title2">If you don't drive your business, you will be driven out of business.</h3>
-                                    <a class="btn btn-default" href="#" role="button">Learn More</a>
-                                </div>
-                            </div>
-                            <!-- layer 2 -->
-                            <div class="layer-2">
-                                <img src="img/bg-pattern/layer-4.png" alt="">
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- slider end -->
-    </div>
-    <!-- end slider -->
-</section>
-
-
-<div class="clearfix"></div>
-<!-- ***************** Welcome Area End ***************** -->
-<!-- ***************** About Us Area Start ***************** -->
-<div class="clearfix"></div>
-
-
-<section class="about_area section_padding_100_70">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6">
-                <!-- Section Heading Start -->
-                <div class="section_heading">
-                    <h3>فعالیت های <span> ما </span></h3>
-                    <div class="color_border"></div>
-                </div>
-                <!-- Section Heading End -->
-                <!-- About Us Text -->
-                <div class="about_us_text wow fadeInUp" data-wow-delay="0.2s">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam maiores quam pariatur repellendus rerum facilis, atque voluptatum amet perferendis neque, recusandae inventore. Natus quo, veniam tempora laborum corporis eligendi numquam!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia mollitia voluptates iure tempore blanditiis, aut reiciendis dicta, eos rem, esse minima saepe! Voluptatum perspiciatis dolorem minima suscipit reprehenderit, eligendi dignissimos!</p>
-                    <div class="about_us_button">
-                        <a class="btn btn-default" href="#" role="button">Learn More</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-6">
-                <div class="single_feature_area_two">
-                    <div class="row">
-                        <!-- Single Feature Area Start -->
-                        <div class="col-xs-12 col-sm-6">
-                            <div class="single_feature wow fadeInUp" data-wow-delay="0.2s">
-                                <div class="feature_img">
-                                    <span class="icon-wallet"></span>
-                                </div>
-                                <!-- Single Feature Image Area End -->
-                                <div class="feature_text">
-                                    <h5>بررسی روند توسعه فناوری و تأمین بودجه آن</h5>
-                                    @*<p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>*@
-                                </div>
-                                <!-- Single Feature Text Area End -->
-                            </div>
-                        </div>
-                        <!-- Single Feature Area End -->
-                        <!-- Single Feature Area Start -->
-                        <div class="col-xs-12 col-sm-6">
-                            <div class="single_feature wow fadeInUp" data-wow-delay="0.4s">
-                                <div class="feature_img">
-                                    <span class="icon-puzzle"></span>
-                                </div>
-                                <!-- Single Feature Image Area End -->
-                                <div class="feature_text">
-                                    <h5>گردآوری و ثبت اطلاعات در ارتباط با توسعه فناوری در کشور</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-                                </div>
-                                <!-- Single Feature Text Area End -->
-                            </div>
-                        </div>
-                        <!-- Single Feature Area End -->
-                        <!-- Single Feature Area Start -->
-                        <div class="col-xs-12 col-sm-6">
-                            <div class="single_feature wow fadeInUp" data-wow-delay="0.6s">
-                                <div class="feature_img">
-                                    <span class="icon-profile-female"></span>
-                                </div>
-                                <!-- Single Feature Image Area End -->
-                                <div class="feature_text">
-                                    <h5>تهیه و تدوین گزارش های آماری و نموداری کاربردی</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-                                </div>
-                                <!-- Single Feature Text Area End -->
-                            </div>
-                        </div>
-                        <!-- Single Feature Area End -->
-                        <!-- Single Feature Area Start -->
-                        <div class="col-xs-12 col-sm-6">
-                            <div class="single_feature wow fadeInUp" data-wow-delay="0.8s">
-                                <div class="feature_img">
-                                    <span class="icon-adjustments"></span>
-                                </div>
-                                <!-- Single Feature Image Area End -->
-                                <div class="feature_text">
-                                    <h5>ارزیابی عملکرد ستادهای توسعه فناوری، پارک های فناوری و شرکت های دانش بنیان</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-                                </div>
-                                <!-- Single Feature Text Area End -->
-                            </div>
-                        </div>
-                        <!-- Single Feature Area End -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end./ row -->
-    </div>
-    <!-- end./ container -->
-</section>
-
-
-
-<!-- ***************** Our Services Area Start ***************** -->
-<section class="why_choose_us_area home2 section_padding_100">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <!-- Section Heading Start -->
-                <div class="section_heading">
-                    <h3>سرویس های <span>ما </span></h3>
-                    <div class="color_border"></div>
-                </div>
-                <!-- Section Heading End -->
-            </div>
-        </div>
-        <div class="row">
-
-            <!-- Single service area start -->
-            <div class="col-sm-6 col-lg-3 col-xs-12">
-                <div class="single_service wow fadeInUp" data-wow-delay="0.2s">
-                    <!-- Single service image -->
-                    <div class="single_service_img">
-                        @*<img src="img/services-img/service-3.jpg" alt="">*@
-                        <img src="~/assets/Img/services-img/Amar.jpg"/>
-                    </div>
-                    <!-- Single service title -->
-                    <div class="single_service_text">
-                        <h4>آمارها و نمودارها</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam iure laboriosam blanditiis, explicabo animi expedita deleniti excepturi voluptate aut non!</p>
-                        <div class="discover_more">
-                            <a class="btn btn-default" href="#" role="button">بیشتر بدانید...</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single service area start -->
-            <div class="col-sm-6 col-lg-3 col-xs-12">
-                <div class="single_service wow fadeInUp" data-wow-delay="0.4s">
-                    <!-- Single service image -->
-                    <div class="single_service_img">
-                        @*<img src="img/services-img/service-2.jpg" alt="">*@
-                        <img src="~/assets/Img/services-img/DaneshBonyan.jpg"/>
-                    </div>
-                    <!-- Single service title -->
-                    <div class="single_service_text">
-                        <h4>شرکتهای دانش بنیان</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam iure laboriosam blanditiis, explicabo animi expedita deleniti excepturi voluptate aut non!</p>
-                        <div class="discover_more">
-                            <a class="btn btn-default" href="#" role="button">بیشتر بدانید...</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single service area start -->
-            <div class="col-sm-6 col-lg-3 col-xs-12">
-                <div class="single_service wow fadeInUp" data-wow-delay="0.6s">
-                    <!-- Single service image -->
-                    <div class="single_service_img">
-                        @*<img src="img/services-img/service-4.jpg" alt="">*@
-                        <img src="~/assets/Img/services-img/ToseEFanavari.jpg"/>
-                    </div>
-                    <!-- Single service title -->
-                    <div class="single_service_text">
-                        <h4>ستادهای توسعه فناوری</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam iure laboriosam blanditiis, explicabo animi expedita deleniti excepturi voluptate aut non!</p>
-                        <div class="discover_more">
-                            <a class="btn btn-default" href="#" role="button">بیشتر بدانید...</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single service area start -->
-            <div class="col-sm-6 col-lg-3 col-xs-12">
-                <div class="single_service wow fadeInUp" data-wow-delay="0.8s">
-                    <!-- Single service image -->
-                    <div class="single_service_img">
-                        <img src="~/assets/Img/services-img/VorodDade.jpg"/>
-                    </div>
-                    <!-- Single service title -->
-                    <div class="single_service_text">
-                        <h4>ورود و ثبت اطلاعات</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam iure laboriosam blanditiis, explicabo animi expedita deleniti excepturi voluptate aut non!</p>
-                        <div class="discover_more">
-                            <a class="btn btn-default" href="#" role="button">بیشتر بدانید...</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <!-- end. row -->
-    </div>
-    <!-- end. container -->
-</section>
-
-<!-- ***************** Our Services Area End ***************** -->
-<!-- ***************** Cool Facts Area Start ***************** -->
-<section class="cool_facts_area section_padding_60">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <!-- Single Cool Facts area Start -->
-                <div class="cool_fact_text wow fadeInUp" data-wow-delay="0.2s">
-                    <i class="fa fa-institution" aria-hidden="true"></i>
-                    <h3><span class="counter">15</span></h3>
-                    <h5>تعداد ستادهای توسعه فناوری</h5>
-                </div>
-                <!-- Single Cool Facts area End -->
-            </div>
-
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <!-- Single Cool Facts area Start -->
-                <div class="cool_fact_text wow fadeInUp" data-wow-delay="0.4s">
-                    <i class="fa fa-gears" aria-hidden="true"></i>
-                    <h3><span class="counter">12023</span></h3>
-                    <h5>تعداد پارک های فناوری</h5>
-                </div>
-                <!-- Single Cool Facts area End -->
-            </div>
-
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <!-- Single Cool Facts area Start -->
-                <div class="cool_fact_text wow fadeInUp" data-wow-delay="0.6s">
-                    <i class="fa fa-group" aria-hidden="true"></i>
-                    <h3><span class="counter">40</span></h3>
-                    <h5>تعداد شرکت های دانش بنیان</h5>
-                </div>
-                <!-- Single Cool Facts area End -->
-            </div>
-
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <!-- Single Cool Facts area Start -->
-                <div class="cool_fact_text wow fadeInUp" data-wow-delay="0.8s">
-                    <i class="fa fa-product-hunt" aria-hidden="true"></i>
-                    <h3><span class="counter">19000</span></h3>
-                    <h5>تعداد محصولات دانش بنیان</h5>
-                </div>
-                <!-- Single Cool Facts area End -->
-            </div>
-
-        </div>
-    </div>
-</section>
-<!-- ***************** Cool facts Area End ***************** -->
 
 
 
 
 
 
-@*<div style="position: inherit; width: 100%; margin-right: 1.2%">
-        <div style="background-color: white; width: 100%; height: 100px">
-
-        </div>
-        <div class="row InfoFirstFontStyle" style="width: 100%; height: 200px">
-
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-image: url('/Resources/Images/FirstPage/sample.jpg'); height: 100%;">
-                @Html.ActionLink("مشاهده اطلاعات کلی ستاد", "ViewAll", "CriteriaScInd")
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-color: blueviolet; height: 100%;">
-                @Html.ActionLink("وروداطلاعات مقادیر شاخص واقعی", "AddRealValues", "IndicatorRealValues")
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-color: bisque; height: 100%;">
-                @Html.ActionLink("فرآیند ورود معیار، زیرمعیار و شاخص", "Create", "CriteriaScInd")
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-color: brown; height: 100%;">
-
-            </div>
-
-        </div>
-        <div style="background-color: white; width: 100%; height: 100px">
-
-        </div>
-    </div>
-
-
-
-    <section class="footerFirst" dir="rtl" style="margin-left: 5px; margin-right: -5px;">
-
-        <div class="row" dir="rtl" style="margin:0;">
-            <div class="col-lg-4  col-md-4 col-sm-4 col-xs-4" dir="rtl">
-                <div class="footer_dv">
-                    <h4>Services</h4>
-                    <ul>
-                        <li class="line_rv"><a href="canon-printer-support.php">Canon Printer Support</a></li>
-
-                        <li><a href="hp-printer-support.php">Hp printer Support</a></li>
-                        <li><a href="dell-printer-support.php">Dell Printer Support</a></li>
-                        <li><a href="epson-printer-support.php">Epson printer Support</a></li>
-                        <li><a href="samsung-printer-support.php">Samsung Printer Support</a></li>
-                        <li><a href="lexmark-printer-support.php">Lexmark Printer Support</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4  col-md-4 col-sm-4 col-xs-4" dir="rtl">
-                <div class="footer_dv">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="tosiba-printer-support.php">Toshiba Printer Support</a></li>
-                        <li><a href="panasonic-printer-support.php">Panasonic Printer Support</a></li>
-                        <li><a href="xerox-printer-support.php">Xerox Printer Support</a></li>
-                        <li><a href="brother-printer-support.php">Brother printer support</a></li>
-                        <li><a href="zebra-printer-support.php">Zebra printer support</a></li>
-                        <li><a href="lenovo-printer-support.php">Lenovo printer Support</a></li>
-
-
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4  col-md-4 col-sm-4 col-xs-4" dir="rtl">
-                <div class="footer_dv">
-                    <h4>Contact us</h4>
-                    <p>Printer customer Support</p>
-                    <p>
-                        IRAN (+98) 9122469892<br>
-
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>*@
-
-
-
-
-
-
-
-
-
-
-@*</section>*@
 
 
 

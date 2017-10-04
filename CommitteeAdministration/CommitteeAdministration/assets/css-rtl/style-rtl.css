@@ -278,7 +278,7 @@
     div#preloader {
         overflow: hidden;
         background-color: #fff;
-        background-image: url(~/assets/Img/core-img/preloader.gif);
+        background-image: url(/assets/Img/core-img/preloader.gif);
         background-repeat: no-repeat;
         background-position: center center;
         height: 100%;
@@ -874,7 +874,7 @@
     ************************* */
     
     .call_to_action {
-        background-image: url(img/bg-pattern/fun-fact.jpg);
+        background-image: url(/img/bg-pattern/fun-fact.jpg);
         background-size: cover;
         background-position: 100% 0;
         position: relative;
@@ -1059,7 +1059,7 @@
     ****************************** */
     
     .cool_facts_area {
-        background-image: url(img/bg-pattern/fun-fact.jpg);
+        background-image: url(/img/bg-pattern/fun-fact.jpg);
         background-size: cover;
         position: relative;
         z-index: 1;
@@ -1617,7 +1617,7 @@
     ****************************** */
     
     .testimonial_client_area {
-        background-image: url(img/bg-pattern/fun-fact.jpg);
+        background-image: url(/img/bg-pattern/fun-fact.jpg);
         background-size: cover;
         position: relative;
         z-index: 9;
@@ -2289,7 +2289,7 @@
     .breadcumb_area {
         height: 300px;
         width: 100%;
-        background-image: url(img/bg-pattern/fun-fact-2.jpg);
+        background-image: url(/img/bg-pattern/fun-fact-2.jpg);
         background-size: cover;
         position: relative;
         background-position: center center;

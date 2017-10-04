@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using CommitteeAdministration.Helper;
 using CommitteeAdministration.Models;
+using CommitteeAdministration.Services.Contract;
 using CommitteeAdministration.ViewModels;
 using CommitteeManagement.Model;
 using CommitteeManagement.Repository;
@@ -27,6 +28,7 @@ namespace CommitteeAdministration.Controllers
     public class IndicatorRealValuesController : Controller
     {
         private readonly IMainContainer _mainContainer = ModelContainer.Instance.Resolve<IMainContainer>();
+        private readonly ICommitteeStatus _committeeStatus = ModelContainer.Instance.Resolve<ICommitteeStatus>();
         private int _indexRealIndicator = -1;
         private static IndicatorRealValueViewModel _model;
 
@@ -152,6 +154,102 @@ namespace CommitteeAdministration.Controllers
         {
             
         }
+
+        /// <summary>
+        /// Changes the real value.this method is called in jquery call in addrealvaluepartial view when user presses the edit button and then edit...
+        /// </summary>
+        /// <param name="indicatorId">The indicator identifier.</param>
+        /// <param name="oldRealValue">The old real value.</param>
+        /// <param name="newRealValue">The new real value.</param>
+        /// <param name="idealValue">The ideal value.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<JsonResult> ChangeRealValue(int indicatorId, double oldRealValue, double newRealValue,
+            double idealValue)
+        {
+            int newRealValueId = -1;
+            var result = Json(new RealValueChangeReturnViewModel() {HttpStatusCodeResult =new HttpStatusCodeResult(HttpStatusCode.BadRequest),NewRealValueId = newRealValueId });
+            var indicator = _mainContainer.IndicatorRepository.FirstOrDefault(indicatorT => indicatorT.Id == indicatorId);
+            if (indicator == null)
+            {
+                return result;
+            }
+            if (oldRealValue!=-1.1)
+            {
+                var realValue = _committeeStatus.FindFitestRealValue(_mainContainer.IndicatorRealValueRepository.Where(realValueT=>realValueT.Indicator.Id==indicatorId),
+                    DateTime.Now);
+                realValue.Value = oldRealValue;
+                var indicatorModification = new IndicatorModification
+                {
+                    UpdateRealValue = true,
+                    User = GetCurrentUser(),
+                    Indicator = indicator,
+                    IndicatorId = indicatorId,
+                    Time = DateTime.Now
+                };
+                var realModelIndex = _model.RealValues.IndexOf(_model.RealValues.FirstOrDefault(realValueT => realValueT.Indicator.Id == indicatorId));
+                _model.RealValues[realModelIndex] = realValue;
+                _mainContainer.IndicatorRealValueRepository.Attach(realValue);
+                _mainContainer.IndicatorModificationRepository.Add(indicatorModification);
+                await _mainContainer.SaveChangesAsync();
+            }
+
+            if (newRealValue!=-1.1)
+            {
+                var realValue = new IndicatorRealValue()
+                {
+                    Indicator = indicator,
+                    IndicatorId = indicator.Id,
+                    Time = DateTime.Now,
+                    Value = newRealValue
+                };
+                var indicatorModification = new IndicatorModification
+                {
+                    AddRealValue = true,
+                    User = GetCurrentUser(),
+                    Indicator = indicator,
+                    IndicatorId = indicatorId,
+                    Time = DateTime.Now
+                };
+                var realModelIndex = _model.RealValues.IndexOf(_model.RealValues.FirstOrDefault(realValueT => realValueT.Indicator.Id == indicatorId));
+               
+                _mainContainer.IndicatorRealValueRepository.Add(realValue);
+                _mainContainer.IndicatorModificationRepository.Add(indicatorModification);
+                await _mainContainer.SaveChangesAsync();
+                _model.RealValues[realModelIndex] = realValue;
+                 newRealValueId = realValue.Id;
+            }
+            if (idealValue!=-1.1)
+            {
+                var lastIdealValue =
+                    _committeeStatus.FindFitestIdealValue(_mainContainer.IndicatorIdealValueRepository.Where(idealValueT=>idealValueT.Indicator.Id==indicatorId),
+                        DateTime.Now);
+                var idealValueNew = new IndicatorIdealValue()
+                {
+                    Indicator = indicator,
+                    IndicatorId = indicator.Id,
+                    LowerThan = lastIdealValue.LowerThan,
+                    MoreThan = lastIdealValue.MoreThan,
+                    Time = DateTime.Now,
+                    Value = idealValue
+                };
+                var indicatorModification = new IndicatorModification
+                {
+                    AddIdealValue = true,
+                    User = GetCurrentUser(),
+                    Indicator = indicator,
+                    IndicatorId = indicatorId,
+                    Time = DateTime.Now
+                };
+                var idealModelIndex=_model.IdealValues.IndexOf(_model.IdealValues.FirstOrDefault(idealValueT => idealValueT.Indicator.Id == indicatorId));
+                _model.IdealValues[idealModelIndex] = idealValueNew;
+                _mainContainer.IndicatorModificationRepository.Add(indicatorModification);
+                _mainContainer.IndicatorIdealValueRepository.Add(idealValueNew);
+                await _mainContainer.SaveChangesAsync();
+            }
+            result = Json(new RealValueChangeReturnViewModel() { HttpStatusCodeResult = new HttpStatusCodeResult(HttpStatusCode.OK), NewRealValueId = newRealValueId });
+            return result;
+        }
         #region Add Real Values
         public ActionResult AddRealValues()
         {
@@ -174,11 +272,14 @@ namespace CommitteeAdministration.Controllers
             var committee =
                 _mainContainer.CommitteeRepository.FirstOrDefault(
                     committeeT => committeeT.Id == committeeId);
-            //model.Criteria = _mainContainer.CriterionRepository.Where(criterionT => criterionT.Committee.Id == committee.Id).ToList();
-            //model.SubCriterions= _mainContainer.SubCriterionRepository.All().ToList();
-            //model.Indicators= _mainContainer.IndicatorRepository.All().ToList();
-            //model.IdealValues = _mainContainer.IndicatorIdealValueRepository.All().ToList();
-            model = MyMockModelBuilder(committee);
+            model.Criteria = _mainContainer.CriterionRepository.Where(criterionT => criterionT.Committee.Id == committee.Id).ToList();
+            model.SubCriterions= _mainContainer.SubCriterionRepository.Where(subCriterion=>subCriterion.Committee.Id==committeeId).ToList();
+            model.Indicators= _mainContainer.IndicatorRepository.Where(indicator=>indicator.Committee.Id==committeeId).ToList();
+            var idealValues= model.Indicators.Select(indicator => _committeeStatus.FindFitestIdealValue(_mainContainer.IndicatorIdealValueRepository.Where(idealValue => idealValue.Indicator.Id == indicator.Id), DateTime.Now)).ToList();
+            model.IdealValues = idealValues;
+            var realValues = model.Indicators.Select(indicator => _committeeStatus.FindFitestRealValue(_mainContainer.IndicatorRealValueRepository.Where(realValue => realValue.Indicator.Id == indicator.Id), DateTime.Now)).ToList();
+            model.RealValues = realValues;
+            //model = MyMockModelBuilder(committee);
             _model = model;
            return Task.Factory.StartNew(() => PartialView(model));
         }
@@ -218,7 +319,7 @@ namespace CommitteeAdministration.Controllers
             var condition = new CommitteeConditionReturnModel() { 
             Condition = conditionValue>85?CommitteeCondition.VeryGood : 
                         conditionValue>70?CommitteeCondition.Good : conditionValue>55?CommitteeCondition.Bad : 
-                        conditionValue>0?CommitteeCondition.ExtremelyBad : CommitteeCondition.None,
+                        CommitteeCondition.ExtremelyBad ,
                     RealValueId = realValue.Id
                 };
             

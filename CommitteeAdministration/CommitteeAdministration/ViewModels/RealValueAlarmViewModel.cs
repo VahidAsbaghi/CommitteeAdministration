@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using CommitteeManagement.Model;
 
 namespace CommitteeAdministration.ViewModels
@@ -25,5 +26,11 @@ namespace CommitteeAdministration.ViewModels
         /// The user.
         /// </value>
         public User User { get; set; } 
+    }
+
+    public class RealValueChangeReturnViewModel
+    {
+        public HttpStatusCodeResult HttpStatusCodeResult { get; set; }
+        public int NewRealValueId { get; set; }
     }
 }

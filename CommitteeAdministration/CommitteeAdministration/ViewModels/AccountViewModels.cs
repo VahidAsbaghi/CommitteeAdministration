@@ -50,16 +50,16 @@ namespace CommitteeAdministration.ViewModels
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "ای میل")]
         [EmailAddress]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "رمز ورود")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "بخاطر بسپار")]
         public bool RememberMe { get; set; }
 
         public RealValueAlarmViewModel RealValueAlarmViewModel { get; set; }

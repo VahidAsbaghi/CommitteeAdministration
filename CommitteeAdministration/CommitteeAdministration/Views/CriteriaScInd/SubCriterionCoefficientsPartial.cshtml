@@ -1,0 +1,42 @@
+﻿@model CommitteeAdministration.ViewModels.SubCriterionCoefficient
+
+
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<style>
+    .ui-widget-header, .ui-state-default, .ui-button {
+        background: #b9cd6d;
+        border: 1px solid #b9cd6d;
+        color: #FFFFFF;
+        font-weight: bold;
+    }
+</style>
+
+
+@using (Html.BeginForm("SubCriterionCoefficientsPartial", "CriteriaScInd", FormMethod.Post, new { @id = "SubCriterionCoefficientsEditForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" align="right" dir="rtl">
+        <h4>ضرایب زیر معیارها</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @for (int i = 0; i < Model.Coefficients.Count; i++)
+        {
+            @Html.HiddenFor(model => model.Coefficients[i].Id)
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Coefficients[i].CoefficientValue, new { htmlAttributes = new { @class = "form-control SubCriterionCoefficientEditor" } })
+                    @Html.ValidationMessageFor(model => model.Coefficients[i].CoefficientValue, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.Coefficients[i].CoefficientValue, htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+        }
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

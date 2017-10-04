@@ -1,0 +1,39 @@
+﻿@model CommitteeManagement.Model.SubCriterion
+
+
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<style>
+    .ui-widget-header, .ui-state-default, .ui-button {
+        background: #b9cd6d;
+        border: 1px solid #b9cd6d;
+        color: #FFFFFF;
+        font-weight: bold;
+    }
+</style>
+
+@using (Html.BeginForm("EditSubCriterionPartial", "SubCriterions", FormMethod.Post, new { @id = "SubCriterionEditForm" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal" align="right" dir="rtl">
+        <h4>زیر معیار</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Subject, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Subject, "", new {@class = "text-danger"})
+            </div>
+            @*@Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("", "عنوان زیر معیار", htmlAttributes: new { @class = "control-label col-md-2" })
+        </div>
+        
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

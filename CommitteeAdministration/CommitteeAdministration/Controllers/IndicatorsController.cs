@@ -19,7 +19,7 @@ namespace CommitteeAdministration.Controllers
     /// Indicator controller to control all works on indicators
     /// </summary>
     /// <seealso cref="System.Web.Mvc.Controller" />
-    [Authorize(Roles = "SuperAdmin,Manager")]
+   // [Authorize(Roles = "SuperAdmin,Manager")]
     public class IndicatorsController : Controller
     {
         private readonly IMainContainer _mainContainer = ModelContainer.Instance.Resolve<IMainContainer>();
@@ -53,7 +53,85 @@ namespace CommitteeAdministration.Controllers
             }
             return View(indicator);
         }
+        /// <summary>
+        /// Creates the sub criterion as a partial view.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult CreateIndicatorPartial(int subCriterionId)
+        {
+            var subCriterion = _mainContainer.SubCriterionRepository.FirstOrDefault(subCriterionT => subCriterionT.Id == subCriterionId);
+            var model = new Indicator()
+            {
+                Committee = subCriterion.Criterion.Committee,
+                SubCriterion = subCriterion,
+            };
+            return PartialView(model);
+        }
+        /// <summary>
+        /// Creates the sub criterion as a partial view.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateIndicatorPartial(Indicator indicator)
+        {
+            if (ModelState.IsValid)
+            {
+                //var subCritereionModel =(SubCriterion)JsonConvert.DeserializeObject<SubCriterion>(subCriterion.ToString());
+                indicator.CommitteeId = indicator.Committee.Id;
+                indicator.SubCriterionId = indicator.SubCriterion.Id;
+                _mainContainer.IndicatorRepository.Add(indicator);
+                await _mainContainer.SaveChangesAsync();
+                return Json(new HttpStatusCodeResult(HttpStatusCode.OK));//RedirectToAction("ViewAll","CriteriaScInd");
+            }
 
+            // ViewBag.CriterionId = new SelectList(_mainContainer.CriterionRepository.All(), "Id", "Subject", subCriterion.CriterionId);
+            return Json(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
+        }
+
+        [HttpGet]
+        public ActionResult EditIndicatorPartial(int indicatorId)
+        {
+            var indicator = _mainContainer.IndicatorRepository.FirstOrDefault(indicatorT => indicatorT.Id == indicatorId);
+            return PartialView(indicator);
+        }
+
+        [HttpPost]
+        public ActionResult EditIndicatorPartial(Indicator postIndicator)
+        {
+            if (ModelState.IsValid)
+            {
+                var indicator = _mainContainer.IndicatorRepository.FirstOrDefault(indicatorT => indicatorT.Id == postIndicator.Id);
+                indicator.Subject = postIndicator.Subject;
+                _mainContainer.IndicatorRepository.Attach(indicator);
+                return Json(new HttpStatusCodeResult(HttpStatusCode.OK));
+            }
+
+            return Json(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
+        }
+        /// <summary>
+        /// Deletes the specific indicator in tree view of all data of committee.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ActionResult> DeletePartial(int? id)
+        {
+            if (id == null)
+            {
+                return Json(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
+            }
+            Indicator indicator  =await  _mainContainer.IndicatorRepository.FirstOrDefaultAsync(indicatorT => indicatorT.Id == id);
+            if (indicator == null)
+            {
+                return Json(new HttpStatusCodeResult(HttpStatusCode.InternalServerError));//HttpNotFound());
+            }
+           indicator.IsDeleted = true;
+            _mainContainer.IndicatorRepository.Attach(indicator);
+
+            return Json(new HttpStatusCodeResult(HttpStatusCode.OK));// View(criterion);
+        }
         // GET: Indicators/Create        
         /// <summary>
         /// Creates this instance.

@@ -7,30 +7,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <link rel="shortcut icon" href="~/bizpro-v3/img/core-img/favicon.ico">
-
+    <link rel="shortcut icon" href="~/assets/Img/core-img/favicon.ico"/>
     <!-- ************** All CSS Files ************** -->
     <!-- Style css -->
     @*<link href="~/Content/bootstrap-rtl.css" rel="stylesheet" />*@
     @*<link href="~/Content/bootstrap-rtl.min.css" rel="stylesheet" />*@
     <link href="~/assets/font-farsi/css/font-farsi.css" rel="stylesheet"/>
-
-    <link href="~/Content/css/bootstrap-rtl.css" rel="stylesheet" />
-    <link href="~/assets/css-rtl/style-rtl.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet"/>
+    <link href="~/Content/bootstrap-rtl.min.css" rel="stylesheet"/>
+    <link href="~/assets/css-rtl/style-rtl.css" rel="stylesheet"/>
     <!-- Responsive css -->
-    <link href="~/assets/css-rtl/responsive.css" rel="stylesheet" />
-  
+    <link href="~/assets/css-rtl/responsive.css" rel="stylesheet"/>
+    <link href="~/assets/css-rtl/css/font-awesome-rtl.css" rel="stylesheet"/>
+    <link href="~/assets/css-rtl/css/font-awesome-1-1.min.css" rel="stylesheet"/>
+    <link href="~/assets/css-rtl/css/font-awesome.min.css" rel="stylesheet"/>
     <!--[if IE]>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    @*<script src="~/Scripts/jquery-3.1.1.min.js"></script>*@
+ 
+
+    
+
     @RenderSection("Styles", false)
+
 </head>
 
 <body id="mainBody" style="direction: rtl">
@@ -48,6 +56,7 @@
             </form>
         </div>
     </div>
+    
     <!-- Search Box Area End -->
     <!-- Top Header Area Start -->
     <div class="top_header_area hidden-xs">
@@ -56,31 +65,31 @@
                 <div class="col-sm-3 col-md-5">
                     <!-- Top Quote Area Start -->
                     <div class="top_quote hidden-sm">
-                        <p>Give us a free Miss call: +880 123 4567890</p>
+                        <p>با ما تماس بگیرید: +98 9121111111</p>
                     </div>
                 </div>
                 <div class="col-sm-9 col-md-7">
                     <div class="social_reg_log_area">
                         <!-- Top Social bar start -->
                         <div class="top_social_bar">
-                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-skype" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+                            @*<a href="#"  hidden="hidden"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-twitter" aria-hidden="true" hidden="hidden"></i></a>
+                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true" hidden="hidden"></i></a>
+                            <a href="#"><i class="fa fa-skype" aria-hidden="true" hidden="hidden"></i></a>
+                            <a href="#"><i class="fa fa-dribbble" aria-hidden="true" hidden="hidden"></i></a>*@
                         </div>
                         <!-- Login Register Area -->
                         <div class="login_register">
                             <div class="login">
                                 <i class="fa fa-sign-in" aria-hidden="true"></i>
-                                <a href="login.html">Login</a>
+                                <a href="@Url.Action("login", "Account")">ورود</a>
                             </div>
                         </div>
                         <!-- Language Area Start -->
                         <div class="language_area">
                             <div class="dropdown">
                                 <button aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" id="lag" type="button" class="btn btn-default dropdown-toggle">
-                                    <i class="fa fa-globe" aria-hidden="true"></i>Language
+                                    <i class="fa fa-globe" aria-hidden="true"></i>زبان
                                     <i class="fa fa-angle-down" aria-hidden="true"></i>
                                 </button>
                                 <ul aria-labelledby="lag" class="dropdown-menu">
@@ -114,8 +123,8 @@
             <div class="row">
                 <div class="col-sm-3 col-xs-9">
                     <!-- Logo Area:: For better view in all device please use logo image max-width 120px -->
-                    <div class="logo_area">
-                        <a href="index.html"><img src="~/bizpro-v3/img/core-img/logo.png" alt=""></a>
+                    <div class="logo_area" >
+                        <a href="@Url.Action("Index", "Home")"><img src="~/bizpro-v3/img/core-img/logo.png" alt=""></a>
                     </div>
                 </div>
 
@@ -128,48 +137,48 @@
                                     <li class="current_page_item">
                                         <a href="#">درباره طرح<i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                         <ul class="sub-menu">
-                                            <li><a href="index.html">معرفی طرح</a></li>
-                                            <li><a href="index-two.html">اهمیت و ضرورت اجرای طرح</a></li>
-                                            <li><a href="index-two.html">جمع بندی طرح</a></li>
+                                            <li><a href="/Views/Home/Index.cshtml">معرفی طرح</a></li>
+                                            <li><a href="/Views/Home/Index.cshtml">اهمیت و ضرورت اجرای طرح</a></li>
+                                            <li><a href="/Views/Home/Index.cshtml">جمع بندی طرح</a></li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a href="#">ستاد های توسعه فن آوری<i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                         <ul class="sub-menu">
-                                            <li><a href="index.html">معرفی ستاد های توسعه فن آوری به صورت کلی</a></li>
-                                            <li><a href="index-two.html">معرفی نمایندگان ستادها جهت تکمیل اطلاعات ایشان در طرح</a></li>
+                                            <li><a href="/Views/Home/Index.cshtml">معرفی ستاد های توسعه فن آوری به صورت کلی</a></li>
+                                            <li><a href="/Views/Home/Index.cshtml">معرفی نمایندگان ستادها جهت تکمیل اطلاعات ایشان در طرح</a></li>
 
                                         </ul>
                                     </li>
                                     <li>
                                         <a href="#">دستورالعمل<i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                         <ul class="sub-menu">
-                                            <li><a href="index.html">مراحل ثبت نام و ورود به سامانه</a></li>
-                                            <li><a href="index-two.html">نحوه تکمیل اطلاعات هر ستاد</a></li>
-                                            <li><a href="index-two.html">نحوه ورود اطلاعات</a></li>
-                                            <li><a href="index-two.html">نحوه گزارش گیری</a></li>
+                                            <li><a href="/Views/Home/Index.cshtml">مراحل ثبت نام و ورود به سامانه</a></li>
+                                            <li><a href="/Views/Home/Index.cshtml">نحوه تکمیل اطلاعات هر ستاد</a></li>
+                                            <li><a href="/Views/Home/Index.cshtml">نحوه ورود اطلاعات</a></li>
+                                            <li><a href="/Views/Home/Index.cshtml">نحوه گزارش گیری</a></li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a href="#">دانلود<i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                         <ul class="sub-menu">
-                                            <li><a href="index.html">دانلود بخش هایی از طرح که قابل انتشار است</a></li>
-                                            <li><a href="index-two.html">دانلود گزارش های منتشر شده از ستادها</a></li>
-                                            <li><a href="index-two.html">دانلود مطالب مفید و مرتبط دیگر</a></li>
+                                            <li><a href="/Views/Home/Index.cshtml">دانلود بخش هایی از طرح که قابل انتشار است</a></li>
+                                            <li><a href="/Views/Home/Index.cshtml">دانلود گزارش های منتشر شده از ستادها</a></li>
+                                            <li><a href="/Views/Home/Index.cshtml">دانلود مطالب مفید و مرتبط دیگر</a></li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a href="#">اطلاعیه<i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                         <ul class="sub-menu">
-                                            <li><a href="index.html">صدور اطلاعیه های مهم مانند بروزرسانی ها</a></li>
-                                            <li><a href="index-two.html">نکات آموزشی</a></li>
-                                            <li><a href="index-two.html">انتشار گزارش ها</a></li>
+                                            <li><a href="/Views/Home/Index.cshtml">صدور اطلاعیه های مهم مانند بروزرسانی ها</a></li>
+                                            <li><a href="/Views/Home/Index.cshtml">نکات آموزشی</a></li>
+                                            <li><a href="/Views/Home/Index.cshtml">انتشار گزارش ها</a></li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a href="#">ارتباط با ما<i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                         <ul class="sub-menu">
-                                            <li><a href="index.html">ارتباط با نمایندگان ستادهاو پشتیبانی سامانه</a></li>
+                                            <li><a href="/Views/Home/Index.cshtml">ارتباط با نمایندگان ستادهاو پشتیبانی سامانه</a></li>
 
                                         </ul>
                                     </li>
@@ -190,9 +199,16 @@
     <!-- Main Header Area End -->
 </header>
 
+<div class="container" style="margin-top: auto; padding-top: 151px">
+    @RenderBody()
+    <hr/>
 
+</div>
+<div>
+    @RenderSection("HomePage", required: false)
 
-@RenderBody()
+</div>
+
 
 
 <footer class="footer_area">
@@ -219,14 +235,14 @@
                     </div>
                     <!-- Single latest post -->
                     <div class="event_single_post">
-                        <img src="~/bizpro-v3/img/news-img/blog.jpg" alt="">
+                        <img src="~/assets/Img/news-img/blog.jpg" alt="">
                         <a href="#">
                             <p>We dream of a sustainable economy where SME is the core.</p>
                         </a>
                     </div>
                     <!-- Single latest post -->
                     <div class="event_single_post">
-                        <img src="~/bizpro-v3/img/news-img/blog-2.jpg" alt="">
+                        <img src="~/assets/Img/news-img/blog-2.jpg" alt="">
                         <a href="#">
                             <p>We dream of a sustainable economy where SME is the core.</p>
                         </a>
@@ -329,53 +345,59 @@
 <!-- ************** All jQuery Plugins ************** -->
 <!-- jQuery (necessary for all JavaScript plugins) -->
 
-<script src="~/bizpro-v3/js/jquery-1.12.3.min.js"></script>
-
-<!-- Bootstrap js -->
-<script src="~/bizpro-v3/js/bootstrap.min.js"></script>
-
-<!-- Nivoslider js -->
-<script src="~/bizpro-v3/js/jquery.nivoslider.js"></script>
-<script src="~/bizpro-v3/js/nivoslider-active.js"></script>
-
-<!-- Chart js -->
-<script src="~/bizpro-v3/js/Chart.bundle.js"></script>
-<script src="~/bizpro-v3/js/chart.active.js"></script>
-
-<!-- Owl-carousel js -->
-<script src="~/bizpro-v3/js/owl.carousel.min.js"></script>
-
-<!-- Ajax Contact js -->
-<script src="~/bizpro-v3/js/ajax-contact.js"></script>
-
-<!-- Coundown js -->
-<script src="~/bizpro-v3/js/coundown-timer.js"></script>
-
-<!-- Meanmenu js -->
-<script src="~/bizpro-v3/js/meanmenu.js"></script>
-
-<!-- Magnific Popup js -->
-<script src="~/bizpro-v3/js/jquery.magnific-popup.min.js"></script>
-
-<!-- Counterup and Waypoint js -->
-<script src="~/bizpro-v3/js/jquery.waypoints.min.js"></script>
-<script src="~/bizpro-v3/js/counterup.min.js"></script>
-
-<!-- Back to top js -->
-<script src="~/bizpro-v3/js/jquery.scrollUp.js"></script>
-<script src="~/bizpro-v3/js/jquery.easing.1.3.js"></script>
-
-<!-- Sticky js -->
-<script src="~/bizpro-v3/js/jquery.sticky.js"></script>
-
-<!-- Simple-lens js -->
-<script src="~/bizpro-v3/js/simple-lens.js"></script>
-
-<!-- WoW js -->
-<script src="~/bizpro-v3/js/wow.min.js"></script>
-
-<!-- Active js -->
-<script src="~/bizpro-v3/js/custom.js"></script>
 @RenderSection("scripts", required: false)
+<a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647; display: block;"><i class="fa fa-angle-up"></i></a>
 </body>
 </html>
+<script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/Highcharts/highcharts.js"></script>
+<script src="~/Scripts/Highcharts/modules/exporting.js"></script>
+<!-- Coundown js -->
+<script src="~/Scripts/js/coundown-timer.js"></script>
+
+<!-- Meanmenu js -->
+<script src="~/Scripts/js/meanmenu.js"></script>
+<!-- Magnific Popup js -->
+<script src="~/Scripts/js/jquery.magnific-popup.min.js"></script>
+<!-- Counterup and Waypoint js -->
+<script src="/Scripts/waypoints.min.js"></script>
+<script src="/Scripts/js/counterup.min.js"></script>
+<!-- Back to top js -->
+<script src="/Scripts/js/jquery.scrollUp.js"></script>
+<script src="/Scripts/js/jquery.easing.1.3.js"></script>
+<!-- WoW js -->
+<script src="~/Scripts/js/wow.min.js"></script>
+<!-- Active js -->
+<script src="~/Scripts/js/custom.js"></script>
+
+<!-- Sticky js -->
+<script src="/Scripts/js/jquery.sticky.js"></script>
+<script>
+    $(function () {
+        $.scrollUp({
+            scrollName: 'scrollUp',
+                scrollDistance: 450,
+                scrollFrom: 'top',
+                scrollSpeed: 500,
+                easingType: 'linear',
+                animation: 'fade',
+                animationSpeed: 200,
+                scrollTrigger: false,
+                scrollTarget: false,
+                scrollText: '<i class="fa fa-angle-up"></i>',
+                scrollTitle: false,
+                scrollImg: false,
+                activeOverlay: false,
+                zIndex: 2147483647
+        });
+    });
+    $(document).ready(function ($) {
+        $('.counter').counterUp({
+            delay: 10,
+            time: 2000
+        });
+    });
+</script>

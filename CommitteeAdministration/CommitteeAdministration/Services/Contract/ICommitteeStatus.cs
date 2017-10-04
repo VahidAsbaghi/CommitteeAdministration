@@ -12,5 +12,9 @@ namespace CommitteeAdministration.Services.Contract
         List<CriterionConditionModel> GetCriteriaCondition(DateTime conditionTime, Committee committee);
         List<IndicatorConditionRateModel> GetIndicatorConditionRate(Indicator indicator, int maxNumberOfPoints);
         IndicatorRealValue FindFitestRealValue(IEnumerable<IndicatorRealValue> realValues, DateTime time);
+        IndicatorIdealValue FindFitestIdealValue(IEnumerable<IndicatorIdealValue> idealValues, DateTime time);
+        double GetIndicatorPercentage(Indicator indicator, DateTime dateTime);
+        double GetSubCriterionPercentage(SubCriterion subCriterion, DateTime comparisonTime);
+        double GetCriterionPercentage(Criterion criterion, DateTime comparisonTime);
     }
 }

@@ -149,7 +149,7 @@
      new WOW().init();
     
     // 15.0 Preloader active code
-    $(window).load(function () {
+    $(window).on('load',function () {
         $('body').css('overflow-y', 'visible');
         $('#preloader').fadeOut('slow', function () {
             $(this).remove();

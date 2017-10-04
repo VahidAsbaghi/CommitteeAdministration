@@ -1,68 +1,273 @@
-﻿@model CommitteeAdministration.ViewModels.IndicatorRealValueViewModel
+﻿@using System.Web.UI.WebControls
+@model CommitteeAdministration.ViewModels.IndicatorRealValueViewModel
 <head>
-    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/jquery-3.1.1.js"></script>
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+   
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+    <link href="~/Content/MyStyles.css" rel="stylesheet" />
+    <style>
+        .ui-widget-header, .ui-state-default, .ui-button {
+            background: #b9cd6d;
+            border: 1px solid #b9cd6d;
+            color: #FFFFFF;
+            font-weight: bold;
+            direction: rtl;
+        }
+    </style>
+    <script>
+        
+        $(document).ready(function () {
+            $('#idealValueText').focusin(function () {
+                if ($(this).data('changed')!==-1) {
+                    $(this).data('perVal', $(this).val());
+                    $(this).data('changed',-1);
+                }                
+            });
+            $('#idealValueText').change(function () {               
+                var prev = $(this).data('perVal');
+                var current = $(this).val();
+                console.log(prev);
+                console.log(current);
+                if (prev!==current && current!=="") {
+                    $('#idealValueChecked').prop('checked', true);
+                } else {
+                    $('#idealValueChecked').prop('checked', false);
+                }
+            });
+
+            $('#newRealValueText').focusin(function () {
+                if ($(this).data('changed') !== -1) {
+                    $(this).data('perVal', $(this).val());
+                    $(this).data('changed', -1);
+                }
+            });
+            $('#newRealValueText').change(function () {
+                var prev = $(this).data('perVal');
+                var current = $(this).val();              
+                if (prev !== current && current !== "") {
+                    $('#newRealValueChecked').prop('checked', true);
+                } else {
+                    $('#newRealValueChecked').prop('checked', false);
+                }
+            });
+            //detect value of the textbox in first focus as the main old value
+            $('#oldRealValueText').focusin(function () {
+                if ($(this).data('changed') !== -1) {
+                    $(this).data('perVal', $(this).val());
+                    $(this).data('changed', -1);
+                }
+            });
+            $('#oldRealValueText').change(function () {
+                var prev = $(this).data('perVal');
+                var current = $(this).val();
+                if (prev !== current && current !== "") {
+                    $('#oldRealValueChecked').prop('checked', true);
+                } else {
+                    $('#oldRealValueChecked').prop('checked', false);
+                }
+            });
+        })
+    </script>
+    <script>
+        function OnClickEdit(indicatorId,idealValue,realValue,realValueId,rowIndex) {
+            $('#idealValueChecked').prop('checked', false);
+            $('#oldRealValueChecked').prop('checked', false);
+            $('#newRealValueChecked').prop('checked', false);
+            var inputRealValue = document.getElementById(realValueId + " RealValue");
+            var inputIdealValue = document.getElementById(realValueId + " idealValue");
+            $('#idealValueText').val(inputIdealValue.value);
+            $('#newRealValueText').val("");
+            $('#oldRealValueText').val(inputRealValue.value);
+            $('#idealValueText').data('changed', 1);
+            $('#newRealValueText').data('changed', 1);
+            $('#oldRealValueText').data('changed', 1);
+            $(function () {
+                $("#EditValuesDiv").dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    height: "auto",
+                    width: "auto",
+                    modal: true,
+                    hide: "puff",
+                    show: "slide",
+                    
+                    buttons: {
+                        "ذخیره": function () {
+                            var oldRealValue = -1.1;
+                            var newRealValue = -1.1;
+                            var newidealValue = -1.1;
+                           // console.log($('#newRealValueChecked').val());
+                            if ($('#newRealValueChecked').is(":checked")) {
+                                newRealValue = $('#newRealValueText').val();
+                                //console.log(newRealValue);
+                            }
+                            if ($('#oldRealValueChecked').is(":checked")) {
+                                oldRealValue = $('#oldRealValueText').val();
+                                //console.log(oldRealValue);
+                            }
+                            if ($('#idealValueChecked').is(":checked")) {
+                                newidealValue = $('#idealValueText').val();
+                               // console.log(newidealValue);
+                            }
+                            $.ajax({
+                                url: "/IndicatorRealValues/ChangeRealValue",
+                                type: 'POST',
+                                dataType: 'json',
+                                async: false,   //int indicatorId, double oldRealValue, double newRealValue,double idealValue)                         
+                                data: { "indicatorId": indicatorId, "oldRealValue":oldRealValue,"newRealValue":newRealValue,"idealValue":newidealValue },
+                                success: function (response) {
+                                    var newCalcRealValue = -1.1;
+                                    if (newRealValue !== -1.1)
+                                        newCalcRealValue = parseFloat(newRealValue);
+                                    else if (oldRealValue!==-1.1) {
+                                        newCalcRealValue = parseFloat(oldRealValue);
+                                    }
+                                    
+                                    OnSuccessReal(response, realValueId, rowIndex, newCalcRealValue, newidealValue);
+                                },
+                                error: function (xhr) {
+                                    alert("Something went wrong, please try again");
+                                }                                
+                            });
+                            $(this).dialog("close");
+                        },
+                        "انصراف": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                }).display = "block";
+
+            });
+        }
+        function OnSuccessReal(response, realValueId, rowIndex, newCalcRealValue, newidealValue) {
+            var result = response.HttpStatusCodeResult.StatusCode;
+            var newRealValueId = response.NewRealValueId;
+            if (result === 200) {
+                alert("ذخیره با موفقیت انجام شد");
+                if (newCalcRealValue!==-1.1) {
+                    var inputRealValue = document.getElementById(realValueId + " RealValue");
+                    $(inputRealValue).val(newCalcRealValue);
+                }
+                if (newidealValue!==-1.1) {
+                    var inputIdealValue = document.getElementById(realValueId + " idealValue");
+                    $(inputIdealValue).val(newidealValue);
+                }
+                changeRealValue(newRealValueId,realValueId, rowIndex);
+            } else {
+                console.log(result);
+                alert("خطایی رخ داده است. لطفا مجدد اقدام کنید.");
+            }
+        }
+    </script>
 </head>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary("", new {@class = "text-danger"})
-    <div class="form-horizontal">
-        <div class="form-group">
-            <button type="button" id="changeValues" class="btn btn-default">تغییر مقادیر قبلی</button>
-            <button  type="button" id="addValues" class="btn btn-info">ورود مقادیر جدید</button>
+    <div id="EditValuesDiv" title="تغییر مقادیر" style="display: none; width: 400px;" class="row">
+        @*<p dir="rtl" align="center">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin: 12px 12px 20px 0;"></span>با حذف این معیار کلیه زیر معیار ها و شاخص های آن نیز حذف میشوند.
+                آیا مطمئن هستید؟
+            </p>*@
+        @*<input type="text" class="col-lg-4 col-md-4"/>
+            <input type="text" class="col-lg-4 col-md-4"/>
+            <input type="text" class="col-lg-4 col-md-4"/>*@
+
+        <div class="col-lg-4 col-md-4" align="right">
+            <div>
+                <label>وضعیت واقعی جدید</label>
+            </div>
+            <div>
+                <input type="text" id="newRealValueText" />
+            </div>
+            <div>
+                <input type="checkbox" style="display: block;" id="newRealValueChecked" />
+            </div>
         </div>
-       
-        <div class="row table-responsive" align="right" dir="rtl">
-            <table class="table table-bordered " id="dataTable">
+        <div class="col-lg-4 col-md-4" align="right">
+            <div>
+                <label>آخرین وضعیت واقعی</label>
+            </div>
+            <div>
+                <input type="text" id="oldRealValueText" />
+            </div>
+            <div>
+                <input type="checkbox" style="display: block;" id="oldRealValueChecked" />
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4" align="right">
+            <div>
+                <label>وضعیت مطلوب</label>
+            </div>
+            <div>
+                <input type="text" id="idealValueText" />
+            </div>
+            <div>
+                <input type="checkbox" style="display: block;" id="idealValueChecked" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @*<div class="form-group">
+            <button type="button" id="changeValues" class="btn btn-default">تغییر مقادیر قبلی</button>
+            <button type="button" id="addValues" class="btn btn-info">ورود مقادیر جدید</button>
+        </div>*@
+        
+        <div class=" row" align="right" dir="rtl" style=" min-height: 100px">
+
+            <table class=" table-bordered table-hover"  id="dataTable" >
                 <thead>
                 <tr>
-                    <th class="myTdThClass" rowspan="3">
+                    <th class="myTdThClass col-md-2 col-lg-2 col-xs-2 col-sm-2" rowspan="3">
                         @Html.DisplayNameFor(model => model.Criteria)
                     </th>
-                    <th class="myTdThClass" rowspan="3">
+                    <th class="myTdThClass col-md-2 col-lg-2 col-xs-2 col-sm-2" rowspan="3">
                         @Html.DisplayNameFor(model => model.SubCriterions)
                     </th>
-                    <th class="myTdThClass" rowspan="3">
+                    <th class="myTdThClass col-md-2 col-lg-2 col-xs-2 col-sm-2" rowspan="3">
                         @Html.DisplayNameFor(model => model.Indicators)
                     </th>
-                    <th colspan="6" class="myTdThClass">
+                    <th colspan="6" class="myTdThClass col-md-5 col-lg-5 col-xs-5 col-sm-5">
                         @Html.DisplayName("ضریب سنجه ها")
+                    </th>
+                    <th class="myTdThClass col-md-1 col-lg-1 col-xs-1 col-sm-1" rowspan="3">
+                        @Html.DisplayName("ویرایش")
                     </th>
                 </tr>
                 <tr>
-                    <th class="myTdThClass" rowspan="2">
-                        @Html.DisplayName("وضعیت ایده آل معاونت")
+                    <th class="myTdThClass col-md-1 col-lg-1 col-xs-1 col-sm-1" rowspan="2">
+                        @Html.DisplayName("وضعیت مطلوب معاونت")
                     </th>
-                    <th class="myTdThClass" rowspan="2">
+                    <th class="myTdThClass col-md-2 col-lg-2 col-xs-2 col-sm-2" rowspan="2">
                         @Html.DisplayName("وضعیت (میزان) واقعی")
                     </th>
-                    <th class="myTdThClass">
+                    <th class="myTdThClass col-md-1 col-lg-1 col-xs-1 col-sm-1">
                         @Html.DisplayName("بسیار مطلوب")
                     </th>
-                    <th class="myTdThClass">
+                    <th class="myTdThClass col-md-1 col-lg-1 col-xs-1 col-sm-1">
                         @Html.DisplayName("مطلوب")
                     </th>
-                    <th class="myTdThClass">
+                    <th class="myTdThClass col-md-1 col-lg-1 col-xs-1 col-sm-1">
                         @Html.DisplayName("نا مطلوب")
                     </th>
-                    <th class="myTdThClass">
+                    <th class="myTdThClass col-md-1 col-lg-1 col-xs-1 col-sm-1">
                         @Html.DisplayName("بسیار نا مطلوب")
                     </th>
                 </tr>
                 <tr>
-                    <th class="myTdThClass">
-                        @Html.DisplayName("بین 85 تا 100 درصد ایده آل")
+                    <th class="myTdThClass col-md-1 col-lg-1 col-xs-1 col-sm-1">
+                        @Html.DisplayName("بین 85 تا 100 درصد مطلوب")
                     </th>
-                    <th class="myTdThClass">
-                        @Html.DisplayName("بین 75 تا 85 درصد ایده آل")
+                    <th class="myTdThClass col-md-1 col-lg-1 col-xs-1 col-sm-1">
+                        @{
+                            string showedText = "بین 75 تا 84.9 درصد مطلوب";}
+                        <label>@showedText</label>                        
                     </th>
-                    <th class="myTdThClass">
-                        @Html.DisplayName("بین 55 تا 70 درصد ایده آل")
+                    <th class="myTdThClass col-md-1 col-lg-1 col-xs-1 col-sm-1">        
+                        <label>بین 55 تا 74.9 درصد مطلوب</label>
                     </th>
-                    <th class="myTdThClass">
-                        @Html.DisplayName("زیر 55 درصد ایده آل")
+                    <th class="myTdThClass col-md-1 col-lg-1 col-xs-1 col-sm-1">
+                        <label>زیر 54.9 درصد مطلوب</label>
                     </th>
                 </tr>
                 </thead>
@@ -70,6 +275,7 @@
                 @{
                     var stringCriterion = "";
                     var stringSubCriterion = "";
+                    var counterRow = 0;
                 }
                 @for (int i = 0; i < Model.Criteria.Count; i++)
                 {
@@ -85,7 +291,7 @@
                         {
                             var idealValue = Model.IdealValues.FirstOrDefault(idealValueT => idealValueT.Indicator.Id == indicators[k].Id);
                             var realValue = Model.RealValues.FirstOrDefault(realValueT => realValueT.Indicator.Id == indicators[k].Id);
-                            var indexReal=Model.RealValues.FindIndex(realvalueT => realvalueT == realValue);
+                            var indexReal = Model.RealValues.FindIndex(realvalueT => realvalueT == realValue);
                             <tr>
                                 @if (criterion.Subject != stringCriterion)
                                 {
@@ -106,20 +312,19 @@
                                 }
                                 else
                                 {
-                                    <td hidden="hidden">
-
-                                    </td>
+                                    <td hidden="hidden"></td>
                                 }
                                 <td style="vertical-align: middle" class="myTdThClass">
                                     @Html.DisplayFor(modelItem => indicators[k].Subject)
                                 </td>
                                 <td style="vertical-align: middle" class="myTdThClass">
-                                    @Html.DisplayFor(model => idealValue.Value)
+                                    @Html.EditorFor(model => idealValue.Value, new { htmlAttributes = new { @readonly = "readonly", @id = realValue.Id + " idealValue",@style= "border:none; text-align:center;" } })
+
                                 </td>
                                 <td style="vertical-align: middle" class="myTdThClass">
-                                  
-                                    @Html.EditorFor(model => model.RealValues[indexReal].Value, new {htmlAttributes = new {@readonly = "readonly", @onchange = "changeRealValue(" + realValue.Id + ")", @id = realValue.Id + " RealValue"}})
-
+                                    <input value="@counterRow" style="display: none" />
+                                    @Html.EditorFor(model => model.RealValues[indexReal].Value, new {htmlAttributes = new {@readonly = "readonly", @id = realValue.Id + " RealValue", @style = "border:none; text-align:center;" } })
+                                    <input type="text" hidden="hidden" style="display: none" id="@realValue.Id TempRealValueIdSaver" value="nil"/>
                                     @* <input type="text"  readonly="readonly" value="@realValue.Value" id="@realValue.Id RealValue" onchange='changeRealValue(@realValue.Id)'/>*@
                                     @* @Html.EditorFor(model => model.RealValues[k].Value, new {htmlAttributes = new {@onchange = "changeRealValue()"}})onblur="changeRealValue(@Model.RealValues[k])*@
                                     @*model.RealValues.FirstOrDefault(realT=>realT.Id==realValue.Id))*@
@@ -128,24 +333,29 @@
                                 <td style="vertical-align: middle" class="myTdThClass"></td>
                                 <td style="vertical-align: middle" class="myTdThClass"></td>
                                 <td style="vertical-align: middle" class="myTdThClass"></td>
+                                <td style="vertical-align: middle" class="myTdThClass">
+                                    <input type="button" id="@indicators[k].Id EditButton" value="ویرایش" class="btn btn-info" onclick="OnClickEdit(@indicators[k].Id, @idealValue.Value, @realValue.Value,@realValue.Id,@counterRow)" />
+                                </td>
                             </tr>
                             stringCriterion = criterion.Subject;
                             stringSubCriterion = subCriterion.Subject;
+                            counterRow++;
+                            
                         }
                     }
                 }
                 </tbody>
             </table>
-            
+
         </div>
-        <div class="form-group">
+        @*<div class="form-group">
             <div align="center">
                 <input type="submit" value="ذخیره" class="btn btn-default" formmethod="Post" formaction="SaveRealValues"/>
             </div>
-        </div>
+        </div>*@
+
     </div>
 }
-
         @section Scripts {
             @Scripts.Render("~/bundles/jqueryval")
 
@@ -168,63 +378,100 @@
     });
 </script>
 <script>
-    function changeRealValue(realValueId) {
+    $(document).ready(function() {
+        var inputRealValues = $("input[id$='RealValue'");
+        var counter = 0;
+        inputRealValues.each(function () {
+            
+            var inputValue = $(this).val();
+            //console.log('inputValue is:' + inputValue);
+            var inputName = this.id;
+            //console.log('inputName is:' + inputName);
+            var res=inputName.replace(" RealValue", "");
+            
+           // console.log('realvalue is:'+ res);
+            var valueId = parseInt(res);
+            ajaxRetrieveStatus(valueId, inputValue, counter);
+            counter = counter + 1;
+        });
+    });
+    function changeRealValue(newRealValueId,realValueId,rowIndex) {
         var inputRealValue = document.getElementById(realValueId + " RealValue");
+        var tempInput = document.getElementById(realValueId + " TempRealValueIdSaver");
+        var idRealValue = realValueId;
+        var tempInputVal = $(tempInput).val();
+        console.log("temp input val is: " + tempInputVal);
+        if (newRealValueId !== -1) {
+            idRealValue = newRealValueId;
+           // inputRealValue.id = newRealValueId + " RealValue";
+            $(tempInput).val(newRealValueId);
+        } else {
+            if (tempInputVal === 'nil') {
+                idRealValue = realValueId;
+            } else {
+                console.log("temp value is:"+$(tempInput).val());
+                idRealValue = parseInt($(tempInput).val());
+            }
+        }
+        ajaxRetrieveStatus(idRealValue, inputRealValue.value, rowIndex);
+    }
+    function ajaxRetrieveStatus(realValueId, realValueT,rowIndex) {
         $.ajax({
             url: "/IndicatorRealValues/ReturnCommitteeCondition",
             type: 'GET',
-            async:false,
+            async: false,
             dataType: 'json',
             data: {
-                id: realValueId, realValue: inputRealValue.value},
+                id: realValueId, realValue: realValueT
+            },
             success: function (data1) {
-                console.log(data1);
+                //console.log(data1);
                 var idRealValue = data1['RealValueId'];
-                console.log(idRealValue);
+                console.log("returned id is:"+idRealValue);
                 var condition = data1['Condition'];
-                console.log(condition);
+                //console.log(condition);
                 var table = document.getElementById("dataTable");
-                var row = idRealValue + 3;// table.rows[idRealValue+3];
-                var cell1=0;
+                var row = rowIndex + 3;//idRealValue + 3;// table.rows[idRealValue+3];
+                var cell1 = 0;
                 switch (condition) {
-                case 0:
-                    cell1 = 5;// row.cells[4];
-                    break;
-                case 1:
-                    cell1 = 6;//row.cells[5];
-                    break;
-                case 2:
-                    cell1 = 7;// row.cells[6];
-                    break;
-                case 3:
-                    cell1 = 8;//row.cells[7];
-                    break;
-                default:
-                    break;
+                    case 0:
+                        cell1 = 5;// row.cells[4];
+                        break;
+                    case 1:
+                        cell1 = 6;//row.cells[5];
+                        break;
+                    case 2:
+                        cell1 = 7;// row.cells[6];
+                        break;
+                    case 3:
+                        cell1 = 8;//row.cells[7];
+                        break;
+                    default:
+                        break;
                 }
                 for (var i = 5; i < 9; i++) {
                     $("#dataTable tr:eq(" + row + ") td:eq(" + i + ")").removeClass();
-                    $("#dataTable tr:eq(" + row + ") td:eq(" + i + ")").css('background-color','white');
+                    $("#dataTable tr:eq(" + row + ") td:eq(" + i + ")").css('background-color', 'white');
                 }
-                console.log(row);
-                
+                //console.log(row);
+
                 if (cell1 !== 0) {
-                    if (cell1===5) {
+                    if (cell1 === 5) {
                         $("#dataTable tr:eq(" + row + ") td:eq(" + cell1 + ")").addClass("va-greeen-animation");
-                        console.log(cell1);
+                        //console.log(cell1);
                     }
-                    else if (cell1===6) {
+                    else if (cell1 === 6) {
                         $("#dataTable tr:eq(" + row + ") td:eq(" + cell1 + ")").addClass("va-yellow-animation");
                     }
-                    else if (cell1===7) {
+                    else if (cell1 === 7) {
                         $("#dataTable tr:eq(" + row + ") td:eq(" + cell1 + ")").addClass("va-orange-animation");
                     }
-                    else if (cell1===8) {
+                    else if (cell1 === 8) {
                         $("#dataTable tr:eq(" + row + ") td:eq(" + cell1 + ")").addClass("va-red-animation");
                     }
-                   
+
                 }
-            
+
             },
 
             error: function (xhr) {
@@ -274,5 +521,6 @@
             .myTdThClass {
                 vertical-align: middle;
                 text-align: center;
+              
             }
         </style>

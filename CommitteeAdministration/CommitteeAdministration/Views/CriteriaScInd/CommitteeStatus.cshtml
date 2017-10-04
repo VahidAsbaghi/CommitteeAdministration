@@ -5,10 +5,33 @@
 @using Microsoft.Ajax.Utilities
 @using WebGrease.Css.Ast.Animation
 @model CommitteeAdministration.ViewModels.CommitteeStatusViewModel
+   
 <head>
-    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/jquery-3.1.1.js"></script>
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    
+    <script src="~/Scripts/jQuery.flip.min.js"></script>
+    <script>
+        function ParseStateToPersian(state) {
+            console.log("into function");
+            console.log(state);
+            switch (state) {
+            case "VeryIdeal":
+                document.write("بسیار مطلوب");
+                break;
+            case "Ideal":
+                document.write("مطلوب");
+                break;
+            case "NonIdeal":
+                document.write("نا مطلوب");
+                break;
+            case "VeryNonIdeal":
+                document.write("بسیار نا مطلوب");
+                break;
+            default:
+                document.write("خطا در تبدیل");
+                break;
+            }
+        }
+    </script>
 </head>
 @using (Html.BeginForm())
 {
@@ -16,23 +39,7 @@
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div align="center">
         <div class="row" align="right" dir="rtl">
-            @*<table class="table table-bordered " id="dataTable">
-                    <thead>
-                        <tr>
-                            <th class="myTdThClass" rowspan="3">
-                                @Html.DisplayName("معیارها")
-                            </th>
-                            <th class="myTdThClass" rowspan="3">
-                                @Html.DisplayName("زیر معیارها")
-                            </th>
-                            <th class="myTdThClass" rowspan="3">
-                                @Html.DisplayName("شاخص ها")
-                            </th>
-
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>*@
+            
             <ul class="criterionUlStyle">
                 <li class="criterionLiStyle">
                     <div>
@@ -41,12 +48,12 @@
                         </div>
                         <ul class="criterionUlStyle">
                             <li class="criterionLiStyle">
-                                <div align="center" class="headeDivMainSubCriterion headeDiv headeDiv1 headeDiv2  headeDivSub2 headeDivSub3" >
+                                <div align="center" class="headeDivMainSubCriterion headeDiv headeDiv1 headeDiv2  headeDivSub2 headeDivSub3">
                                     <label>زیر معیارها</label>
                                 </div>
                                 <ul class="criterionUlStyle">
                                     <li class="criterionLiStyle">
-                                        <div align="center" class="headeDivMainIndicator headeDiv headeDiv1 headeDiv2 headeDivInd2 headeDivInd3" >
+                                        <div align="center" class="headeDivMainIndicator headeDiv headeDiv1 headeDiv2 headeDivInd2 headeDivInd3">
                                             <label>شاخص ها</label>
                                         </div>
                                     <li />
@@ -57,76 +64,118 @@
                     </div>
                 </li>
                 @for (int index = 0; index < Model.CriteriaList.Count; index++)
-            {
+                {
 
-                var criterion = Model.CriteriaList[index];
-                var subCriterions = Model.SubCriterionList.Where(subCriterionT => subCriterionT.SubCriterion.Criterion.Id == criterion.Criterion.Id).ToList();
+                    var criterion = Model.CriteriaList[index];
+                    var subCriterions = Model.SubCriterionList.Where(subCriterionT => subCriterionT.SubCriterion.Criterion.Id == criterion.Criterion.Id).ToList();
 
-                string stateColor = criterion.State == State.VeryIdeal ? "#00ffbb" : criterion.State == State.Ideal ? "#ffff00"
-                    : criterion.State == State.NonIdeal ? "#ff5030" : "#ff0000";
-            <li class="criterionLiStyle">
-
-                <div id="@criterion.Criterion.Id Criterion" align="center" class="innerDivStyle divStyle">
-                    <label id="@criterion.Criterion.Id CriterionInput" type="submit" value=@criterion.State.ToString() style="width: 100%; height: 100%; color: black; display: block; background-color: @stateColor">@criterion.State.ToString()</label>
-                    <label id="@criterion.Criterion.Id CriterionLabel" style="width: 5cm; text-align: center; color: white; display: inline-flex; background-color: ThreeDDarkShadow;" onclick="onClickCriterion(@criterion.Criterion.Id)">@criterion.Criterion.Subject</label>
-                </div>
-
-                <div style="margin-right: 7cm">
-                    <ul class="criterionUlStyle" id="@criterion.Criterion.Id SubCriterionUl" style="display: none;">
-
-                        @for (int j = 0; j < subCriterions.Count; j++)
-                        {
-                            var subCriterion = subCriterions[j];
-                            var indicators = Model.Indicators.Where(indicatorT => indicatorT.Indicator.SubCriterion.Id == subCriterion.SubCriterion.Id).ToList();
-                             stateColor = subCriterion.State == State.VeryIdeal ? "#00ffbb" : subCriterion.State == State.Ideal ? "#ffff00"
-                    : subCriterion.State == State.NonIdeal ? "#ff5030" : "#ff0000";
-                            <li class="criterionLiStyle">
-
-                                <div id="@subCriterion.SubCriterion.Id SubCriterion" align="center" class="innerDivStyle divStyle">
-                                    <label id="@subCriterion.SubCriterion.Id SubCriterionInput" type="submit" style="width: 100%; height: 100%; color: black; display: block; background-color: @stateColor;">@subCriterion.State.ToString()</label>
-                                    <label id="@subCriterion.SubCriterion.Id SubCriterionLabel" style="width: 5cm; text-align: center; color: white; display: inline-flex; background-color: transparent;" onclick="onClickSubCriterion(@subCriterion.SubCriterion.Id)">@subCriterion.SubCriterion.Subject</label>
+                    string stateColor = criterion.State == State.VeryIdeal ? "#00ffbb" : criterion.State == State.Ideal ? "#ffff00"
+                        : criterion.State == State.NonIdeal ? "#ff5030" : "#ff0000";
+                    <li class="criterionLiStyle">
+                        <div id="@criterion.Criterion.Id CriterionMain" align="center"  class=" innerDivStyle " style="border: ridge; width: 500px; height: fill-available; background-color: ThreeDDarkShadow;">
+                            <div align="center" style=" display: inline-block; width: 60%;">
+                                <label id="@criterion.Criterion.Id CriterionLabel" style="word-wrap: break-word; text-align: center; color: white;"  >@criterion.Criterion.Subject</label>                               
+                            </div>
+                            <div style="display: inline-block; width: 28%; height: 70px; border-radius: 100px; background-color: @stateColor; left: 0; padding-left: 0; margin-left: 0;">
+                                <div id="@criterion.Criterion.Id CriterionMainInput" style="width: 100%; display: inline-block; margin-top: 20px; text-align: center; color: ThreeDDarkShadow;font-size: 16px">@criterion.PersianState</div>
+                            </div>
+                            <div id="@criterion.Criterion.Id card" style="position: relative; transform-style: preserve-3d;display: inline-block; width: 8%; height: 60px; left: 0; bottom: 5px; top: 5px;padding-left: 0; margin-left: 0;" align="left">
+                                <div class="front" >
+                                    <img src="/Resources/Images/rtlArrow.png" style="left: 0; max-width: 100%; max-height: 100%" alt="Open Childs" onclick="onClickCriterion(@criterion.Criterion.Id)" />
                                 </div>
+                                <div class="back" >
+                                    <img src="/Resources/Images/ltrArrow.png" style="left: 0; max-width: 100%; max-height: 100%" alt="Open Childs" onclick="onClickCriterion(@criterion.Criterion.Id)" />
+                                </div>
+                            </div>
+                        </div>
+                        
+            <div style="margin-right: 7cm">
+                <ul class="criterionUlStyle" id="@criterion.Criterion.Id SubCriterionUl" style="display: none;">
 
-                                <div style="margin-right: 7cm">
-                                    <ul class="criterionUlStyle" id="@subCriterion.SubCriterion.Id indicatorUl" style="display: none;">
+                    @for (int j = 0; j < subCriterions.Count; j++)
+                    {
+                        var subCriterion = subCriterions[j];
+                        var indicators = Model.Indicators.Where(indicatorT => indicatorT.Indicator.SubCriterion.Id == subCriterion.SubCriterion.Id).ToList();
+                        stateColor = subCriterion.State == State.VeryIdeal ? "#00ffbb" : subCriterion.State == State.Ideal ? "#ffff00"
+               : subCriterion.State == State.NonIdeal ? "#ff5030" : "#ff0000";
+                        <li class="criterionLiStyle">
+                            
+                            <div id="@subCriterion.SubCriterion.Id SubCriterion" align="center" class=" innerDivStyle " style="border: ridge; width: 500px; height: fill-available; background-color: ThreeDDarkShadow;">
+                                <div align="center" style=" display: inline-block; width: 60%;">
+                                    <label  id="@subCriterion.SubCriterion.Id SubCriterionLabel" style="word-wrap: break-word; text-align: center; color: white;">@subCriterion.SubCriterion.Subject</label>
+                                </div>
+                                <div style="display: inline-block; width: 28%; height: 70px; border-radius: 100px; background-color: @stateColor; left: 0; padding-left: 0; margin-left: 0;">
+                                    <div id="@subCriterion.SubCriterion.Id SubCriterionInput" style="width: 100%; display: inline-block; margin-top: 20px; text-align: center; color: ThreeDDarkShadow;font-size: 16px">@subCriterion.PersianState</div>
+                                </div>
+                                <div id="@subCriterion.SubCriterion.Id cardSub" style="position: relative; transform-style: preserve-3d; display: inline-block; width: 8%; height: 60px; left: 0; bottom: 5px; top: 5px; padding-left: 0; margin-left: 0;" align="left">
+                                    <div class="front">
+                                        <img src="/Resources/Images/rtlArrow.png" style="left: 0; max-width: 100%; max-height: 100%" alt="Open Childs" onclick="onClickSubCriterion(@subCriterion.SubCriterion.Id)" />
+                                    </div>
+                                    <div class="back">
+                                        <img src="/Resources/Images/ltrArrow.png" style="left: 0; max-width: 100%; max-height: 100%" alt="Open Childs" onclick="onClickSubCriterion(@subCriterion.SubCriterion.Id)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-right: 7cm">
+                                <ul class="criterionUlStyle" id="@subCriterion.SubCriterion.Id indicatorUl" style="display: none;">
 
-                                        @for (int k = 0; k < indicators.Count; k++)
-                                        {
-                                            var indicator = indicators[k];
-                                            stateColor = indicator.State == State.VeryIdeal ? "#00ffbb" : indicator.State == State.Ideal ? "#ffff00"
-                    : indicator.State == State.NonIdeal ? "#ff5030" : "#ff0000";
-                                            <li class="criterionLiStyle">
-                                                <div id="@indicator.Indicator.Id indicator" align="center" class="innerDivStyle divStyle">
-                                                    <label id="@indicator.Indicator.Id indicatorInput" type="submit" style="width: 100%; height: 100%; color: black; display: block; background-color: @stateColor;">@indicator.State.ToString()</label>
-                                                    <label id="@indicator.Indicator.Id indicatorLabel" style="width: 5cm; text-align: center; color: white; display: inline-flex; background-color: transparent;">@indicator.Indicator.Subject</label>
+                                    @for (int k = 0; k < indicators.Count; k++)
+                                    {
+                                        var indicator = indicators[k];
+                                        stateColor = indicator.State == State.VeryIdeal ? "#00ffbb" : indicator.State == State.Ideal ? "#ffff00"
+                : indicator.State == State.NonIdeal ? "#ff5030" : "#ff0000";
+                                        <li class="criterionLiStyle">                                           
+                                            <div id="@indicator.Indicator.Id indicator"  align="center" class=" innerDivStyle " style="border: ridge; width: 500px; height: fill-available; background-color: ThreeDDarkShadow;">
+                                                <div align="center" style=" display: inline-block; width: 67%;">
+                                                    <label id="@indicator.Indicator.Id indicatorLabel" style="word-wrap: break-word; text-align: center; color: white;">@indicator.Indicator.Subject</label>
                                                 </div>
-
-                                            </li>
-                                            }
-                                    </ul>
-                                </div>
-                            </li>
-                            }
-                    </ul>
-                </div>
+                                                <div style="display: inline-block; width: 28%; height: 70px; border-radius: 100px; background-color: @stateColor; left: 0; padding-left: 0; margin-left: 0;">                                                   
+                                                    <div id="@indicator.Indicator.Id indicatorInput" style="width: 100%; display: inline-block; margin-top: 20px; text-align: center; color: ThreeDDarkShadow;font-size: 16px">@indicator.PersianState</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
             </li>
 
 
-            }
-            </ul>
+                }
+                </ul>
 
 
 
-        </div>
+            </div>
+
     </div>
 }
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
 }
-<script>
-    $(document).ready(function setStateColor(state,objectId) {
 
+<script>
+    
+    $(document).ready(function() {
+        var divs = $("div[id$='CriterionMain'");
+       
+        //console.log(realValueInputs);
+        //divs.each(function() {
+        //    var heightDiv = $(this).height();
+        //    console.log($(this).attr('id') +" "+heightDiv);
+        //    var childLabelId=$(this).attr('id') + "Label";
+        //    var childLabel=$(document.getElementById(childLabelId));
+        //    var childLabelHeight = childLabel.height();
+        //    var childDivId = $(this).attr('id') + "Input";
+        //    var childDiv=$(document.getElementById(childDivId));
+        //    $(this).height(childLabelHeight+10);
+        //    childDiv.height(childLabelHeight+5);
+            
+        //});
     })
 </script>
 <script>
@@ -138,7 +187,9 @@
         } else {
             subCriterionUl.style.display = 'none';
         }
-       // $("#" + criterionId + " SubCriterionUl").attr("hidden","visible");
+        var cardObject = $(document.getElementById(criterionId + " card"));
+        cardObject.flip();
+        // $("#" + criterionId + " SubCriterionUl").attr("hidden","visible");
         //subCriterionUl.show();
     };
     function onClickSubCriterion(subCriterionId) {
@@ -149,6 +200,8 @@
         } else {
             indicatorUl.style.display = 'none';
         }
+        var cardObject = $(document.getElementById(subCriterionId + " cardSub"));
+        cardObject.flip();
     }
 </script>
 @*<script>
@@ -216,8 +269,10 @@
         background-color: ThreeDDarkShadow;
         max-width:500px;
         min-width: 100px;
-        border: ridge;  
-        height: fill-available;
+        border: ridge;
+        /*min-height: 50px;*/
+        /*max-height:200px;*/
+        height: fit-content;
     }
     div.headeDivMain {
         background-color: transparent;
@@ -290,6 +345,26 @@ height: 1px;
 border-bottom: 1px solid black;
 position: absolute;
 }
+    .front {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    transition: all 0.5s ease-out;
+    transform: rotateY(0deg);
+    }
+    .back {
+        backface-visibility: hidden;
+    transform-style: preserve-3d;
+    position: relative;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+    transform: rotateY(-180deg);
+    transition: all 0.5s ease-out;
+    }
 </style>
 
 

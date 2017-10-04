@@ -1,0 +1,93 @@
+﻿@model CommitteeManagement.Model.Indicator
+
+
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<style>
+    .ui-widget-header, .ui-state-default, .ui-button {
+        background: #b9cd6d;
+        border: 1px solid #b9cd6d;
+        color: #FFFFFF;
+        font-weight: bold;
+    }
+</style>
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            $("form").submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/Indicators/CreateIndicatorPartial",
+                    type: 'post',
+                    dataType: 'json',
+                    async: false,
+                    data: $("#IndicatorSubmitForm").serialize(),
+                    success: function (response) {
+                        var result = response.StatusCode;
+                        if (result === 200) {
+                            alert("افزودن شاخص با موفقیت انجام شد");
+                            $("#IndicatorSubmitForm").hide();
+                        } else {
+                            alert("مشکلی در افزودن پیش آمد. مجددا تلاش کنید.");
+                            $("#IndicatorSubmitForm").hide();
+                        }
+                    },
+                    error: function (xhr) {
+                        alert("Something went wrong, please try again");
+                        $("#IndicatorSubmitForm").hide();
+                    }
+
+                });
+
+            });
+        })
+
+</script>
+@using (Html.BeginForm("CreateIndicatorPartial", "Indicators", FormMethod.Post, new { @id = "IndicatorSubmitForm" })) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" align="right" dir="rtl">
+        <h4>افزودن شاخص</h4>
+        <hr/>
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Subject, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Subject, "", new {@class = "text-danger"})
+            </div>
+           @* @Html.LabelFor(model => model.Subject, htmlAttributes: new {@class = "control-label col-md-2"})*@
+            @Html.Label("", "عنوان شاخص", htmlAttributes: new { @class = "control-label col-md-2" })
+        </div>
+
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Coefficient, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Coefficient, "", new {@class = "text-danger"})
+            </div>
+            @*@Html.LabelFor(model => model.Coefficient, htmlAttributes: new {@class = "control-label col-md-2"})*@
+            @Html.Label("", "ضریب شاخص", htmlAttributes: new { @class = "control-label col-md-2" })
+        </div>
+
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DeadlinePeriod, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.DeadlinePeriod, "", new {@class = "text-danger"})
+            </div>
+          @*  @Html.LabelFor(model => model.DeadlinePeriod, htmlAttributes: new {@class = "control-label col-md-2"})*@
+            @Html.Label("", "مدت سررسید", htmlAttributes: new { @class = "control-label col-md-2" })
+        </div>
+
+        <div style="display: none">
+            @Html.EditorFor(model => model.Committee)
+            @Html.EditorFor(model => model.SubCriterion)
+        </div>
+
+
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
