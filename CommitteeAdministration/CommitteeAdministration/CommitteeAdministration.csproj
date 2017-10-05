@@ -295,6 +295,7 @@
     <Compile Include="Services\Contract\ICustomEmailService.cs" />
     <Compile Include="Services\Contract\IUserManagement.cs" />
     <Compile Include="Services\CustomEmailService.cs" />
+    <Compile Include="Services\ExpertAssistant.cs" />
     <Compile Include="Services\MessageTerminal.cs" />
     <Compile Include="Services\Contract\IChartDrawer.cs" />
     <Compile Include="Services\Contract\ICommitteeStatus.cs" />
