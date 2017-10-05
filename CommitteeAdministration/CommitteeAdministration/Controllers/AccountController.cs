@@ -83,6 +83,7 @@ namespace CommitteeAdministration.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -96,7 +97,7 @@ namespace CommitteeAdministration.Controllers
                     //var alarmViewModel =
                     //    _realValueAlarm.AlarmUsers(
                     //        _mainContainer.UserRepository.FirstOrDefault(userT => userT.Email == model.Email));
-
+                    var dd = ViewBag.ReturnUrl;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
