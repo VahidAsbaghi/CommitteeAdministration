@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using CommitteeAdministration.Areas.Management.Models;
+using CommitteeAdministration.Areas.UM.ViewModels;
+using CommitteeAdministration.BaseClasses;
 using CommitteeAdministration.Helper;
 using CommitteeAdministration.Services.Contract;
 using CommitteeManagement.Model;
@@ -13,20 +14,20 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Practices.Unity;
 
-namespace CommitteeAdministration.Areas.Management.Controllers
+namespace CommitteeAdministration.Areas.UM.Controllers
 {
     //[Authorize(Roles = "SuperAdmin")]
-    public class ManagementController : Controller
+    public class ManageController : WebBaseController
     {
         private readonly IMainContainer _mainContainer = ModelContainer.Instance.Resolve<IMainContainer>();
         private readonly IUserInfoManager _userInfoManager = ModelContainer.Instance.Resolve<IUserInfoManager>();
         private ApplicationUserManager _userManager;
 
-        public ManagementController()
+        public ManageController()
         {
 
         }
-        public ManagementController(ApplicationUserManager userManager)
+        public ManageController(ApplicationUserManager userManager)
         {
             UserManager = userManager;
         }
@@ -69,14 +70,14 @@ namespace CommitteeAdministration.Areas.Management.Controllers
                 //userViewModel.
                 userViewModel.UserId = user.Id;
                 if (user.CommitteeRefId != null) userViewModel.ReturnedCommitteeId = user.CommitteeRefId.Value;
-                
+
             }
             userViewModel.CommitteeName = new SelectList(listData, "Id ", "Name");
             return View("UserPartial", userViewModel);
         }
 
         [HandleError]
-        [ValidateInput(false)]
+        //[ValidateInput(false)]
         public async Task<ActionResult> SaveUser(UserViewModel userModel)
         {
 
@@ -129,13 +130,6 @@ namespace CommitteeAdministration.Areas.Management.Controllers
         }
 
 
-        public ActionResult Profile()
-        {
-            var users = _userInfoManager.GetUsersInfo();
-            //ViewBag.Users = users;
-            //Must Return Roles
-            return View();
-        }
     }
 
 }

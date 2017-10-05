@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using CommitteeManagement.Model;
 
-namespace CommitteeAdministration.ViewModels
+namespace CommitteeAdministration.Areas.UM.ViewModels
 {
     /// <summary>
     /// this model is used to show user profile to user
     /// </summary>
-    public class ViewProfileViewModel
+    public class ProfileViewModel
     {
         /// <summary>
         /// Gets or sets the name.
@@ -18,6 +14,7 @@ namespace CommitteeAdministration.ViewModels
         /// <value>
         /// The name.
         /// </value>
+        [Display(Name = "نام ")]
         public string Name { get; set; }
         /// <summary>
         /// Gets or sets the last name.
@@ -25,6 +22,7 @@ namespace CommitteeAdministration.ViewModels
         /// <value>
         /// The last name.
         /// </value>
+        [Display(Name = "نام خانوادگی")]
         public string LastName { get; set; }
         /// <summary>
         /// Gets or sets the gender.
@@ -32,6 +30,7 @@ namespace CommitteeAdministration.ViewModels
         /// <value>
         /// The gender.
         /// </value>
+        [Display(Name = "جنسیت")]
         public GenderEnum Gender { get; set; }
         /// <summary>
         /// Gets or sets the city.
@@ -39,6 +38,7 @@ namespace CommitteeAdministration.ViewModels
         /// <value>
         /// The city.
         /// </value>
+        [Display(Name = "شهر")]
         public string City { get; set; }
         /// <summary>
         /// Gets or sets the region.
@@ -46,6 +46,7 @@ namespace CommitteeAdministration.ViewModels
         /// <value>
         /// The region.
         /// </value>
+        [Display(Name = "استان")]
         public string Region { get; set; }
         /// <summary>
         /// Gets or sets the address1.
@@ -53,6 +54,7 @@ namespace CommitteeAdministration.ViewModels
         /// <value>
         /// The address1.
         /// </value>
+        [Display(Name = "آدرس پیش فرض")]
         [Required(ErrorMessage = "وارد کردن یک آدرس برای هر کاربر الزامی است")]
         public string Address1 { get; set; }
         /// <summary>
@@ -61,6 +63,7 @@ namespace CommitteeAdministration.ViewModels
         /// <value>
         /// The address2.
         /// </value>
+        [Display(Name = "آدرس دوم")]
         public string Address2 { get; set; }
         /// <summary>
         /// Gets or sets the name of the committee.
@@ -68,6 +71,7 @@ namespace CommitteeAdministration.ViewModels
         /// <value>
         /// The name of the committee.
         /// </value>
+        [Display(Name = "نام ستاد")]
         public string CommitteeName { get; set; }
         /// <summary>
         /// Gets or sets the name of the user.
@@ -78,60 +82,5 @@ namespace CommitteeAdministration.ViewModels
         public string UserName { get; set; }
 
     }
-    /// <summary>
-    /// this model is used to edit profile
-    /// </summary>
-    public class EditProfileViewModel
-    {
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        public string Name { get; set; }
-        /// <summary>
-        /// Gets or sets the last name.
-        /// </summary>
-        /// <value>
-        /// The last name.
-        /// </value>
-        public string LastName { get; set; }
-        /// <summary>
-        /// Gets or sets the gender.
-        /// </summary>
-        /// <value>
-        /// The gender.
-        /// </value>
-        public GenderEnum Gender { get; set; }
-        /// <summary>
-        /// Gets or sets the city.
-        /// </summary>
-        /// <value>
-        /// The city.
-        /// </value>
-        public string City { get; set; }
-        /// <summary>
-        /// Gets or sets the region.
-        /// </summary>
-        /// <value>
-        /// The region.
-        /// </value>
-        public string Region { get; set; }
-        /// <summary>
-        /// Gets or sets the address1.
-        /// </summary>
-        /// <value>
-        /// The address1.
-        /// </value>
-        [Required(ErrorMessage = "وارد کردن یک آدرس برای هر کاربر الزامی است")]
-        public string Address1 { get; set; }
-        /// <summary>
-        /// Gets or sets the address2.
-        /// </summary>
-        /// <value>
-        /// The address2.
-        /// </value>
-        public string Address2 { get; set; }
-    }
+   
 }

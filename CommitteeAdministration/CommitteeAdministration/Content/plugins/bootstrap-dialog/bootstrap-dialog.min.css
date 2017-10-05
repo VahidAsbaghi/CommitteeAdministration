@@ -90,6 +90,13 @@
     -webkit-animation: spin 2s infinite linear;
     animation: spin 2s infinite linear;
 }
+/*Custom Mine!!!!*/
+
+.bootstrap-dialog .bootstrap-dialog-close-button {
+    float: left;
+}
+
+
 
 @-moz-keyframes spin {
     0 {
@@ -143,7 +150,6 @@
         transform: rotate(359deg);
     }
 }
-
 
 
 

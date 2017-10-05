@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace CommitteeAdministration.Areas.Management
+namespace CommitteeAdministration.Areas.UM
 {
     public class ManagementAreaRegistration : AreaRegistration 
     {
@@ -8,7 +8,7 @@ namespace CommitteeAdministration.Areas.Management
         {
             get 
             {
-                return "Management";
+                return "UM";
             }
         }
 
@@ -16,8 +16,8 @@ namespace CommitteeAdministration.Areas.Management
         {
             context.MapRoute(
                 "Management_default",
-                "Management/{controller}/{action}/{id}",
-                new { Controller="Management",action = "Index", id = UrlParameter.Optional }
+                "UM/{controller}/{action}/{id}",
+                new { Controller="Manage",action = "Index", id = UrlParameter.Optional }
             );
         }
     }
