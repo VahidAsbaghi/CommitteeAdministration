@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity
+@{
     Layout = null;
     var actionName = ViewContext.RouteData.Values["action"];
     var controllerName = ViewContext.RouteData.Values["controller"];
@@ -20,15 +21,15 @@
     @*<link href="~/Content/bootstrap-rtl.css" rel="stylesheet" />*@
     @*<link href="~/Content/bootstrap-rtl.min.css" rel="stylesheet" />*@
     <link href="~/assets/font-farsi/css/font-farsi.css" rel="stylesheet"/>
-<<<<<<< HEAD
+
     <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet"/>
     <link href="~/Content/bootstrap-rtl.min.css" rel="stylesheet"/>
     <link href="~/assets/css-rtl/style-rtl.css" rel="stylesheet"/>
-=======
+
     <link href="~/assets/Admin-Panel/assets/global/plugins/bootstrap/css/bootstrap-rtl.css" rel="stylesheet" />
     @*<link href="~/Content/css/bootstrap-rtl.css" rel="stylesheet" />*@
     <link href="~/assets/css-rtl/style-rtl.css" rel="stylesheet" />
->>>>>>> da6e8798da7200769c83937cd395938e4ceed6ee
+
     <!-- Responsive css -->
     <link href="~/assets/css-rtl/responsive.css" rel="stylesheet"/>
     <link href="~/assets/css-rtl/css/font-awesome-rtl.css" rel="stylesheet"/>
@@ -86,10 +87,34 @@
                         </div>
                         <!-- Login Register Area -->
                         <div class="login_register">
-                            <div class="login">
-                                <i class="fa fa-sign-in" aria-hidden="true"></i>
-                                <a href="@Url.Action("login", "Account")">ورود</a>
-                            </div>
+
+                            @if (Request.IsAuthenticated)
+                            {
+                                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {id = "logoutForm", @class = ""}))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="login">                           
+                                        <a href="@Url.Action("Index", "Manage", routeValues: null)">@User.Identity.GetUserName() خوش آمدید!</a>
+                                    </div>
+                                    <div class="login">
+                                        <a href="javascript:document.getElementById('logoutForm').submit()">خروج</a>
+                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                @*<div class="login">
+                                    <a href="@Url.Action("Register", "Account", routeValues: null)">ثبت نام</a>
+                                        <i class="" aria-hidden="true"></i>
+                                </div>*@
+                                <div class="login">
+                                    <a href="@Url.Action("Login", "Account", routeValues: new {@returnUrl = Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())})">ورود</a>
+                                        <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                </div>
+                            }
+
                         </div>
                         <!-- Language Area Start -->
                         <div class="language_area">
@@ -357,8 +382,8 @@
 </html>
 <script src="~/Scripts/modernizr-2.6.2.js"></script>
 
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script src="~/Scripts/Highcharts/highcharts.js"></script>
 <script src="~/Scripts/Highcharts/modules/exporting.js"></script>
 <!-- Coundown js -->
