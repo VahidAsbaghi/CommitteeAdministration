@@ -12,8 +12,7 @@ namespace CommitteeAdministration.Services
 {
     public class CustomEmailService :ICustomEmailService
     {
-        public string _apiKey = "key-da017bf3eaf2db5ac9fadecdbf2f39ce";
-        public string _domainName = "asbaghi.ir";
+        
         public async Task<IRestResponse> SendEmail(RecipientUser recipientUser,string subject, string bodyMessage, string actionTitle, string actionUrl)
         {
 
@@ -23,10 +22,11 @@ namespace CommitteeAdministration.Services
                 Authenticator = new HttpBasicAuthenticator("api",
                     "key-da017bf3eaf2db5ac9fadecdbf2f39ce")
             };
-            var request = new RestRequest();    
-            
+            var request = new RestRequest();
+            request.AddParameter("domain",
+                                "sandbox6a85ab360d0741fca336134274eba137.mailgun.org", ParameterType.UrlSegment);
             request.Resource = "{domain}/messages";
-            request.AddParameter("from", " ما هستیم<info@vahid.ir>");
+            request.AddParameter("from", " شرکت شبکیه<info@vahid.ir>");
             request.AddParameter("to", recipientUser.Email);
             request.AddParameter("subject", subject);
             var path = System.Web.HttpContext.Current.Request.MapPath("~\\EmailTemplates\\template.html");

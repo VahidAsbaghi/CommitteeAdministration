@@ -1,0 +1,200 @@
+﻿
+@model CommitteeAdministration.Areas.UM.ViewModels.UserViewModel
+@{
+    Layout = null;
+}
+@*<link href="~/Content/plugin/chosen/chosen.css" rel="stylesheet" />*@
+
+@*<form id="SaveUserForm" method="post" action="~/Management/management/SaveUser">
+        <div class="container-fluid" style="direction: rtl">
+            <div id="frmUser">
+                @Html.Partial("_partialuserinfo")
+            </div>
+
+        </div>
+    </form>*@
+<link href="~/Content/plugins/bootstrap-validator/css/bootstrapValidator.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme-rtl.css" rel="stylesheet"/>
+
+
+
+
+
+@*<script>
+
+
+        $(document)
+            .ready(function () {
+                $('#SaveUserForm')
+                    .bootstrapValidator({
+                       //live: 'disabled',
+                        submitButton: '$SaveUserForm button[type="submit]',
+                        submitHandler: function (validatior, form, submitButton) {
+                            $.ajax({
+                                url: "/um/manage/saveuser",
+                                method: "post",
+                                data: $('#SaveUserForm').serialize(),
+                                dataType: "json",
+                                success: function (data) {
+                                    $('#message_show').text("success");
+                                    $("#SaveUserForm").data('bootstrapValidator').resetForm();
+                                    $("#SaveUserForm")[0].reset();
+                                }
+                            });
+                            return false;
+                        },
+                        feedbackIcons: {
+                            valid: 'glyphicon glyphicon-ok',
+                            invalid: 'glyphicon glyphicon-remove',
+                            validating: 'glyphicon glyphicon-refresh'
+                        },
+
+                        fields: {
+                            Name: {
+                                validators: {
+                                    notEmpty: {}
+
+                                }
+                            },
+
+                            FamilyName: {
+                                validators: {
+                                    notEmpty: {}
+
+                                }
+                            },
+                            CommitteeName: {
+                                validators: {
+                                    notEmpty: {}
+                                }
+                            },
+                            //complainantid: {
+                            //    validators: {
+                            //        notEmpty: {},
+                            //        stringLength: {
+                            //            min: 8
+                            //        }
+                            //    }
+                            //},
+                            //complainantname: {
+                            //    validators: {
+                            //        notEmpty: {},
+                            //        stringLength: {
+                            //            min: 6,
+                            //            max: 30
+                            //        }
+                            //    }
+                            //},
+                            //username: {
+                            //    validators: {
+                            //        notEmpty: {},
+                            //        stringLength: {
+                            //            min: 6,
+                            //            max: 20
+                            //        },
+                            //        regexp: {
+                            //            regexp: /^[a-zA-Z0-9_\.]+$/
+                            //        },
+                            //        remote: {
+                            //            url: 'remote.php',
+                            //            message: 'Tên tài khoản này đã được đăng ký'
+                            //        },
+                            //        different: {
+                            //            field: 'password',
+                            //            message: 'The username and password cannot be the same as each other'
+                            //        }
+                            //    }
+                            //},
+                            Email: {
+                                validators: {
+                                    notEmpty: {},
+                                    emailAddress: {}
+                                }
+                            },
+                            Password: {
+                                validators: {
+                                    notEmpty: {},
+                                    stringLength: {
+                                        min: 6,
+                                        max: 30
+                                    }
+                                }
+                            },
+                            ConfirmPassword: {
+                                validators: {
+                                    stringLength: {
+                                        min: 6,
+                                        max: 30
+                                    },
+
+                                    identical: {
+                                        field: 'Password'
+
+                                    }
+                                }
+                            }
+                            //address: {
+                            //    validators: {
+                            //        notEmpty: {}
+                            //    }
+
+                            //},
+                            //eventdate: {
+                            //    validators: {
+                            //        notEmpty: {
+                            //        },
+                            //        date: {
+                            //            format: 'YYYY/MM/DD'
+                            //        }
+                            //    }
+                            //},
+
+                            //tel: {
+                            //    validators: {
+                            //        notEmpty: {}
+                            //    }
+                            //},
+                            //mobile: {
+                            //    validators: {
+                            //        notEmpty: {},
+                            //        digits: {}
+
+                            //    }
+                            //}
+                        }
+                    }).on('success.form.bv', function(e) {
+                        // Prevent form submission
+                        console.log("salam guzu");
+                        e.preventDefault();
+                        // Get the form instance
+                        var $form = $(e.target);
+                        // Get the BootstrapValidator instance
+                        var bv = $form.data('bootstrapValidator');
+                        // Use Ajax to submit form data
+                        console.log(bv);
+                        $.post($form.attr('action'), $form.serialize(), function(result) {
+                            console.log(result);
+                        }, 'json');
+                    });
+            });
+
+
+    </script>*@
+
+
+
+
+@*@using (Ajax.BeginForm("SaveUser", new { Controller = "Manage", area = "UM" }, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "frmUser", OnBegin = "return StartValidation();" }, new { @id = "SaveUserForm" }))
+{*@
+
+
+    <div class="container-fluid" style="direction: rtl">
+        <div id="frmUser">
+            @Html.Partial("_createUserPartial")
+        </div>
+
+    </div>
+
+
+
+

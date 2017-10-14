@@ -33,17 +33,17 @@ namespace CommitteeAdministration.Services
             return _customEmailService.SendEmail(WrapRecipientUser(user), subject, bodyMessage, actionTitle, actionUrl);
         }
 
-        public void SendForgotPasswordEmail(User user, string code)
+        public Task<IRestResponse> SendForgotPasswordEmail(User user, string code)
         {
-            var url = AppSetting.ClientURL + "//Account/ForgotPassword";
-            var parameters = "?ucode=" + user.Id + "&code=" + code;
+            var url = AppSetting.ClientURL + "/Account/ResetPassword";
+            var parameters = "?ucode=" + user.Id + "&code=" + HttpUtility.UrlEncode(code);
             var callbackUrl = url + parameters;
 
             var subject = "بازیابی رمز عبور";
             var bodyMessage = "برای تغییر رمز عبور بر روی دکمه زیر کلیک کنید.";
             var actionTitle = "تغییر رمز عبور";
             var actionUrl = callbackUrl;
-            _customEmailService.SendEmail(WrapRecipientUser(user), subject, bodyMessage, actionTitle, actionUrl);
+            return _customEmailService.SendEmail(WrapRecipientUser(user), subject, bodyMessage, actionTitle, actionUrl);
         }
 
         private RecipientUser WrapRecipientUser(User user)

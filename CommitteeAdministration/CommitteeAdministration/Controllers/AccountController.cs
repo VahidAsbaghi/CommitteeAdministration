@@ -9,7 +9,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using CommitteeAdministration.ActionFilters;
 using CommitteeAdministration.Helper;
+using CommitteeAdministration.Models;
 using CommitteeAdministration.Services;
 using CommitteeAdministration.Services.Contract;
 using CommitteeAdministration.ViewModels;
@@ -250,17 +252,22 @@ namespace CommitteeAdministration.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id.ToString())))
+                var user = await UserManager.FindByEmailAsync(model.Email);
+                if (user == null )
                 {
+                    //|| !(await UserManager.IsEmailConfirmedAsync(user.Id.ToString()))
                     // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+
+                    ModelState.AddModelError("Error", "این نام کاربری وجود ندارد!");
+                       
+                    return View("ForgotPassword");
                 }
 
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = 12, code = 13 }, protocol: Request.Url.Scheme);
 
-                _messageTerminal.SendForgotPasswordEmail(user, code);
+                var resp = await _messageTerminal.SendForgotPasswordEmail(user, code);
+                var z = resp.StatusCode;
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
@@ -275,15 +282,22 @@ namespace CommitteeAdministration.Controllers
         {
             return View();
         }
-
-        //
-        // GET: /Account/ResetPassword
+        
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult ResetPassword(string ucode , string code)
         {
-            return code == null ? View("Error") : View();
+            if (string.IsNullOrWhiteSpace(ucode))
+            {
+                ModelState.AddModelError("Error", "می توانید با وارد کردن اطلاعات کاربری صحیح نسبیت به دریافت دوباره ایمیل اقدام کنید. .متاسفانه لینک شما فاقد برای این حساب کاربری فاقد اعتبار است");
+                return RedirectToAction("ForgotPassword","Account");
+            }
+            if (!string.IsNullOrWhiteSpace(code)) return View("ResetPassword");
+            {
+                ModelState.AddModelError("", "در لینک ارسالی شما برای ما کد معتبری وجود ندارد. نسبت به دریافت دوباره کد اقدام نمایید.");
+                return RedirectToAction("ForgotPassword", "Account");
+            }
         }
-
+    
         //
         // POST: /Account/ResetPassword
         [HttpPost]
@@ -295,19 +309,25 @@ namespace CommitteeAdministration.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                ModelState.AddModelError("Error", "می توانید با وارد کردن اطلاعات کاربری صحیح نسبیت به دریافت دوباره ایمیل اقدام کنید. .متاسفانه لینک شما فاقد برای این حساب کاربری فاقد اعتبار است");
+                return View(model);
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id.ToString(), model.Code, model.Password);
+            var parsedCode = HttpUtility.UrlDecode(model.Code).Replace(" ","+");
+            var result = await UserManager.ResetPasswordAsync(user.Id.ToString(), parsedCode, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            AddErrors(result);
-            return View();
+            else
+            {
+                AddErrors(result);
+                return View(model);
+            }
+          
         }
 
         //
@@ -438,6 +458,7 @@ namespace CommitteeAdministration.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+          
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }

@@ -1,20 +1,20 @@
 ﻿
 @font-face {
-    font-family: 'font-farsi1';
+    font-family: 'Custom-Font';
     src: url('/assets/font-farsi/fonts/IRANSans-Light-web.woff') format('woff'),
          url('/assets/font-farsi/fonts/IRANSans-Light-web.ttf') format('truetype');
     font-weight: normal;
 }
 
 @font-face {
-    font-family: 'font-farsi1-bold';
+    font-family: 'Custom-Font-bold';
     src: url('/assets/font-farsi/fonts/IRANSans-Bold-web.woff') format('woff'),
          url('/assets/font-farsi/fonts/IRANSans-Bold-web.ttf') format('truetype');
     font-weight: bold;
 }
 
 @font-face {
-    font-family: 'font-farsi2';
+    font-family: 'Custom-Font2';
     src: url('/assets/font-farsi/fonts/web_Yekan.woff') format('woff');
     font-weight: bold;
 }

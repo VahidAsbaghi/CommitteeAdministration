@@ -110,6 +110,7 @@ namespace CommitteeAdministration.ViewModels
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
+        public string UId { get; set; }
     }
 
     public class ForgotPasswordViewModel

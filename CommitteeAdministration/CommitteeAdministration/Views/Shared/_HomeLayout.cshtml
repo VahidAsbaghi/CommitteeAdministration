@@ -15,34 +15,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <link rel="shortcut icon" href="~/assets/Img/core-img/favicon.ico"/>
+    <link rel="shortcut icon" href="~/assets/Img/core-img/favicon.ico" />
     <!-- ************** All CSS Files ************** -->
     <!-- Style css -->
-    @*<link href="~/Content/bootstrap-rtl.css" rel="stylesheet" />*@
-    @*<link href="~/Content/bootstrap-rtl.min.css" rel="stylesheet" />*@
-    <link href="~/assets/font-farsi/css/font-farsi.css" rel="stylesheet"/>
 
-    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet"/>
-    <link href="~/Content/bootstrap-rtl.min.css" rel="stylesheet"/>
-    <link href="~/assets/css-rtl/style-rtl.css" rel="stylesheet"/>
+    <link href="~/assets/font-farsi/css/font-farsi.css" rel="stylesheet" />
 
-    <link href="~/assets/Admin-Panel/assets/global/plugins/bootstrap/css/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-rtl.min.css" rel="stylesheet" />
+
+    <link href="~/assets/css-rtl/style-rtl.css" rel="stylesheet" />
+
+
     @*<link href="~/Content/css/bootstrap-rtl.css" rel="stylesheet" />*@
     <link href="~/assets/css-rtl/style-rtl.css" rel="stylesheet" />
 
     <!-- Responsive css -->
-    <link href="~/assets/css-rtl/responsive.css" rel="stylesheet"/>
-    <link href="~/assets/css-rtl/css/font-awesome-rtl.css" rel="stylesheet"/>
-    <link href="~/assets/css-rtl/css/font-awesome-1-1.min.css" rel="stylesheet"/>
-    <link href="~/assets/css-rtl/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="~/assets/css-rtl/responsive.css" rel="stylesheet" />
+    <link href="~/assets/css-rtl/css/font-awesome-rtl.css" rel="stylesheet" />
+    <link href="~/assets/css-rtl/css/font-awesome-1-1.min.css" rel="stylesheet" />
+    <link href="~/assets/css-rtl/css/font-awesome.min.css" rel="stylesheet" />
     <!--[if IE]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     @*<script src="~/Scripts/jquery-3.1.1.min.js"></script>*@
- 
 
-    
+
+
 
     @RenderSection("Styles", false)
 
@@ -50,338 +50,340 @@
 
 <body id="mainBody" style="direction: rtl">
 
-<div id="preloader"></div>
+    <div id="preloader"></div>
 
 
-<header class="header_area">
-    <!-- Search Box Area Start -->
-    <div id="search">
-        <div class="search_box_area">
-            <form action="#" method="post">
-                <input type="text" name="s" id="search_box" placeholder="Type your keyword and hit enter">
-                <input type="submit" value="Submit" id="sub">
-            </form>
+    <header class="header_area">
+        <!-- Search Box Area Start -->
+        <div id="search">
+            <div class="search_box_area">
+                <form action="#" method="post">
+                    <input type="text" name="s" id="search_box" placeholder="Type your keyword and hit enter">
+                    <input type="submit" value="Submit" id="sub">
+                </form>
+            </div>
         </div>
-    </div>
-    
-    <!-- Search Box Area End -->
-    <!-- Top Header Area Start -->
-    <div class="top_header_area hidden-xs">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-3 col-md-5">
-                    <!-- Top Quote Area Start -->
-                    <div class="top_quote hidden-sm">
-                        <p>با ما تماس بگیرید: +98 9121111111</p>
-                    </div>
-                </div>
-                <div class="col-sm-9 col-md-7">
-                    <div class="social_reg_log_area">
-                        <!-- Top Social bar start -->
-                        <div class="top_social_bar">
-                            @*<a href="#"  hidden="hidden"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true" hidden="hidden"></i></a>
-                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true" hidden="hidden"></i></a>
-                            <a href="#"><i class="fa fa-skype" aria-hidden="true" hidden="hidden"></i></a>
-                            <a href="#"><i class="fa fa-dribbble" aria-hidden="true" hidden="hidden"></i></a>*@
+
+        <!-- Search Box Area End -->
+        <!-- Top Header Area Start -->
+        <div class="top_header_area hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3 col-md-5">
+                        <!-- Top Quote Area Start -->
+                        <div class="top_quote hidden-sm">
+                            <p>با ما تماس بگیرید: +98 9121111111</p>
                         </div>
-                        <!-- Login Register Area -->
-                        <div class="login_register">
+                    </div>
+                    <div class="col-sm-9 col-md-7">
+                        <div class="social_reg_log_area">
+                            <!-- Top Social bar start -->
+                            <div class="top_social_bar">
+                                @*<a href="#"  hidden="hidden"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true" hidden="hidden"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true" hidden="hidden"></i></a>
+                                    <a href="#"><i class="fa fa-skype" aria-hidden="true" hidden="hidden"></i></a>
+                                    <a href="#"><i class="fa fa-dribbble" aria-hidden="true" hidden="hidden"></i></a>*@
+                            </div>
+                            <!-- Login Register Area -->
+                            <div class="login_register">
 
-                            @if (Request.IsAuthenticated)
-                            {
-                                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {id = "logoutForm", @class = ""}))
+                                @if (Request.IsAuthenticated)
                                 {
-                                    @Html.AntiForgeryToken()
+                                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+                                    {
+                                        @Html.AntiForgeryToken()
 
-                                    <div class="login">                           
-                                        <a href="@Url.Action("Index", "Manage", routeValues: null)">@User.Identity.GetUserName() خوش آمدید!</a>
-                                    </div>
+                                        <div class="login">
+                                            <a href="@Url.Action("Index", "Manage", routeValues: null)">@User.Identity.GetUserName() خوش آمدید!</a>
+                                        </div>
+                                        <div class="login">
+                                            <a href="javascript:document.getElementById('logoutForm').submit()">خروج</a>
+                                            <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    @*<div class="login">
+                                            <a href="@Url.Action("Register", "Account", routeValues: null)">ثبت نام</a>
+                                                <i class="" aria-hidden="true"></i>
+                                        </div>*@
                                     <div class="login">
-                                        <a href="javascript:document.getElementById('logoutForm').submit()">خروج</a>
-                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                        <a href="@Url.Action("Login", "Account", routeValues: new {@returnUrl = Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())})">ورود</a>
+                                        <i class="fa fa-sign-in" aria-hidden="true"></i>
                                     </div>
                                 }
-                            }
-                            else
-                            {
-                                @*<div class="login">
-                                    <a href="@Url.Action("Register", "Account", routeValues: null)">ثبت نام</a>
-                                        <i class="" aria-hidden="true"></i>
-                                </div>*@
-                                <div class="login">
-                                    <a href="@Url.Action("Login", "Account", routeValues: new {@returnUrl = Url.Action(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())})">ورود</a>
-                                        <i class="fa fa-sign-in" aria-hidden="true"></i>
-                                </div>
-                            }
 
-                        </div>
-                        <!-- Language Area Start -->
-                        <div class="language_area">
-                            <div class="dropdown">
-                                <button aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" id="lag" type="button" class="btn btn-default dropdown-toggle">
-                                    <i class="fa fa-globe" aria-hidden="true"></i>زبان
-                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                </button>
-                                <ul aria-labelledby="lag" class="dropdown-menu">
-                                    <li>
-                                        <a href="#"><img alt="" src="~/bizpro-v3/img/core-img/lan-1.jpg">English</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img alt="" src="~/bizpro-v3/img/core-img/lan-2.jpg">German</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img alt="" src="~/bizpro-v3/img/core-img/lan-3.jpg">Spanish</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img alt="" src="~/bizpro-v3/img/core-img/lan-4.jpg">Bangla</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img alt="" src="~/bizpro-v3/img/core-img/lan-5.jpg">China</a>
-                                    </li>
-                                </ul>
+                            </div>
+                            <!-- Language Area Start -->
+                            <div class="language_area">
+                                <div class="dropdown">
+                                    <button aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" id="lag" type="button" class="btn btn-default dropdown-toggle">
+                                        <i class="fa fa-globe" aria-hidden="true"></i>زبان
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                    </button>
+                                    <ul aria-labelledby="lag" class="dropdown-menu">
+                                        <li>
+                                            <a href="#"><img alt="" src="~/bizpro-v3/img/core-img/lan-1.jpg">English</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img alt="" src="~/bizpro-v3/img/core-img/lan-2.jpg">German</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img alt="" src="~/bizpro-v3/img/core-img/lan-3.jpg">Spanish</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img alt="" src="~/bizpro-v3/img/core-img/lan-4.jpg">Bangla</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img alt="" src="~/bizpro-v3/img/core-img/lan-5.jpg">China</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Top Header Area End -->
-    <!-- Main Header Area Start -->
-    <div class="main_header_area" id="sticky_menu">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-3 col-xs-9">
-                    <!-- Logo Area:: For better view in all device please use logo image max-width 120px -->
-                    <div class="logo_area" >
-                        <a href="@Url.Action("Index", "Home")"><img src="~/bizpro-v3/img/core-img/logo.png" alt=""></a>
-                    </div>
-                </div>
-
-                <div class="col-sm-9 col-xs-12" style="float: left">
-                    <!-- Menu Area Start -->
-                    <div class="main_menu_area" style="float: none">
-                        <div class="mainmenu">
-                            <nav>
-                                <ul id="nav">
-                                    <li class="current_page_item">
-                                        <a href="#">درباره طرح<i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="/Views/Home/Index.cshtml">معرفی طرح</a></li>
-                                            <li><a href="/Views/Home/Index.cshtml">اهمیت و ضرورت اجرای طرح</a></li>
-                                            <li><a href="/Views/Home/Index.cshtml">جمع بندی طرح</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">ستاد های توسعه فن آوری<i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="/Views/Home/Index.cshtml">معرفی ستاد های توسعه فن آوری به صورت کلی</a></li>
-                                            <li><a href="/Views/Home/Index.cshtml">معرفی نمایندگان ستادها جهت تکمیل اطلاعات ایشان در طرح</a></li>
-
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">دستورالعمل<i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="/Views/Home/Index.cshtml">مراحل ثبت نام و ورود به سامانه</a></li>
-                                            <li><a href="/Views/Home/Index.cshtml">نحوه تکمیل اطلاعات هر ستاد</a></li>
-                                            <li><a href="/Views/Home/Index.cshtml">نحوه ورود اطلاعات</a></li>
-                                            <li><a href="/Views/Home/Index.cshtml">نحوه گزارش گیری</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">دانلود<i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="/Views/Home/Index.cshtml">دانلود بخش هایی از طرح که قابل انتشار است</a></li>
-                                            <li><a href="/Views/Home/Index.cshtml">دانلود گزارش های منتشر شده از ستادها</a></li>
-                                            <li><a href="/Views/Home/Index.cshtml">دانلود مطالب مفید و مرتبط دیگر</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">اطلاعیه<i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="/Views/Home/Index.cshtml">صدور اطلاعیه های مهم مانند بروزرسانی ها</a></li>
-                                            <li><a href="/Views/Home/Index.cshtml">نکات آموزشی</a></li>
-                                            <li><a href="/Views/Home/Index.cshtml">انتشار گزارش ها</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">ارتباط با ما<i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="/Views/Home/Index.cshtml">ارتباط با نمایندگان ستادهاو پشتیبانی سامانه</a></li>
-
-                                        </ul>
-                                    </li>
-
-                                </ul>
-                            </nav>
+        <!-- Top Header Area End -->
+        <!-- Main Header Area Start -->
+        <div class="main_header_area" id="sticky_menu">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-9">
+                        <!-- Logo Area:: For better view in all device please use logo image max-width 120px -->
+                        <div class="logo_area">
+                            <a href="@Url.Action("Index", "Home")"><img src="~/bizpro-v3/img/core-img/logo.png" alt=""></a>
                         </div>
-                        <!-- Menu Area End -->
-                        <!-- Search Button Icon -->
-                        @*<div class="search_button hidden-xs">
-                            <a href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-                        </div>*@
+                    </div>
+
+                    <div class="col-sm-9 col-xs-12" style="float: left">
+                        <!-- Menu Area Start -->
+                        <div class="main_menu_area" style="float: none">
+                            <div class="mainmenu">
+                                <nav>
+                                    <ul id="nav">
+                                        <li class="current_page_item">
+                                            <a href="#">درباره طرح<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                            <ul class="sub-menu">
+                                                <li><a href="/Views/Home/Index.cshtml">معرفی طرح</a></li>
+                                                <li><a href="/Views/Home/Index.cshtml">اهمیت و ضرورت اجرای طرح</a></li>
+                                                <li><a href="/Views/Home/Index.cshtml">جمع بندی طرح</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">ستاد های توسعه فن آوری<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                            <ul class="sub-menu">
+                                                <li><a href="/Views/Home/Index.cshtml">معرفی ستاد های توسعه فن آوری به صورت کلی</a></li>
+                                                <li><a href="/Views/Home/Index.cshtml">معرفی نمایندگان ستادها جهت تکمیل اطلاعات ایشان در طرح</a></li>
+
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">دستورالعمل<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                            <ul class="sub-menu">
+                                                <li><a href="/Views/Home/Index.cshtml">مراحل ثبت نام و ورود به سامانه</a></li>
+                                                <li><a href="/Views/Home/Index.cshtml">نحوه تکمیل اطلاعات هر ستاد</a></li>
+                                                <li><a href="/Views/Home/Index.cshtml">نحوه ورود اطلاعات</a></li>
+                                                <li><a href="/Views/Home/Index.cshtml">نحوه گزارش گیری</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">دانلود<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                            <ul class="sub-menu">
+                                                <li><a href="/Views/Home/Index.cshtml">دانلود بخش هایی از طرح که قابل انتشار است</a></li>
+                                                <li><a href="/Views/Home/Index.cshtml">دانلود گزارش های منتشر شده از ستادها</a></li>
+                                                <li><a href="/Views/Home/Index.cshtml">دانلود مطالب مفید و مرتبط دیگر</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">اطلاعیه<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                            <ul class="sub-menu">
+                                                <li><a href="/Views/Home/Index.cshtml">صدور اطلاعیه های مهم مانند بروزرسانی ها</a></li>
+                                                <li><a href="/Views/Home/Index.cshtml">نکات آموزشی</a></li>
+                                                <li><a href="/Views/Home/Index.cshtml">انتشار گزارش ها</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">ارتباط با ما<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                            <ul class="sub-menu">
+                                                <li><a href="/Views/Home/Index.cshtml">ارتباط با نمایندگان ستادهاو پشتیبانی سامانه</a></li>
+
+                                            </ul>
+                                        </li>
+
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!-- Menu Area End -->
+                            <!-- Search Button Icon -->
+                            @*<div class="search_button hidden-xs">
+                                    <a href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                </div>*@
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Main Header Area End -->
+    </header>
+
+    <div class="container" style="margin-top: auto; padding-top: 151px">
+        @RenderBody()
+        <hr />
+
     </div>
-    <!-- Main Header Area End -->
-</header>
+    <div>
+        @RenderSection("HomePage", required: false)
 
-<div class="container" style="margin-top: auto; padding-top: 151px">
-    @RenderBody()
-    <hr/>
-
-</div>
-<div>
-    @RenderSection("HomePage", required: false)
-
-</div>
-
-
-
-<footer class="footer_area">
-    <div class="container">
-        <div class="row">
-            <!-- Footer About Area Start -->
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="footer_about_us wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="title section_heading fo_black">
-                        <h4>About <span>bizpro</span></h4>
-                        <!-- Useful Links Title -->
-                        <div class="color_border"></div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut delectus consectetur omnis, alias nulla repudiandae quasi non at ullam, vel officiis unde cum ea. Perferendis tempora eligendi aut, repellat eius. Lorem ipsum dolor sit amet.</p>
-                </div>
-            </div>
-            <!-- Footer About Area End -->
-            <!-- latest news Area Start -->
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="footer_upcoming_event wow fadeInUp" data-wow-delay="0.4s">
-                    <div class="title section_heading fo_black">
-                        <h4>latest <span>post</span></h4>
-                        <div class="color_border"></div>
-                    </div>
-                    <!-- Single latest post -->
-                    <div class="event_single_post">
-                        <img src="~/assets/Img/news-img/blog.jpg" alt="">
-                        <a href="#">
-                            <p>We dream of a sustainable economy where SME is the core.</p>
-                        </a>
-                    </div>
-                    <!-- Single latest post -->
-                    <div class="event_single_post">
-                        <img src="~/assets/Img/news-img/blog-2.jpg" alt="">
-                        <a href="#">
-                            <p>We dream of a sustainable economy where SME is the core.</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- latest news Area End -->
-            <!-- Contact info Area Start -->
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="footer_contact_info wow fadeInUp" data-wow-delay="0.6s">
-                    <div class="title section_heading fo_black">
-                        <h4>contact <span>information</span></h4>
-                        <!-- Useful Links Title -->
-                        <div class="color_border"></div>
-                    </div>
-                    <!-- single contact info start -->
-                    <div class="footer_single_contact_info">
-                        <i class="fa fa-globe" aria-hidden="true"></i>
-                        <p>House - 87, Mirpur DOHS, Dhaka, Bangladesh</p>
-                    </div>
-                    <!-- single contact info start -->
-                    <div class="footer_single_contact_info">
-                        <i class="fa fa-phone-square" aria-hidden="true"></i>
-                        <a href="tel:+8801791166123">+88 017 911 66123</a>
-                        <a href="tel:+8801791166123">+88 017 911 66123</a>
-                    </div>
-                    <!-- single contact info start -->
-                    <div class="footer_single_contact_info">
-                        <i class="fa fa-envelope-square" aria-hidden="true"></i>
-                        <a href="mailto:info@educamp.com">info@bizpro.com</a>
-                        <a href="mailto:care@educamp.com">care@bizpro.com</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Contact info Area End -->
-            <!-- Useful Links Area Start -->
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="important_links wow fadeInUp" data-wow-delay="0.8s">
-                    <div class="title section_heading fo_black">
-                        <h4>useful <span>links</span></h4>
-                        <!-- Useful Links Title -->
-                        <div class="color_border"></div>
-                    </div>
-                    <!-- Links Start -->
-                    <div class="links">
-                        <p>
-                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                            <a href="#">All Our products</a>
-                        </p>
-                        <p>
-                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                            <a href="#">About us</a>
-                        </p>
-                        <p>
-                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                            <a href="#">Customer Support</a>
-                        </p>
-                        <p>
-                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                            <a href="#">Career at Bizpro</a>
-                        </p>
-                        <p>
-                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                            <a href="#">Terms &amp; Conditions</a>
-                        </p>
-                        <p>
-                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                            <a href="#">Community Forums</a>
-                        </p>
-                    </div>
-                    <!-- Links End -->
-                </div>
-            </div>
-            <!-- Useful Links Area End -->
-        </div>
-        <!-- end./ row -->
     </div>
-    <!-- end./ container -->
-    <!-- Bottom Footer Area Start -->
-    <div class="footer_bottom_area">
+
+
+
+    <footer class="footer_area">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12">
-                    <div class="footer_bottom wow fadeInDown" data-wow-delay="0.2s">
-                        <p>
-                            Made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="#">Designing World</a>
-                        </p>
+                <!-- Footer About Area Start -->
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="footer_about_us wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="title section_heading fo_black">
+                            <h4>About <span>bizpro</span></h4>
+                            <!-- Useful Links Title -->
+                            <div class="color_border"></div>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut delectus consectetur omnis, alias nulla repudiandae quasi non at ullam, vel officiis unde cum ea. Perferendis tempora eligendi aut, repellat eius. Lorem ipsum dolor sit amet.</p>
                     </div>
-                    <!-- Bottom Footer Copywrite Text Area End -->
                 </div>
+                <!-- Footer About Area End -->
+                <!-- latest news Area Start -->
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="footer_upcoming_event wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="title section_heading fo_black">
+                            <h4>latest <span>post</span></h4>
+                            <div class="color_border"></div>
+                        </div>
+                        <!-- Single latest post -->
+                        <div class="event_single_post">
+                            <img src="~/assets/Img/news-img/blog.jpg" alt="">
+                            <a href="#">
+                                <p>We dream of a sustainable economy where SME is the core.</p>
+                            </a>
+                        </div>
+                        <!-- Single latest post -->
+                        <div class="event_single_post">
+                            <img src="~/assets/Img/news-img/blog-2.jpg" alt="">
+                            <a href="#">
+                                <p>We dream of a sustainable economy where SME is the core.</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- latest news Area End -->
+                <!-- Contact info Area Start -->
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="footer_contact_info wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="title section_heading fo_black">
+                            <h4>contact <span>information</span></h4>
+                            <!-- Useful Links Title -->
+                            <div class="color_border"></div>
+                        </div>
+                        <!-- single contact info start -->
+                        <div class="footer_single_contact_info">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <p>House - 87, Mirpur DOHS, Dhaka, Bangladesh</p>
+                        </div>
+                        <!-- single contact info start -->
+                        <div class="footer_single_contact_info">
+                            <i class="fa fa-phone-square" aria-hidden="true"></i>
+                            <a href="tel:+8801791166123">+88 017 911 66123</a>
+                            <a href="tel:+8801791166123">+88 017 911 66123</a>
+                        </div>
+                        <!-- single contact info start -->
+                        <div class="footer_single_contact_info">
+                            <i class="fa fa-envelope-square" aria-hidden="true"></i>
+                            <a href="mailto:info@educamp.com">info@bizpro.com</a>
+                            <a href="mailto:care@educamp.com">care@bizpro.com</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Contact info Area End -->
+                <!-- Useful Links Area Start -->
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="important_links wow fadeInUp" data-wow-delay="0.8s">
+                        <div class="title section_heading fo_black">
+                            <h4>useful <span>links</span></h4>
+                            <!-- Useful Links Title -->
+                            <div class="color_border"></div>
+                        </div>
+                        <!-- Links Start -->
+                        <div class="links">
+                            <p>
+                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                <a href="#">All Our products</a>
+                            </p>
+                            <p>
+                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                <a href="#">About us</a>
+                            </p>
+                            <p>
+                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                <a href="#">Customer Support</a>
+                            </p>
+                            <p>
+                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                <a href="#">Career at Bizpro</a>
+                            </p>
+                            <p>
+                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                <a href="#">Terms &amp; Conditions</a>
+                            </p>
+                            <p>
+                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                <a href="#">Community Forums</a>
+                            </p>
+                        </div>
+                        <!-- Links End -->
+                    </div>
+                </div>
+                <!-- Useful Links Area End -->
             </div>
             <!-- end./ row -->
         </div>
         <!-- end./ container -->
-    </div>
-    <!-- Bottom Footer Area End -->
+        <!-- Bottom Footer Area Start -->
+        <div class="footer_bottom_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="footer_bottom wow fadeInDown" data-wow-delay="0.2s">
+                            <p>
+                                Made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="#">Designing World</a>
+                            </p>
+                        </div>
+                        <!-- Bottom Footer Copywrite Text Area End -->
+                    </div>
+                </div>
+                <!-- end./ row -->
+            </div>
+            <!-- end./ container -->
+        </div>
+        <!-- Bottom Footer Area End -->
 
-</footer>
-<!-- ************** Footer Area End ************** -->
-<!-- ************** All jQuery Plugins ************** -->
-<!-- jQuery (necessary for all JavaScript plugins) -->
+    </footer>
+    <!-- ************** Footer Area End ************** -->
+    <!-- ************** All jQuery Plugins ************** -->
+    <!-- jQuery (necessary for all JavaScript plugins) -->
 
-@RenderSection("scripts", required: false)
-<a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647; display: block;"><i class="fa fa-angle-up"></i></a>
+
+    <a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647; display: block;"><i class="fa fa-angle-up"></i></a>
 </body>
 </html>
-<script src="~/Scripts/modernizr-2.6.2.js"></script>
 
+
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script src="~/Scripts/modernizr-2.6.2.js"></script>
 <script src="/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script src="~/Scripts/Highcharts/highcharts.js"></script>
@@ -399,6 +401,7 @@
 <!-- Back to top js -->
 <script src="/Scripts/js/jquery.scrollUp.js"></script>
 <script src="/Scripts/js/jquery.easing.1.3.js"></script>
+@RenderSection("scripts", required: false)
 <!-- WoW js -->
 <script src="~/Scripts/js/wow.min.js"></script>
 <!-- Active js -->
@@ -410,19 +413,19 @@
     $(function () {
         $.scrollUp({
             scrollName: 'scrollUp',
-                scrollDistance: 450,
-                scrollFrom: 'top',
-                scrollSpeed: 500,
-                easingType: 'linear',
-                animation: 'fade',
-                animationSpeed: 200,
-                scrollTrigger: false,
-                scrollTarget: false,
-                scrollText: '<i class="fa fa-angle-up"></i>',
-                scrollTitle: false,
-                scrollImg: false,
-                activeOverlay: false,
-                zIndex: 2147483647
+            scrollDistance: 450,
+            scrollFrom: 'top',
+            scrollSpeed: 500,
+            easingType: 'linear',
+            animation: 'fade',
+            animationSpeed: 200,
+            scrollTrigger: false,
+            scrollTarget: false,
+            scrollText: '<i class="fa fa-angle-up"></i>',
+            scrollTitle: false,
+            scrollImg: false,
+            activeOverlay: false,
+            zIndex: 2147483647
         });
     });
     $(document).ready(function ($) {
@@ -432,3 +435,4 @@
         });
     });
 </script>
+

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CommitteeAdministration.Controllers
+namespace CommitteeAdministration.Models
 {
     public class EditUserPassword
     {

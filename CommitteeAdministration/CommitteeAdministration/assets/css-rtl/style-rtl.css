@@ -129,7 +129,7 @@
     body * {
         font-size: 14px;
         line-height: 22px;
-        font-family: font-farsi1;
+        font-family: Custom-Font;
     }
     
     a,

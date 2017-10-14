@@ -61,7 +61,7 @@ namespace CommitteeAdministration {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to vahid.ir.
+        ///   Looks up a localized string similar to http://localhost:13947.
         /// </summary>
         internal static string ClientURL {
             get {

@@ -1,0 +1,353 @@
+﻿
+@using System
+@model CommitteeAdministration.Areas.UM.ViewModels.UserViewModel
+
+<link href="~/Content/plugins/bootstrap-validator/css/bootstrapValidator.css" rel="stylesheet" />
+
+<span class="alert-danger">
+    @Html.ValidationSummary()
+</span>
+
+@*<form role="form" action="/UM/manage/saveuser" method="post" id="SaveUserForm">
+
+    @Html.AntiForgeryToken()*@
+<fieldset>
+    <div class="form-group col-sm-12">
+        <label class="control-label">نام</label>
+        <div class="inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                @*<input name="Name" placeholder="نام" class="Validated form-control" type="text">*@
+                @Html.TextBoxFor(model => model.Name, new { @class = "Validated form-control", placeholder = "نام خود را وارد کنید" })
+            </div>
+        </div>
+    </div> <!-- end .form-group -->
+
+    <div class="form-group col-sm-12">
+        <label class="control-label">نام خانوادگی</label>
+        <div class="inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                @Html.TextBoxFor(model => model.FamilyName, new { @class = "Validated form-control", placeholder = "نام خانوادگی خود را وارد کنید" })
+            </div>
+        </div>
+    </div> <!-- end .form-group -->
+
+
+
+
+    <div class="col-sm-12 form-group">
+        @Html.LabelFor(m => m.CommitteeName, new { @class = "control-label" })
+        <div class="selectContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                @Html.DropDownListFor(m => m.ReturnedCommitteeId, Model.CommitteeName, "نام ستاد را انتخاب کنید", new { @class = "form-control selectpicker" })
+
+
+
+                @*<select name="CommitteeName" class="Validated form-control selectpicker">
+                        <option value=" "></option>
+                        @foreach (var item in Model.CommitteeName)
+                        {
+                            if (item != null && Convert.ToInt32(item.Value) == Model.ReturnedCommitteeId)
+                            {
+                                <option value="@item.Value" selected>@item.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Value">@item.Text</option>
+
+                            }
+
+                        }
+                    </select>*@
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="col-sm-12 form-group">
+        @Html.LabelFor(m => m.RoleName, new { @class = "control-label" })
+        <div class="selectContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                @Html.DropDownListFor(m => m.ReturnRoleId, Model.RoleName, "یک نقش برای کاربر انتخاب کنید", new { @class = "form-control selectpicker" })
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group col-sm-12">
+        @*<label class="control-label">پست الکترونیک</label>*@
+        @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+        <div class="inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                @*<input name="Email" placeholder="آدرس ایمیل" class="Validated form-control" type="text">*@
+                @Html.TextBoxFor(model => model.Email, new { @class = "Validated form-control", placeholder = "آدرس ایمیل را وارد کنید" })
+            </div>
+        </div> <!-- end .form-group -->
+    </div> <!-- end .col-sm-12 -->
+
+    <div class="form-group col-sm-12">
+        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+        <div class="inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                @Html.PasswordFor(model => model.Password, new { @class = "Validated form-control", placeholder = "رمز عبور را وارد کنید" })
+            </div>
+        </div> <!-- end .form-group -->
+    </div> <!-- end .col-sm-12 -->
+
+    <div class="form-group col-sm-12">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+        <div class="inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "Validated form-control", placeholder = "تایید رمز عبور را وارد کنید" })
+            </div>
+        </div> <!-- end .form-group -->
+    </div> <!-- end .col-sm-12 -->
+
+
+    <div class="form-group col-sm-12" style="direction: rtl">
+        <div class="col-sm-6" style="float: left">
+            @*<button type="reset" class="btn btn-primary" style="float: left; margin-top: 10px; margin-left: 10px">پاک شدن</button>*@
+            <button type="submit" class="btn btn-warning" style="float: left; margin-top: 10px; margin-left: 10px">ثبت</button>
+            <button type="button" class="btn default" style="float: left; margin-top: 10px; margin-left: 10px" data-dismiss="modal">بستن</button>
+        </div>
+    </div>
+
+</fieldset>
+
+
+<script src="~/Content/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+<script src="~/Content/plugins/bootstrap-validator/fa_IR.js"></script>
+<script>
+
+
+    $(document)
+        .ready(function () {
+            $('#SaveUserForm')
+                .bootstrapValidator({
+                    submitButton: '$SaveUserForm button[type="submit]',
+                    submitHandler: function (validatior, form, submitButton) {
+                        //$.ajax({
+                        //    url: "/UM/manage/saveuser",
+                        //    method: "post",
+                        //    data: $('#SaveUserForm').serialize(),
+                        //    dataType: "json",
+                        //    success: function (data) {
+                        //        //$('#message_show').text("success");
+                        //        //$("#SaveUserForm").data('bootstrapValidator').resetForm();
+                        //        //$("#SaveUserForm")[0].reset();
+                        //        console.log("OK");
+                        //    }
+                        //});
+                        return true;
+                    },
+                    feedbackIcons: {
+                        valid: 'glyphicon glyphicon-ok',
+                        invalid: 'glyphicon glyphicon-remove',
+                        validating: 'glyphicon glyphicon-refresh'
+                    },
+
+                    fields: {
+                        Name: {
+                            validators: {
+                                notEmpty: {}
+
+                            }
+                        },
+
+                        FamilyName: {
+                            validators: {
+                                notEmpty: {}
+
+                            }
+                        },
+                        CommitteeName: {
+                            validators: {
+                                notEmpty: {}
+                            }
+                        },
+
+                        Password: {
+                            validators: {
+                                stringLength: {
+                                    min: 6,
+                                    max: 30
+                                }
+                            }
+                        },
+
+                        ConfirmPassword: {
+                            validators: {
+                                stringLength: {
+                                    min: 6,
+                                    max: 30
+                                },
+
+                                identical: {
+                                    field: 'Password'
+
+                                }
+                            }
+                        }
+                    }
+                }).on('success.form.bv', function (e) {
+                    // Prevent form submission
+                    e.preventDefault();
+                    // Get the form instance
+                    var $form = $(e.target);
+                    // Get the BootstrapValidator instance
+                    var bv = $form.data('bootstrapValidator');
+                    // Use Ajax to submit form data
+                    var form = $('#SaveUserForm');
+                    var token = $('input[name="__RequestVerificationToken"]', form).val();
+
+                    //$.post($form.attr('action'), $form.serialize(), function (result) {
+                    //    console.log(result);
+                    //}, 'json');
+
+
+                    console.log(JSON.stringify($form.serialize()));
+                    var userModel = {
+                        "Name": $('#Name').val(),
+                        "FamilyName": $('#FamilyName').val(),
+                        "Password": $('#Password').val(),
+                        "Email": $('#Email').val(),
+                        "ReturnedCommitteeId": $("#ReturnedCommitteeId").val(),
+                        "ConfirmPassword": $('#ConfirmPassword').val()
+                    };
+                    console.log(userModel);
+
+                    $.ajax({
+                        url: '/UM/manage/saveuser',
+                        type: 'POST',
+                        //data: userModel,
+                        data: {
+                            __RequestVerificationToken: token,
+                            userModel: userModel
+                        },
+
+                        dataType: 'json',
+                        //contentType: 'application/json; charset:utf-8',
+                        success: function (response) {
+
+                            //console.log(response.ViewString);
+                            //$("#frmUser").html(response.ViewString);
+
+                            console.log(response);
+                            //BootstrapDialog.show({
+                            //    title: 'عملیات رمز عبور',
+                            //    size: BootstrapDialog.SIZE_WIDE,
+                            //    message: "رمز عبور با موفیت تغییر کرد.",
+                            //    onhide: function (dialogRef) {
+                            //        location.reload();
+                            //    }
+
+                            //});
+                        },
+                        error: function (jqXHR, exception) {
+                            var msg = '';
+                            if (jqXHR.status === 0) {
+                                msg = 'Not connect.\n Verify Network.';
+                            } else if (jqXHR.status == 404) {
+                                msg = 'Requested page not found. [404]';
+                            } else if (jqXHR.status == 500) {
+                                msg = 'Internal Server Error [500].';
+                            } else if (exception === 'parsererror') {
+                                msg = 'Requested JSON parse failed.';
+                            } else if (exception === 'timeout') {
+                                msg = 'Time out error.';
+                            } else if (exception === 'abort') {
+                                msg = 'Ajax request aborted.';
+                            } else {
+                                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                            }
+                            console.log(msg);
+                        }
+                    });
+
+
+                });
+        });
+
+
+</script>
+
+
+@*<div class="row">
+        <div class="form-group">
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-warning">@SendBtnText <span class="glyphicon glyphicon-send"></span></button>
+            </div>
+        </div>
+    </div>*@
+
+
+@*
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.CommitteeName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.ReturnedCommitteeId, Model.CommitteeName, "--Select--")  @*new List<SelectListItem>()) ((m) => m.CommitteeName, Model.CommitteeName, "--Select--")
+            @Html.ValidationMessageFor(m => m.ReturnedCommitteeId)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.FamilyName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.FamilyName, new { @class = "form-control" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+*@
+
+
+
+
+

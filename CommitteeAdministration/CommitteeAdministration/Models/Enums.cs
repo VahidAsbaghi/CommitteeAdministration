@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace CommitteeAdministration.Controllers
+﻿namespace CommitteeAdministration.Models
 {
     /// <summary>
     /// this enums is the type of committee condition when an operator inserts real values this condition should be calculated

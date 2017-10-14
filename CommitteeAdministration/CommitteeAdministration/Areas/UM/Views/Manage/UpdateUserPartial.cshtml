@@ -1,0 +1,31 @@
+﻿
+@model CommitteeAdministration.Areas.UM.ViewModels.UserViewModel
+@{
+    Layout = null;
+}
+@*<link href="~/Content/plugin/chosen/chosen.css" rel="stylesheet" />*@
+
+@*<form id="SaveUserForm" method="post" action="~/Management/management/SaveUser">
+        <div class="container-fluid" style="direction: rtl">
+            <div id="frmUser">
+                @Html.Partial("_partialuserinfo")
+            </div>
+
+        </div>
+    </form>*@
+
+
+@using (Ajax.BeginForm("SaveUser", new { Controller = "Manage", area = "UM" }, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "frmUser" }, new { @id = "SaveUserForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container-fluid" style="direction: rtl">
+        <div id="frmUser">
+            @Html.Partial("_partialuserinfo", Model)
+        </div>
+
+    </div>
+
+}
+
+
+

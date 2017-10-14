@@ -18,6 +18,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Practices.Unity;
 using SendGrid;
 
@@ -26,7 +27,7 @@ using SendGrid;
 namespace CommitteeAdministration
 {
 
-    
+
     public class SmsService : IIdentityMessageService
     {
         public Task SendAsync(IdentityMessage message)
@@ -40,10 +41,11 @@ namespace CommitteeAdministration
     public class ApplicationUserManager : UserManager<User>
     {
         //private readonly IEmailManager _emailmanager = ModelContainer.Instance.Resolve<IEmailManager>();
+        private static IDataProtectionProvider _dataProtectionProvider;
         public ApplicationUserManager(IUserStore<User> store)
             : base(store)
         {
-            
+            _dataProtectionProvider = new DpapiDataProtectionProvider("ASP.NET Identity");
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
@@ -51,13 +53,13 @@ namespace CommitteeAdministration
             ApplicationUserManager manager;
             try
             {
-                 manager = new ApplicationUserManager(new UserStore<User>((DataContext)ModelContainer.Instance.Resolve<IDataContext>()));
-                
+                manager = new ApplicationUserManager(new UserStore<User>((DataContext)ModelContainer.Instance.Resolve<IDataContext>()));
+               
 
             }
             catch
             {
-                
+
                 manager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             // Configure validation logic for usernames
@@ -81,6 +83,15 @@ namespace CommitteeAdministration
             manager.UserLockoutEnabledByDefault = true;
             manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
             manager.MaxFailedAccessAttemptsBeforeLockout = 5;
+            if (_dataProtectionProvider != null)
+            {
+                manager.UserTokenProvider =
+                   new DataProtectorTokenProvider<User>
+                      (_dataProtectionProvider.Create("ASP.NET Identity"))
+                   {
+                       TokenLifespan = TimeSpan.FromHours(3)
+                   };
+            }
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.
@@ -98,7 +109,7 @@ namespace CommitteeAdministration
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<User>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;

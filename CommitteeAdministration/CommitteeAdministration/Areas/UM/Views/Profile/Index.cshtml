@@ -109,12 +109,12 @@
                                     <div class="tab-content">
                                         <!-- PERSONAL INFO TAB -->
                                         <div class="tab-pane active" id="personalInfoTab">
-                                            <form role="form" action="~/UM/Profile/EditProfile" method="post" id="UpdateProfile">
-                                                @Html.AntiForgeryToken();
+                                            <form role="form" action="/UM/Profile/EditProfile" method="post" id="UpdateProfile">
+                                                @Html.AntiForgeryToken()
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label" })
 
-                                                    @Html.EnumDropDownListFor(model => model.Gender, htmlAttributes: new { @class = "form-control" })
+                                                    @Html.EnumDropDownListFor(model => model.Gender, htmlAttributes: new { @class = "input-xlarge form-control" })
                                                     @*@Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })*@
 
                                                 </div>
@@ -122,7 +122,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
 
-                                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "input-xlarge form-control" } })
                                                     @*@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })*@
 
                                                 </div>
@@ -130,21 +130,21 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
 
-                                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input-xlarge form-control" } })
                                                     @*@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })*@
 
                                                 </div>
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label" })
 
-                                                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "input-xlarge form-control" } })
                                                     @*@Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })*@
 
                                                 </div>
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.Region, htmlAttributes: new { @class = "control-label" })
 
-                                                    @Html.EditorFor(model => model.Region, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.EditorFor(model => model.Region, new { htmlAttributes = new { @class = "input-xlarge form-control" } })
                                                     @*@Html.ValidationMessageFor(model => model.Region, "", new { @class = "text-danger" })*@
 
                                                 </div>
@@ -167,7 +167,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.CommitteeName, htmlAttributes: new { @class = "control-label" })
                                                     @*@Html.DisplayTextFor(model => model.CommitteeName)*@
-                                                    @Html.TextBoxFor(model => model.CommitteeName, new { @class = "form-control", @readonly = "readonly" })
+                                                    @Html.TextBoxFor(model => model.CommitteeName, new { @class = "input-xlarge form-control", @readonly = "readonly" })
                                                 </div>
 
                                                 <div class="margiv-top-10">
@@ -214,15 +214,15 @@
                                             <form id="ResetPasswordForm" action="/Account/ChangePassword">
                                                 <div class="form-group">
                                                     <label class="control-label">رمز عبور فعلی</label>
-                                                    <input name="OldPassword" id="OldPassword" type="password" class="form-control" />
+                                                    <input name="OldPassword" id="OldPassword" type="password" class="input-xlarge form-control" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">رمز عبور جدید</label>
-                                                    <input name="NewPassword" id="NewPassword" type="password" class="form-control" />
+                                                    <input name="NewPassword" id="NewPassword" type="password" class="input-xlarge form-control" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">تایید رمز عبور</label>
-                                                    <input name="ConfirmNewPassword" id="ConfirmNewPassword" type="password" class="form-control" />
+                                                    <input name="ConfirmNewPassword" id="ConfirmNewPassword" type="password" class="input-xlarge form-control" />
                                                 </div>
                                                 @*<div class="margin-top-10">*@
                                                 @*<a id="EditUserPasswordBtn" class="btn green"> تغییر رمز عبور </a>*@
@@ -254,142 +254,104 @@
     <script src="~/Content/plugins/bootstrap-validator/fa_IR.js"></script>
     <script type="text/javascript">
 
-        //$('#EditUserPasswordBtn').click(function(e) {
-        //    e.preventDefault();
-        //    var data = {
-        //        "OldPassword": $("#OldPassword").val(),
-        //        "NewPassword": $("#NewPassword").val(),
-        //        "ConfirmNewPassword": $("#ConfirmNewPassword").val()
-        //    };
 
 
-        //    $.ajax({
-        //        url: '/account/ChangePassword',
-        //        type: "POST",
-        //        data: JSON.stringify(data),
-        //        cache: false,
-        //        //headers: headers,
-        //        dataType: "json",
-        //        contentType: "application/json",
-        //        success: function(response) {
-        //            setTimeout(function() {
-        //                if (response.Result) {
-
-        //                    //alertify.success(response.Result);
-        //                    console.log(response.result);
-        //                } else {
-        //                    //alertify.success(response.Result);
-        //                    console.log(response.result);
-        //                }
-        //            }, 3000);
-        //        },
-        //        error: function(error) {
-        //            //alertify.success(error.Message);
-        //            console.log(error.Message);
-        //        }
-        //    });
-
-
-        //    //$("#userform").validate()
-        //});
-
-
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             $('#userManagementArea').addClass("active");
             $('#ResetPasswordForm').bootstrapValidator({
-                    live: 'enable',
-                    submitButton: '$ResetPasswordForm button[type="submit]',
-                    //submitHandler: function(validatior, form, submitButton) {
-                    //    $.ajax({
-                    //        url: "~/account/ChangePassword",
-                    //        method: "post",
-                    //        data: $('#ResetPasswordForm').serialize(),
-                    //        dataType: "json",
-                    //        success: function(data) {
-                    //            $("#ResetPasswordForm").data('bootstrapValidator').resetForm();
-                    //            $("#ResetPasswordForm")[0].reset();
+                live: 'enable',
+                submitButton: '$ResetPasswordForm button[type="submit]',
+                //submitHandler: function(validatior, form, submitButton) {
+                //    $.ajax({
+                //        url: "~/account/ChangePassword",
+                //        method: "post",
+                //        data: $('#ResetPasswordForm').serialize(),
+                //        dataType: "json",
+                //        success: function(data) {
+                //            $("#ResetPasswordForm").data('bootstrapValidator').resetForm();
+                //            $("#ResetPasswordForm")[0].reset();
 
-                    //        },
-                    //        error: function (jqXHR, exception) {
-                    //            var msg = '';
-                    //            if (jqXHR.status === 0) {
-                    //                msg = 'Not connect.\n Verify Network.';
-                    //            } else if (jqXHR.status == 404) {
-                    //                msg = 'Requested page not found. [404]';
-                    //            } else if (jqXHR.status == 500) {
-                    //                msg = 'Internal Server Error [500].';
-                    //            } else if (exception === 'parsererror') {
-                    //                msg = 'Requested JSON parse failed.';
-                    //            } else if (exception === 'timeout') {
-                    //                msg = 'Time out error.';
-                    //            } else if (exception === 'abort') {
-                    //                msg = 'Ajax request aborted.';
-                    //            } else {
-                    //                msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                    //            }
-                    //            console.log(msg);
-                    //        },
-                    //    });
-                    //return false;
-                    //},
+                //        },
+                //        error: function (jqXHR, exception) {
+                //            var msg = '';
+                //            if (jqXHR.status === 0) {
+                //                msg = 'Not connect.\n Verify Network.';
+                //            } else if (jqXHR.status == 404) {
+                //                msg = 'Requested page not found. [404]';
+                //            } else if (jqXHR.status == 500) {
+                //                msg = 'Internal Server Error [500].';
+                //            } else if (exception === 'parsererror') {
+                //                msg = 'Requested JSON parse failed.';
+                //            } else if (exception === 'timeout') {
+                //                msg = 'Time out error.';
+                //            } else if (exception === 'abort') {
+                //                msg = 'Ajax request aborted.';
+                //            } else {
+                //                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                //            }
+                //            console.log(msg);
+                //        },
+                //    });
+                //return false;
+                //},
 
-                    submitHandler: function(validatior, form, submitButton) {
-                        return false;
-                    },
+                submitHandler: function (validatior, form, submitButton) {
+                    return false;
+                },
 
-                    feedbackIcons: {
-                        valid: 'glyphicon glyphicon-ok',
-                        invalid: 'glyphicon glyphicon-remove',
-                        validating: 'glyphicon glyphicon-refresh'
-                    },
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
 
-                    fields: {
-                        OldPassword: {
-                            validators: {
-                                notEmpty: {},
-                                stringLength: {
-                                    min: 6,
-                                    max: 30
-                                }
+                fields: {
+                    OldPassword: {
+                        validators: {
+                            notEmpty: {},
+                            stringLength: {
+                                min: 6,
+                                max: 30
                             }
-                        },
-
-                        NewPassword: {
-                            validators: {
-                                notEmpty: {},
-                                stringLength: {
-                                    min: 6,
-                                    max: 30
-                                },
-                                different: {
-                                    field: 'OldPassword'
-
-                                }
-                            }
-                        },
-
-                        ConfirmNewPassword: {
-                            validators: {
-                                notEmpty: {},
-                                stringLength: {
-                                    min: 6,
-                                    max: 30
-                                },
-                                different: {
-                                    field: 'OldPassword'
-
-                                },
-                                identical: {
-                                    field: 'NewPassword'
-
-                                }
-                            }
-
                         }
+                    },
+
+                    NewPassword: {
+                        validators: {
+                            notEmpty: {},
+                            stringLength: {
+                                min: 6,
+                                max: 30
+                            },
+                            different: {
+                                field: 'OldPassword'
+
+                            }
+                        }
+                    },
+
+                    ConfirmNewPassword: {
+                        validators: {
+                            notEmpty: {},
+                            stringLength: {
+                                min: 6,
+                                max: 30
+                            },
+                            different: {
+                                field: 'OldPassword'
+
+                            },
+                            identical: {
+                                field: 'NewPassword'
+
+                            }
+                        }
+
                     }
-                })
-                .on('success.form.bv', function(e) {
+                }
+            })
+                .on('success.form.bv', function (e) {
                     // Prevent form submission
                     e.preventDefault();
                     // Get the form instance
@@ -413,7 +375,7 @@
                         cache: false,
                         dataType: "json",
                         contentType: "application/json",
-                        success: function(response) {
+                        success: function (response) {
                             BootstrapDialog.show({
                                 title: 'عملیات رمز عبور',
                                 size: BootstrapDialog.SIZE_WIDE,
@@ -440,10 +402,10 @@
                                 onhide: function (dialogRef) {
                                     location.reload();
                                 }
-                                
+
                             });
                         },
-                        error: function(jqXHR, exception) {
+                        error: function (jqXHR, exception) {
                             var msg = '';
                             if (jqXHR.status === 0) {
                                 msg = 'Not connect.\n Verify Network.';
@@ -466,10 +428,132 @@
 
                 });
 
-        });
-        $('#CancelUserPasswordBtn').click(function() {
-            document.getElementById("ResetPasswordForm").reset();
-            return false;
+
+
+
+
+            $('#UpdateProfile').bootstrapValidator({
+                live: 'enable',
+                submitButton: 'UpdateProfile button[type="submit]',
+
+                submitHandler: function (validatior, form, submitButton) {
+                    return false;
+                },
+
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+
+                fields: {
+                    OldPassword: {
+                        validators: {
+                            notEmpty: {},
+                            stringLength: {
+                                min: 6,
+                                max: 30
+                            }
+                        }
+                    },
+
+                    NewPassword: {
+                        validators: {
+                            notEmpty: {},
+                            stringLength: {
+                                min: 6,
+                                max: 30
+                            },
+                            different: {
+                                field: 'OldPassword'
+
+                            }
+                        }
+                    },
+
+                    ConfirmNewPassword: {
+                        validators: {
+                            notEmpty: {},
+                            stringLength: {
+                                min: 6,
+                                max: 30
+                            },
+                            different: {
+                                field: 'OldPassword'
+
+                            },
+                            identical: {
+                                field: 'NewPassword'
+
+                            }
+                        }
+
+                    }
+                }
+            })
+                  .on('success.form.bv', function (e) {
+                      // Prevent form submission
+                      e.preventDefault();
+                      // Get the form instance
+                      var $form = $(e.target);
+                      // Get the BootstrapValidator instance
+                      var bv = $form.data('bootstrapValidator');
+                      // Use Ajax to submit form data
+                      console.log($form.attr('action'));
+
+                      var data = {
+                          "OldPassword": $("#OldPassword").val(),
+                          "NewPassword": $("#NewPassword").val(),
+                          "ConfirmNewPassword": $("#ConfirmNewPassword").val()
+                      };
+
+
+                      $.ajax({
+                          url: '/account/ChangePassword',
+                          type: "POST",
+                          data: JSON.stringify(data),
+                          cache: false,
+                          dataType: "json",
+                          contentType: "application/json",
+                          success: function (response) {
+                              BootstrapDialog.show({
+                                  title: 'عملیات رمز عبور',
+                                  size: BootstrapDialog.SIZE_WIDE,
+                                  message: "رمز عبور با موفیت تغییر کرد.",
+                                    onhide: function (dialogRef) {
+                                      location.reload();
+                                  }
+
+                              });
+                          },
+                          error: function (jqXHR, exception) {
+                              var msg = '';
+                              if (jqXHR.status === 0) {
+                                  msg = 'Not connect.\n Verify Network.';
+                              } else if (jqXHR.status == 404) {
+                                  msg = 'Requested page not found. [404]';
+                              } else if (jqXHR.status == 500) {
+                                  msg = 'Internal Server Error [500].';
+                              } else if (exception === 'parsererror') {
+                                  msg = 'Requested JSON parse failed.';
+                              } else if (exception === 'timeout') {
+                                  msg = 'Time out error.';
+                              } else if (exception === 'abort') {
+                                  msg = 'Ajax request aborted.';
+                              } else {
+                                  msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                              }
+                              console.log(msg);
+                          }
+                      });
+
+                  });
+
+            $('#CancelUserPasswordBtn').click(function () {
+                document.getElementById("ResetPasswordForm").reset();
+                return false;
+            });
+
         });
 
     </script>

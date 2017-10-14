@@ -80,7 +80,7 @@ namespace CommitteeAdministration.Areas.UM.Controllers
             }
 
 
-            var targetUser = UserManager.Users.FirstOrDefault(x => x.Name == "Nima");
+            var targetUser = UserManager.Users.FirstOrDefault(x => x.Name == "Vahid");
             var profileViewModel = new ProfileViewModel()
             {
                 Name = targetUser.Name,
