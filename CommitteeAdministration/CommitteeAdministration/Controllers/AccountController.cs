@@ -5,6 +5,7 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -21,6 +22,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Practices.Unity;
+using RestSharp;
 
 
 namespace CommitteeAdministration.Controllers
@@ -212,7 +214,13 @@ namespace CommitteeAdministration.Controllers
                 string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                 //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                _messageTerminal.SendConfirmationEmail(user, code);
+                var response = await _messageTerminal.SendConfirmationEmail(user, code);
+                if (response.ResponseStatus != ResponseStatus.Completed || response.StatusCode != HttpStatusCode.OK)
+                {
+                    ModelState.AddModelError("EmailSendingError", "خطا در ارسال ایمیل");
+                    model.CommitteeName = (SelectList)_mainContainer.CommitteeRepository.All();
+                    return View(model);
+                }
                 return RedirectToAction("Index", "Home");
             }
             AddErrors(result);
@@ -232,6 +240,7 @@ namespace CommitteeAdministration.Controllers
                 return View("Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
+            await UserManager.UpdateSecurityStampAsync(userId);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
@@ -267,7 +276,10 @@ namespace CommitteeAdministration.Controllers
                 //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = 12, code = 13 }, protocol: Request.Url.Scheme);
 
                 var resp = await _messageTerminal.SendForgotPasswordEmail(user, code);
-                var z = resp.StatusCode;
+              
+
+               
+                
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 

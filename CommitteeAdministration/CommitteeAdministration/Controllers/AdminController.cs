@@ -35,6 +35,7 @@ namespace CommitteeAdministration.Controllers
         public ActionResult Charts()
         {
             return View();
+            
         }
 
         public ActionResult CommitteeCondition()
