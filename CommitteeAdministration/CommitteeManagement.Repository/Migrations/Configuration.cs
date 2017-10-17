@@ -39,10 +39,10 @@ namespace CommitteeManagement.Repository.Migrations
                 //    );
                 //
                 var randomCoefficient = new Random();
-                var user = context.Users.FirstOrDefault(userT => userT.UserName == "vahid.asbaghi@gmail.com");
+                var user = context.Users.FirstOrDefault(userT => userT.UserName == "nima.ghajari@gmail.com");
                 if (user == null)
                 {
-                    CreateUser(context, "SuperAdmin", "SuperAdminCommittee", "vahid.asbaghi@gmail.com", "Aa@123456");
+                    CreateUser(context, "SuperAdmin", "SuperAdminCommittee", "nima.ghajari@gmail.com", "123@Nima");
                 }
                 else
                 {
@@ -971,7 +971,7 @@ namespace CommitteeManagement.Repository.Migrations
                 var getCommittee = context.Committees.FirstOrDefault(c => c.Name == committee.Name);
                 if (getCommittee == null) return;
 
-                var user = new User { UserName = userName, Email = userName, CommitteeRefId = getCommittee.Id, Committee = getCommittee };
+                var user = new User { UserName = userName, Email = userName, CommitteeRefId = getCommittee.Id, Committee = getCommittee , Name = "نیما" , LastName = "قجری"};
                 using (var userManager = new UserManager<User>(new UserStore<User>(context)))
                 {
                     var result = userManager.Create<User, string>(user, password); //add user using userManager to hash password

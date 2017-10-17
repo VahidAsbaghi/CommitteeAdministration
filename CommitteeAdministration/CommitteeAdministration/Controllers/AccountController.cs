@@ -262,13 +262,13 @@ namespace CommitteeAdministration.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByEmailAsync(model.Email);
-                if (user == null )
+                if (user == null)
                 {
                     //|| !(await UserManager.IsEmailConfirmedAsync(user.Id.ToString()))
                     // Don't reveal that the user does not exist or is not confirmed
 
                     ModelState.AddModelError("Error", "این نام کاربری وجود ندارد!");
-                       
+
                     return View("ForgotPassword");
                 }
 
@@ -276,11 +276,13 @@ namespace CommitteeAdministration.Controllers
                 //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = 12, code = 13 }, protocol: Request.Url.Scheme);
 
                 var resp = await _messageTerminal.SendForgotPasswordEmail(user, code);
-              
 
-               
-                
-                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                if (resp.StatusCode == HttpStatusCode.OK)
+                {
+                    TempData["userName"] = user.Name + " " + user.LastName;
+                    TempData["userEmail"] = model.Email;
+                    return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                }
             }
 
             // If we got this far, something failed, redisplay form
@@ -292,16 +294,22 @@ namespace CommitteeAdministration.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
+            if (TempData["userEmail"] != null)
+            {
+                ViewBag.userName = (string) TempData["userName"];
+                ViewBag.userEmail = (string) TempData["userEmail"];
+                return View();
+            }
             return View();
         }
-        
+
         [AllowAnonymous]
-        public ActionResult ResetPassword(string ucode , string code)
+        public ActionResult ResetPassword(string ucode, string code)
         {
             if (string.IsNullOrWhiteSpace(ucode))
             {
                 ModelState.AddModelError("Error", "می توانید با وارد کردن اطلاعات کاربری صحیح نسبیت به دریافت دوباره ایمیل اقدام کنید. .متاسفانه لینک شما فاقد برای این حساب کاربری فاقد اعتبار است");
-                return RedirectToAction("ForgotPassword","Account");
+                return RedirectToAction("ForgotPassword", "Account");
             }
             if (!string.IsNullOrWhiteSpace(code)) return View("ResetPassword");
             {
@@ -309,7 +317,7 @@ namespace CommitteeAdministration.Controllers
                 return RedirectToAction("ForgotPassword", "Account");
             }
         }
-    
+
         //
         // POST: /Account/ResetPassword
         [HttpPost]
@@ -328,7 +336,7 @@ namespace CommitteeAdministration.Controllers
                 ModelState.AddModelError("Error", "می توانید با وارد کردن اطلاعات کاربری صحیح نسبیت به دریافت دوباره ایمیل اقدام کنید. .متاسفانه لینک شما فاقد برای این حساب کاربری فاقد اعتبار است");
                 return View(model);
             }
-            var parsedCode = HttpUtility.UrlDecode(model.Code).Replace(" ","+");
+            var parsedCode = HttpUtility.UrlDecode(model.Code).Replace(" ", "+");
             var result = await UserManager.ResetPasswordAsync(user.Id.ToString(), parsedCode, model.Password);
             if (result.Succeeded)
             {
@@ -339,7 +347,7 @@ namespace CommitteeAdministration.Controllers
                 AddErrors(result);
                 return View(model);
             }
-          
+
         }
 
         //
@@ -470,7 +478,7 @@ namespace CommitteeAdministration.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-          
+
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
