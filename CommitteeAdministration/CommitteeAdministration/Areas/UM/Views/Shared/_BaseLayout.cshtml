@@ -89,7 +89,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <img alt="" class="img-circle" src="~/assets/Admin-Panel/assets/layouts/layout2/img/avatar3_small.jpg"/>
                                 @{
                                     var user = (System.Security.Claims.ClaimsIdentity) User.Identity;
-                                    var customUserName = user.FindFirstValue("CustomUserName");
+                                    //var customUserName = user.FindFirstValue("CustomUserName");
+                                    var customUserName = user.Claims.First(c => c.Type == "CustomUserName").Value;
                                 }
                                 <span class="username username-hide-on-mobile"> @customUserName </span>
                                 <i class="fa fa-angle-down"></i>

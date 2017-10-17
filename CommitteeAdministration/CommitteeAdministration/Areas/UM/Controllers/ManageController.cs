@@ -51,7 +51,7 @@ namespace CommitteeAdministration.Areas.UM.Controllers
             List<usersReturmModel> returnedUser = new List<usersReturmModel>();
 
 
-            if (HttpContext.User.IsInRole("SuperAdmin"))
+            if (!HttpContext.User.IsInRole("SuperAdmin"))
             {
                 return RedirectToAction("Index", "Profile", new { area = "UM" });
             }
@@ -103,8 +103,7 @@ namespace CommitteeAdministration.Areas.UM.Controllers
             return View("UpdateUserPartial", userViewModel);
         }
 
-        //[HandleError]\\\\\\\\\\\
-        //[ValidateInput(false)]
+     
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomAuthorize(Roles = "SuperAdmin")]

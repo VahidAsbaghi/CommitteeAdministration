@@ -6981,6 +6981,10 @@
     <Content Include="Scripts\jQuery.flip.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\KamaDatePicker\css\kamadatepicker.css" />
+    <Content Include="Scripts\KamaDatePicker\css\kamadatepicker.min.css" />
+    <Content Include="Scripts\KamaDatePicker\kamadatepicker.js" />
+    <Content Include="Scripts\KamaDatePicker\kamadatepicker.min.js" />
     <Content Include="Views\NewCharts\FillDataPartial.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

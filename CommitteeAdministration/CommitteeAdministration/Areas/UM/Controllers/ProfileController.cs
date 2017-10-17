@@ -10,6 +10,7 @@ using CommitteeAdministration.Services.Contract;
 using CommitteeAdministration.ViewModels;
 using CommitteeManagement.Model;
 using CommitteeManagement.Repository;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Practices.Unity;
 
@@ -48,7 +49,7 @@ namespace CommitteeAdministration.Areas.UM.Controllers
         /// <returns></returns>
         // GET: Profile
 
-        //[Authorize]
+        [Authorize]
         public ActionResult Index()
         {
             //var z = User.Identity.Name;
@@ -79,8 +80,8 @@ namespace CommitteeAdministration.Areas.UM.Controllers
                 return View(userUpdatedData);
             }
 
-
-            var targetUser = UserManager.Users.FirstOrDefault(x => x.Name == "Vahid");
+            var userId = HttpContext.User.Identity.GetUserId();
+            var targetUser = UserManager.Users.FirstOrDefault(x => x.Id == userId);
             var profileViewModel = new ProfileViewModel()
             {
                 Name = targetUser.Name,
@@ -133,7 +134,6 @@ namespace CommitteeAdministration.Areas.UM.Controllers
         public ActionResult EditProfile()
         {
             var userName = User.Identity.Name;
-
             ViewBag.UserNameData = userName;
             return View();
         }
@@ -144,13 +144,13 @@ namespace CommitteeAdministration.Areas.UM.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> EditProfile(ProfileViewModel userModel)
         {
             if (ModelState.IsValid)
             {
                 bool isNewContactInfo = false;
-                var user =
-                    _mainContainer.UserRepository.FirstOrDefault(userT => userT.UserName == User.Identity.Name);
+                var user = _mainContainer.UserRepository.FirstOrDefault(userT => userT.UserName == User.Identity.Name);
 
                 user.Name = userModel.Name;
                 user.LastName = userModel.LastName;
