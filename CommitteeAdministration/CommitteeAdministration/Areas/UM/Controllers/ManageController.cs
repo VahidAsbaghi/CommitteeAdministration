@@ -49,13 +49,6 @@ namespace CommitteeAdministration.Areas.UM.Controllers
         public ActionResult Index()
         {
             List<usersReturmModel> returnedUser = new List<usersReturmModel>();
-
-
-            if (!HttpContext.User.IsInRole("SuperAdmin"))
-            {
-                return RedirectToAction("Index", "Profile", new { area = "UM" });
-            }
-            
             var users = _userInfoManager.GetUsersInfo();
             ViewBag.CommiteeCount = _mainContainer.CommitteeRepository.Count();
             ViewBag.IndicatorCount = _mainContainer.IndicatorRepository.Count();
